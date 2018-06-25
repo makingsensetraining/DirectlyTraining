@@ -1,7 +1,7 @@
 {
-  "name": "opya-backend",
-  "version": "1.0.0",
-  "description": "",
+  "name": "directly-training-backend",
+  "version": "0.1.0",
+  "description": "ABM backend based on tsoa-api",
   "main": "",
   "pre-commit": [
     "lint",
