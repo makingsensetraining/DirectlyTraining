@@ -8,5 +8,7 @@ export const generateMockUUID = (): string => {
 
 export const generateUserModel = (): Models.IUserModel => ({
   email: generate(20),
-  name: generate(20)
+  name: generate(20),
+  mobile: generate(20),
+  skypeId: generate(20)
 });
