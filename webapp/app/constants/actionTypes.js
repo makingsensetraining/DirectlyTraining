@@ -1,3 +1,12 @@
-export const LOGIN_REQUEST = 'LOGIN_REQUEST';
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export const LOGIN_ERROR = 'LOGIN_ERROR';
+import keyMirror from 'key-mirror-nested';
+
+export default keyMirror({
+  AUTH: {
+    LOGIN_REQUEST: null,
+    LOGIN_SUCCESS: null,
+    LOGIN_ERROR: null
+  },
+  USERS: {
+    GET_ALL: null
+  },
+}, { connChar: '/' });

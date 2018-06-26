@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import * as actions from '../actions/authActions';
-// import PrivateRoute from './common/PrivateRoute';
 import LoginPage from './pages/login/LoginPage';
 import NotFoundPage from './pages/not_found/NotFoundPage';
 import HomePage from './pages/home/HomePage';
+// import PrivateRoute from './common/PrivateRoute';
 
 export class Main extends React.Component {
   render() {

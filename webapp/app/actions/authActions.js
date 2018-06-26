@@ -1,23 +1,25 @@
 import { push } from 'react-router-redux';
-import * as types from '../constants/actionTypes';
+import actionTypes from '../constants/actionTypes';
 import * as authService from '../services/authService';
+
+const { AUTH } = actionTypes;
 
 export function loginRequest() {
   return {
-    type: types.LOGIN_REQUEST
+    type: AUTH.LOGIN_REQUEST
   };
 }
 
 export function loginSuccess(user) {
   return {
-    type: types.LOGIN_SUCCESS,
+    type: AUTH.LOGIN_SUCCESS,
     user
   };
 }
 
 export function loginError(error) {
   return {
-    type: types.LOGIN_ERROR,
+    type: AUTH.LOGIN_ERROR,
     message: error
   };
 }

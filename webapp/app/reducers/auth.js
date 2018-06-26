@@ -1,9 +1,12 @@
-import * as types from '../constants/actionTypes';
+import actionTypes from '../constants/actionTypes';
 import initialState from './initialState';
 
+const { AUTH } = actionTypes;
+
+// TODO migrate to handleActions when implemented
 function auth(state = initialState.auth, action) {
   switch (action.type) {
-    case types.LOGIN_REQUEST:
+    case AUTH.LOGIN_REQUEST:
       return Object.assign({}, state,
         {
           authenticating: true,
@@ -14,7 +17,7 @@ function auth(state = initialState.auth, action) {
         }
       );
 
-    case types.LOGIN_SUCCESS:
+    case AUTH.LOGIN_SUCCESS:
       return Object.assign({}, state,
         {
           authenticating: false,
@@ -25,7 +28,7 @@ function auth(state = initialState.auth, action) {
         }
       );
 
-    case types.LOGIN_ERROR:
+    case AUTH.LOGIN_ERROR:
       return Object.assign({}, state,
         {
           authenticating: false,

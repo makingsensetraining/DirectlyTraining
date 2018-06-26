@@ -1,5 +1,7 @@
 import reducer from './auth';
-import * as types from '../constants/actionTypes';
+import actionTypes from '../constants/actionTypes';
+
+const { AUTH } = actionTypes;
 
 describe('auth reducer', () => {
   it('should return the initial state', () => {
@@ -19,7 +21,7 @@ describe('auth reducer', () => {
   it('should handle a login request', () => {
     // Act.
     const result = reducer([], {
-      type: types.LOGIN_REQUEST
+      type: AUTH.LOGIN_REQUEST
     });
 
     // Assert.
@@ -35,7 +37,7 @@ describe('auth reducer', () => {
   it('should handle a successfully login', () => {
     // Act.
     const result = reducer([], {
-      type: types.LOGIN_SUCCESS,
+      type: AUTH.LOGIN_SUCCESS,
       user: {
         name: 'John'
       }
@@ -56,7 +58,7 @@ describe('auth reducer', () => {
   it('should handle a failed login', () => {
     // Act.
     const result = reducer([], {
-      type: types.LOGIN_ERROR,
+      type: AUTH.LOGIN_ERROR,
       message: 'Unexpected error.'
     });
 

@@ -1,8 +1,9 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import * as authActions from './authActions';
-import * as types from '../constants/actionTypes';
+import actionTypes from '../constants/actionTypes';
 
+const { AUTH } = actionTypes;
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
@@ -10,7 +11,7 @@ describe('authActions', () => {
   it('should create an action to start a login request', () => {
     // Arrange.
     const expectedAction = {
-      type: types.LOGIN_REQUEST
+      type: AUTH.LOGIN_REQUEST
     };
 
     // Act.
@@ -27,7 +28,7 @@ describe('authActions', () => {
     };
 
     const expectedAction = {
-      type: types.LOGIN_SUCCESS,
+      type: AUTH.LOGIN_SUCCESS,
       user
     };
 
@@ -42,7 +43,7 @@ describe('authActions', () => {
     // Arrange.
     const message = 'Testing an error.';
     const expectedAction = {
-      type: types.LOGIN_ERROR,
+      type: AUTH.LOGIN_ERROR,
       message
     };
 
@@ -70,8 +71,8 @@ describe('authActions', () => {
     // Act & assert.
     return store.dispatch(authActions.login(username, password)).then(() => {
       const actions = store.getActions();
-      expect(actions[0]).toEqual({ type: types.LOGIN_REQUEST });
-      expect(actions[1]).toEqual({ type: types.LOGIN_SUCCESS, user });
+      expect(actions[0]).toEqual({ type: AUTH.LOGIN_REQUEST });
+      expect(actions[1]).toEqual({ type: AUTH.LOGIN_SUCCESS, user });
     });
   });
 
@@ -89,8 +90,8 @@ describe('authActions', () => {
     // Act & assert.
     return store.dispatch(authActions.login(username, password)).then(() => {
       const actions = store.getActions();
-      expect(actions[0]).toEqual({ type: types.LOGIN_REQUEST });
-      expect(actions[1]).toEqual({ type: types.LOGIN_ERROR, message });
+      expect(actions[0]).toEqual({ type: AUTH.LOGIN_REQUEST });
+      expect(actions[1]).toEqual({ type: AUTH.LOGIN_ERROR, message });
     });
   });
 });

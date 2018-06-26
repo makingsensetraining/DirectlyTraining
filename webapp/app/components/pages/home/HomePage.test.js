@@ -16,14 +16,9 @@ describe('<HomePage /> component', () => {
       user
     });
 
-    expect(wrapper.find('section')).toHaveLength(1);
+    expect(wrapper.find('Header')).toHaveLength(1);
+    expect(wrapper.find('Footer')).toHaveLength(1);
 
-    const subtitle = wrapper.find('h2');
-    expect(subtitle).toHaveLength(1);
-    expect(subtitle.text()).toBe('Home');
-
-    const welcome = wrapper.find('p');
-    expect(welcome).toHaveLength(1);
-    expect(welcome.text()).toBe(`Hello ${user.name}!`);
+    expect(wrapper.find('.container')).toHaveLength(1);
   });
 });

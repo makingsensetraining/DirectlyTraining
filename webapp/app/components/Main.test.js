@@ -13,10 +13,6 @@ describe('<Main /> component', () => {
     });
 
     expect(wrapper.find('Switch')).toHaveLength(1);
-    expect(wrapper.find('PrivateRoute')).toHaveLength(1);
-    expect(wrapper.find('Route')).toHaveLength(2);
-
-    expect(wrapper.find('Header')).toHaveLength(1);
-    expect(wrapper.find('Footer')).toHaveLength(1);
+    expect(wrapper.find('Route')).toHaveLength(3);
   });
 });

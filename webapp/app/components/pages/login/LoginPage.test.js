@@ -12,12 +12,7 @@ describe('<LoginPage /> component', () => {
       actions: {}
     });
   
-    expect(wrapper.find('section')).toHaveLength(1);
-  
-    const subtitle = wrapper.find('h2');
-    expect(subtitle).toHaveLength(1);
-    expect(subtitle.text()).toBe('Login');
-  
+    expect(wrapper.find('section')).toHaveLength(1);  
     expect(wrapper.find('LoginForm')).toHaveLength(1);
   });
 });

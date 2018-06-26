@@ -2,12 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Row } from 'reactstrap';
-import * as authActions from '../../../actions/authActions';
+import BootstrapTable from 'react-bootstrap-table-next';
+import * as usersActions from '../../../actions/usersActios';
 import Footer from './../partials/footer/Footer';
 import Header from './../partials/header/Header';
-import InputForm from '../../common/form/InputForm';
-
 
 export class HomePage extends React.Component {
   constructor(props, context) {
@@ -24,51 +22,43 @@ export class HomePage extends React.Component {
     // this.handleOnSubmit = this.handleOnSubmit.bind(this);
   }
 
+  componentDidMount() {
+    this.props.actions.getUsers();
+  }
+
   handleOnChange(e) {
     this.setState({
       [e.target.name]: e.target.value
     });
   }
   render() {
+    const columns = [{
+      dataField: 'name',
+      text: 'Full Name'
+    }, {
+      dataField: 'email',
+      text: 'Email'
+    }, {
+      dataField: 'mobile',
+      text: 'Mobile Number'
+    }];
+
+    const selectRow = {
+      mode: 'radio',
+      clickToSelect: true,
+      bgColor: '#c8e6c9'
+    };
+    
     return (
       <div>
         <Header />
         <div className="container">
-          <Row>
-            <section>
-              <form>
-                <InputForm 
-                  inputId="name"
-                  label="Name"
-                  onChange={this.handleOnChange}
-                  name="name"
-                  placeholder="Full Name"
-                />
-                <InputForm 
-                  inputId="email"
-                  label="Email"
-                  onChange={this.handleOnChange}
-                  name="email"
-                  placeholder="Email"
-                />
-                <InputForm 
-                  inputId="skypeId"
-                  label="Skype Id"
-                  onChange={this.handleOnChange}
-                  name="skypeId"
-                  placeholder="skype Id"
-                />
-                <InputForm 
-                  inputId="mobile"
-                  label="Mobile Number"
-                  onChange={this.handleOnChange}
-                  name="mobile"
-                  placeholder="Mobile Number"
-                />
-                <button className="btn btn-lg btn-primary btn-block" type="submit">Create User</button>
-              </form>
-            </section>
-          </Row>
+          <BootstrapTable
+            keyField='id'
+            data={ this.props.users }
+            columns={ columns }
+            selectRow={ selectRow }
+          />
         </div>
         <Footer />
       </div>
@@ -78,18 +68,18 @@ export class HomePage extends React.Component {
 
 HomePage.propTypes = {
   actions: PropTypes.object.isRequired,
-  user: PropTypes.object
+  users: PropTypes.array
 };
 
 function mapStateToProps(state) {
   return {
-    user: state.auth.user
+    users: state.users.data
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(authActions, dispatch)
+    actions: bindActionCreators(usersActions, dispatch)
   };
 }
 
