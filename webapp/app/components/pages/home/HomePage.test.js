@@ -12,12 +12,15 @@ describe('<HomePage /> component', () => {
       name: 'John'
     };
     const wrapper = setup({
-      actions: {},
+      actions: {
+        getUsers: () => {}
+      },
       user
     });
 
     expect(wrapper.find('Header')).toHaveLength(1);
     expect(wrapper.find('Footer')).toHaveLength(1);
+    expect(wrapper.find('Button')).toHaveLength(3);
 
     expect(wrapper.find('.container')).toHaveLength(1);
   });
