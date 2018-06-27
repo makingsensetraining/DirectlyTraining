@@ -1,31 +1,30 @@
 import * as Sequelize from 'sequelize';
-import * as uuidv4 from 'uuid/v4';
+import * as faker from 'faker';
+import { IUserModel } from '../../models';
+
+const DEFAULT_USERS_SEED_COUNT = 20;
+const DEFAULT_USERS_SEED_PREFIX = 'seed_';
+
+function generateRandomUsers(length: number = DEFAULT_USERS_SEED_COUNT): Array<IUserModel> {
+  return Array.from({ length }, () => ({
+    _id: faker.random.uuid(),
+    email: `${DEFAULT_USERS_SEED_PREFIX}${faker.internet.email()}`,
+    name: faker.name.findName(),
+    phone: faker.phone.phoneNumberFormat(),
+    skypeId: faker.internet.userName(),
+    createdAt: faker.date.past(),
+    updatedAt: faker.date.recent()
+  }));
+}
 
 export default {
   up: async (queryInterface: Sequelize.QueryInterface) => {
-    return queryInterface.bulkInsert('users', [
-      {
-        _id: uuidv4(),
-        email: 'dgeslin@makingsense.com',
-        name: 'Daniel',
-        nickname: 'dgeslin',
-        avatar: 'https://s.gravatar.com/avatar/eef7ac03735857933c6a32351d1855ae?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fdg.png', // tslint:disable-line
-        picture: 'https://s.gravatar.com/avatar/eef7ac03735857933c6a32351d1855ae?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fdg.png', // tslint:disable-line
-        gender: 'male',
-        firstname: 'Daniel',
-        lastname: 'Geslin',
-        online: false,
-        added: new Date(),
-        updated: new Date(),
-        createdAt: new Date(),
-        updatedAt: new Date()
-      }
-    ], {});
+    return queryInterface.bulkInsert('users', generateRandomUsers(), {});
   },
 
   down: async (queryInterface: Sequelize.QueryInterface) => {
     return queryInterface.bulkDelete('users', {
-      email: { [Sequelize.Op.or]: ['dgeslin@makingsense.com'] }
+      email: { [Sequelize.Op.regexp]: `^${DEFAULT_USERS_SEED_PREFIX}` }
     }, {});
   }
 };
