@@ -22,6 +22,8 @@ describe(`${route}`, () => {
       expect(res.body).to.have.property('_id');
       expect(res.body).to.have.property('name');
       expect(res.body).to.have.property('email');
+      expect(res.body).to.have.property('phone');
+      expect(res.body).to.have.property('skypeId');
       model = res.body;
     });
     it(`should FAIL to create: ${entityName}`, async () => {
