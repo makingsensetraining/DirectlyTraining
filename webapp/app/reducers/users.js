@@ -8,31 +8,36 @@ const data = [
     id: 1,
     name: 'Emanuel Pereyra',
     email: 'epereyra@makingsense.com',
-    mobile: '+5493517333555',
-    skypeid: 'emanuelpereyra77'
+    phone: '+5493517333555',
+    skypeId: 'emanuelpereyra77'
   },
   {
     id: 2,
     name: 'Javier Pepe',
     email: 'jpepe@makingsense.com',
-    mobile: '+54911150276756',
-    skypeid: 'javier.pepe'
+    phone: '+54911150276756',
+    skypeId: 'javier.pepe'
   },
   {
     id: 3,
     name: 'Mariano Ravinale',
     email: 'mravinale@makingsense.com',
-    mobile: '+54999999999',
-    skypeid: 'mravinale'
+    phone: '+54999999999',
+    skypeId: 'mravinale'
   }];
 
 const initialState = {
-  data: []
+  data: [],
+  selectedUser: {}
 };
 
 export default handleActions({
   [USERS.GET_ALL]: (state) => ({
     ...state,
     data
+  }),
+  [USERS.SELECT]: (state, action) => ({
+    ...state,
+    selectedUser: action.payload
   })
 }, initialState);

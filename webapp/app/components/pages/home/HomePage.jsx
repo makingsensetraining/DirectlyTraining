@@ -2,32 +2,34 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Button, Col, Row } from 'reactstrap';
+import { Col, Row } from 'reactstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 import * as usersActions from '../../../actions/usersActios';
 import Footer from './../partials/footer/Footer';
 import Header from './../partials/header/Header';
-import './HomePage.css';
+import ActionButtons from '../ActionButtons/ActionButtons';
 
 export class HomePage extends React.Component {
   constructor(props, context) {
     super(props, context);
 
     this.state = {
-      selectedUser: []
+      selectedRow: [],
+      user: {}
     };
 
     this.setSelectedRow = this.setSelectedRow.bind(this);
   }
 
   componentDidMount() {
-    this.props.actions.getUsers();
+    this.props.getUsers();
   }
 
   setSelectedRow(row) {
     this.setState({
-      selectedUser: [row.id]
+      selectedRow: [row.id],
     });
+    this.props.selectUser(row);
   }
 
   render() {
@@ -46,7 +48,7 @@ export class HomePage extends React.Component {
       mode: 'radio',
       clickToSelect: true,
       bgColor: '#c8e6c9',
-      selected: this.state.selectedUser,
+      selected: this.state.selectedRow,
       onSelect: this.setSelectedRow
     };
     
@@ -59,9 +61,9 @@ export class HomePage extends React.Component {
               <h4>Users List</h4>
             </Col>
             <Col md="4">
-              <Button color="primary">Add</Button>{' '}
-              <Button color="info" disabled={ this.state.selectedUser.length === 0 }>Edit</Button>{' '}
-              <Button color="danger" disabled={ this.state.selectedUser.length === 0 }>Delete</Button>{' '}
+              <ActionButtons
+                user={this.state.user}
+              />
             </Col>
           </Row>
           <BootstrapTable
@@ -78,8 +80,9 @@ export class HomePage extends React.Component {
 }
 
 HomePage.propTypes = {
-  actions: PropTypes.object.isRequired,
-  users: PropTypes.array
+  users: PropTypes.array,
+  getUsers: PropTypes.func,
+  selectUser: PropTypes.func
 };
 
 function mapStateToProps(state) {
@@ -90,7 +93,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(usersActions, dispatch)
+    ...bindActionCreators(usersActions, dispatch)
   };
 }
 

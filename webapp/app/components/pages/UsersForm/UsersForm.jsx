@@ -1,96 +1,78 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { Row } from 'reactstrap';
-import * as authActions from '../../../actions/authActions';
-import Footer from './../partials/footer/Footer';
-import Header from './../partials/header/Header';
-import InputForm from '../../common/form/InputForm';
+import FormInput from '../../common/form/FormInput';
 
 
-export class UsersForm extends React.Component {
-  constructor(props, context) {
-    super(props, context);
-
-    this.state = {
-      name: '',
-      email: '',
-      skypeId: '',
-      mobile: ''
-    };
-
-    this.handleOnChange = this.handleOnChange.bind(this);
-    // this.handleOnSubmit = this.handleOnSubmit.bind(this);
-  }
-
-  handleOnChange(e) {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-  }
-  render() {
-    return (
-      <div>
-        <Header />
-        <div className="container">
-          <Row>
-            <section>
-              <form>
-                <InputForm 
-                  inputId="name"
-                  label="Name"
-                  onChange={this.handleOnChange}
-                  name="name"
-                  placeholder="Full Name"
-                />
-                <InputForm 
-                  inputId="email"
-                  label="Email"
-                  onChange={this.handleOnChange}
-                  name="email"
-                  placeholder="Email"
-                />
-                <InputForm 
-                  inputId="skypeId"
-                  label="Skype Id"
-                  onChange={this.handleOnChange}
-                  name="skypeId"
-                  placeholder="skype Id"
-                />
-                <InputForm 
-                  inputId="mobile"
-                  label="Mobile Number"
-                  onChange={this.handleOnChange}
-                  name="mobile"
-                  placeholder="Mobile Number"
-                />
-                <button className="btn btn-lg btn-primary btn-block" type="submit">Create User</button>
-              </form>
-            </section>
-          </Row>
-        </div>
-        <Footer />
+const UsersForm = ({user, onChange, errors}) => {
+  const isNameInvalid = errors.name !== '';
+  const isEmailInvalid =  errors.email.invalid !== '' || errors.email.missing !== '';
+  const emailFeedback = errors.email.invalid || errors.email.missing;
+  return (
+    <div>
+      <div className="container">
+        <Row>
+          <section>
+            <form>
+              <FormInput
+                inputId="name"
+                label="Name"
+                onChange={onChange}
+                value={user.name}
+                name="name"
+                placeholder="Full Name"
+                required={true}
+                invalid={isNameInvalid}
+                feedback={errors.name}
+              />
+              <FormInput
+                inputId="email"
+                label="Email"
+                onChange={onChange}
+                value={user.email}
+                name="email"
+                placeholder="Email"
+                required={true}
+                invalid={isEmailInvalid}
+                feedback={emailFeedback}
+              />
+              <FormInput
+                inputId="skypeId"
+                label="Skype Id"
+                onChange={onChange}
+                value={user.skypeId}
+                name="skypeId"
+                placeholder="skype Id"
+              />
+              <FormInput
+                inputId="phone"
+                label="Phone Number"
+                onChange={onChange}
+                value={user.phone}
+                name="phone"
+                placeholder="Phone Number"
+              />
+            </form>
+          </section>
+        </Row>
       </div>
-    );
-  }
-}
-
-UsersForm.propTypes = {
-  actions: PropTypes.object.isRequired,
-  user: PropTypes.object
+    </div>
+  );
 };
 
-function mapStateToProps(state) {
-  return {
-    user: state.auth.user
-  };
-}
+UsersForm.propTypes = {
+  onChange: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+  errors: PropTypes.object
+};
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(authActions, dispatch)
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(UsersForm);
+UsersForm.defaultProps = {
+  errors: {
+    name: '',
+    email: {
+      invalid: '',
+      missing: ''
+    }
+  }
+};
+export default UsersForm;

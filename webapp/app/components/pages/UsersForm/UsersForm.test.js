@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { UsersForm } from './UsersForm';
+import UsersForm from './UsersForm';
 
 function setup(props) {
   return shallow(<UsersForm {...props} />);
@@ -9,7 +9,8 @@ function setup(props) {
 describe('<UsersForm /> component', () => {
   it('renders itself', () => {
     const wrapper = setup({
-      actions: {}
+      onChange: () => {},
+      user: {}
     });
 
     expect(wrapper.find('form')).toHaveLength(1);

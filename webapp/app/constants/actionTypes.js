@@ -7,6 +7,7 @@ export default keyMirror({
     LOGIN_ERROR: null
   },
   USERS: {
-    GET_ALL: null
+    GET_ALL: null,
+    SELECT: null
   },
 }, { connChar: '/' });

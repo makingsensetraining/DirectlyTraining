@@ -4,3 +4,5 @@ import actionTypes from '../constants/actionTypes';
 const { USERS } =  actionTypes;
 
 export const getUsers = createAction(USERS.GET_ALL);
+
+export const selectUser = createAction(USERS.SELECT);
