@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { Col, Row } from 'reactstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
-import * as usersActions from '../../../actions/usersActios';
+import * as usersActions from '../../../actions/usersActions';
 import Footer from './../partials/footer/Footer';
 import Header from './../partials/header/Header';
 import ActionButtons from '../ActionButtons/ActionButtons';
