@@ -21,7 +21,7 @@
     "build": "webpack --config webpack.prod.js",
     "prestart": "npm run validate",
     "start": "webpack-dev-server --open --config webpack.dev.js",
-    "lint": "eslint --ext .js --ext .jsx ./app",
+    "lint": "eslint --ext .js --ext .jsx --fix ./app",
     "test": "jest",
     "validate": "npm run lint && npm run test"
   },
