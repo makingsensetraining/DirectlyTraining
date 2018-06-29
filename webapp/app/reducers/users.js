@@ -3,38 +3,36 @@ import actionTypes from '../constants/actionTypes';
 
 const { USERS } = actionTypes;
 
-const data = [
-  {
-    id: 1,
-    name: 'Emanuel Pereyra',
-    email: 'epereyra@makingsense.com',
-    phone: '+5493517333555',
-    skypeId: 'emanuelpereyra77'
-  },
-  {
-    id: 2,
-    name: 'Javier Pepe',
-    email: 'jpepe@makingsense.com',
-    phone: '+54911150276756',
-    skypeId: 'javier.pepe'
-  },
-  {
-    id: 3,
-    name: 'Mariano Ravinale',
-    email: 'mravinale@makingsense.com',
-    phone: '+54999999999',
-    skypeId: 'mravinale'
-  }];
+const fetch = {
+  pending: false,
+  error: false
+};
 
 const initialState = {
   data: [],
-  selectedUser: {}
+  selectedUser: {},
+  fetch
 };
 
 export default handleActions({
-  [USERS.GET_ALL]: (state) => ({
+  [`${USERS.GET_ALL}_PENDING`]: (state) => ({
     ...state,
-    data
+    fetch: {
+      ...state.fetch,
+      pending: true
+    }
+  }),
+  [`${USERS.GET_ALL}_FULFILLED`]: (state, action) => ({
+    ...state,
+    data: action.payload.data.docs,
+    fetch
+  }),
+  [`${USERS.GET_ALL}_REJECTED`]: (state) => ({
+    ...state,
+    fetch: {
+      pending: false,
+      error: true
+    }
   }),
   [USERS.SELECT]: (state, action) => ({
     ...state,
