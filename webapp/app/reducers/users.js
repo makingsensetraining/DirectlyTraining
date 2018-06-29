@@ -1,13 +1,11 @@
 import { handleActions } from 'redux-actions';
-import actionTypes from '../constants/actionTypes';
+import actionTypes from '../actions/actionTypes';
 
 const { USERS } = actionTypes;
-
 const fetch = {
   pending: false,
   error: false
 };
-
 const initialState = {
   data: [],
   selectedUser: {},
@@ -15,7 +13,7 @@ const initialState = {
 };
 
 export default handleActions({
-  [`${USERS.GET_ALL}_PENDING`]: (state) => ({
+  [`${USERS.GET_ALL}_PENDING`]: state => ({
     ...state,
     fetch: {
       ...state.fetch,
@@ -27,7 +25,7 @@ export default handleActions({
     data: action.payload.data.docs,
     fetch
   }),
-  [`${USERS.GET_ALL}_REJECTED`]: (state) => ({
+  [`${USERS.GET_ALL}_REJECTED`]: state => ({
     ...state,
     fetch: {
       pending: false,

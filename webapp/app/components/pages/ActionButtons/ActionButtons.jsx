@@ -7,7 +7,7 @@ import {bindActionCreators} from 'redux';
 import MsModal from '../../common/modal/MsModal';
 import UsersForm from '../UsersForm/UsersForm';
 import * as usersActions from '../../../actions/usersActios';
-import { EMAIL_REGEX } from '../../../constants/constants';
+import { EMAIL_REGEX } from '../../../constants';
 
 const EMPTY_USER = {
   id: '',
