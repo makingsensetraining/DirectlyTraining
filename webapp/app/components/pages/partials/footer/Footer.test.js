@@ -6,14 +6,14 @@ function setup(props) {
   return shallow(<Footer {...props} />);
 }
 
-xdescribe('<Footer /> component', () => {
+describe('<Footer /> component', () => {
   it('renders itself', () => {
     const wrapper = setup();
 
     expect(wrapper.find('footer')).toHaveLength(1);
-    expect(wrapper.find('p')).toHaveLength(1);
+    expect(wrapper.find('p')).toHaveLength(2);
 
-    const linkToGitHub = wrapper.find('a');
+    const linkToGitHub = wrapper.find('.footer__github-link');
     expect(linkToGitHub).toHaveLength(1);
     expect(linkToGitHub.text()).toBe('GitHub');
   });

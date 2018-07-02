@@ -6,14 +6,14 @@ function setup(props) {
   return shallow(<Header {...props} />);
 }
 
-xdescribe('<Header /> component', () => {
+describe('<Header /> component', () => {
   it('renders itself', () => {
+    // Act
     const wrapper = setup();
 
-    expect(wrapper.find('header')).toHaveLength(1);
-
-    const title = wrapper.find('h1');
-    expect(title).toHaveLength(1);
-    expect(title.text()).toBe('React+Redux starter app');
+    // Assert
+    expect(wrapper.find('.navbar')).toHaveLength(1);
+    expect(wrapper.find('.container')).toHaveLength(1);
+    expect(wrapper.find('a').text()).toBe('Directly starter app');
   });
 });
