@@ -1,5 +1,5 @@
 import reducer from './auth';
-import actionTypes from '../constants/actionTypes';
+import actionTypes from '../actions/actionTypes';
 
 const { AUTH } = actionTypes;
 

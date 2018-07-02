@@ -6,5 +6,13 @@ export default {
     errorMessage: null,
     user: null
   },
-  routing: null
+  routing: null,
+  users: {
+    data: [],
+    selectedUser: null,
+    fetch: {
+      pending: false,
+      error: false
+    }
+  }
 };

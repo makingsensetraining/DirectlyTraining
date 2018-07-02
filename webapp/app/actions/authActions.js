@@ -1,5 +1,5 @@
 import { push } from 'react-router-redux';
-import actionTypes from '../constants/actionTypes';
+import actionTypes from '../actions/actionTypes';
 import * as authService from '../services/authService';
 
 const { AUTH } = actionTypes;

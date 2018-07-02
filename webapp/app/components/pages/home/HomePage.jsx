@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Col, Row } from 'reactstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
-import * as usersActions from '../../../actions/usersActios';
+import paginationFactory from 'react-bootstrap-table2-paginator';
+import * as usersActions from '../../../actions/usersActions';
 import Footer from './../partials/footer/Footer';
 import Header from './../partials/header/Header';
 import ActionButtons from '../ActionButtons/ActionButtons';
@@ -40,8 +41,8 @@ export class HomePage extends React.Component {
       dataField: 'email',
       text: 'Email'
     }, {
-      dataField: 'mobile',
-      text: 'Mobile Number'
+      dataField: 'phone',
+      text: 'Phone Number'
     }];
 
     const selectRow = {
@@ -71,6 +72,7 @@ export class HomePage extends React.Component {
             data={ this.props.users }
             columns={ columns }
             selectRow={ selectRow }
+            pagination={ paginationFactory() }
           />
         </div>
         <Footer />
@@ -96,5 +98,16 @@ function mapDispatchToProps(dispatch) {
     ...bindActionCreators(usersActions, dispatch)
   };
 }
+
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     getUsers() {
+//       dispatch(usersActions.getUsers());
+//     },
+//     selectUser (user) {
+//       dispatch(usersActions.selectUser(user));
+//     }
+//   };
+// };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
