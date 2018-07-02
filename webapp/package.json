@@ -23,6 +23,7 @@
     "start": "webpack-dev-server --open --config webpack.dev.js",
     "lint": "eslint --ext .js --ext .jsx --fix ./app",
     "test": "jest",
+    "test:dev": "jest --watch",
     "validate": "npm run lint && npm run test"
   },
   "dependencies": {
