@@ -63,4 +63,47 @@ describe('users reducer', () => {
     // Assert.
     expect(result).toEqual(expected);
   });
+
+  it('should handle USERS.GET_ALL_REJECTED', () => {
+    // Arrange
+    const action = {
+      type: `${USERS.GET_ALL}_REJECTED`
+    };
+    const expected = {
+      ...usersInitialState,
+      fetch: {
+        ...usersInitialState.fetch,
+        pending: false,
+        error: true
+      }
+    };
+
+    // Act.
+    const result = reducer(usersInitialState, action);
+
+    // Assert.
+    expect(result).toEqual(expected);
+  });
+
+  it('should handle USERS.SELECT', () => {
+    // Arrange
+    const action = {
+      type: USERS.SELECT,
+      payload: {
+        user: 'user'
+      }
+    };
+    const expected = {
+      ...usersInitialState,
+      selectedUser: {
+        user: 'user'
+      }
+    };
+
+    // Act.
+    const result = reducer(usersInitialState, action);
+
+    // Assert.
+    expect(result).toEqual(expected);
+  });
 });
