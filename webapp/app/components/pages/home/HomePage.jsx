@@ -99,15 +99,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     getUsers() {
-//       dispatch(usersActions.getUsers());
-//     },
-//     selectUser (user) {
-//       dispatch(usersActions.selectUser(user));
-//     }
-//   };
-// };
-
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
