@@ -2,11 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'reactstrap';
 import { connect } from 'react-redux';
-import { cloneDeep, isEmpty } from 'lodash/fp';
-import {bindActionCreators} from 'redux';
+import cloneDeep from 'lodash/cloneDeep';
+import isEmpty from 'lodash/isEmpty';
 import MsModal from '../../common/modal/MsModal';
 import UsersForm from '../UsersForm/UsersForm';
-import * as usersActions from '../../../actions/usersActions';
 import { EMAIL_REGEX } from '../../../constants';
 
 const EMPTY_USER = {
@@ -92,7 +91,6 @@ export class ActionButtons extends React.Component {
 
   noUserSelected() {
     return isEmpty(this.props.user);
-
   }
 
   updateUserState(event) {
@@ -165,6 +163,7 @@ export class ActionButtons extends React.Component {
 
 ActionButtons.propTypes = {
   user: PropTypes.object,
+  onCreateUser: PropTypes.func
 };
 
 function mapStateToProps(state) {
@@ -173,11 +172,5 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    ...bindActionCreators(usersActions, dispatch)
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ActionButtons);
+export default connect(mapStateToProps)(ActionButtons);
 

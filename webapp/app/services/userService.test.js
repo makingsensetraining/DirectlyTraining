@@ -8,7 +8,7 @@ describe('User Service', () => {
       mockAxios.get.mockImplementationOnce(() =>
         Promise.resolve({
           statusCode: 200,
-          statusText: 'success',
+          statusText: 'OK',
           data: [ 'foo', 'bar' ]
         })
       );

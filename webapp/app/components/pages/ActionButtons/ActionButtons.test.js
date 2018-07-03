@@ -3,7 +3,12 @@ import { shallow } from 'enzyme';
 import { ActionButtons } from './ActionButtons';
 
 function setup(props) {
-  return shallow(<ActionButtons {...props} />);
+  return shallow(
+    <ActionButtons
+      {...props}
+      onCreateUser={jest.fn()}
+    />
+  );
 }
 
 describe('<ActionButtons /> component', () => {

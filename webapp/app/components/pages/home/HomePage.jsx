@@ -20,17 +20,22 @@ export class HomePage extends React.Component {
     };
 
     this.setSelectedRow = this.setSelectedRow.bind(this);
+    this.handleOnCreateUser = this.handleOnCreateUser.bind(this);
   }
 
   componentDidMount() {
-    this.props.getUsers();
+    this.props.usersActions.getUsers();
   }
 
   setSelectedRow(row) {
     this.setState({
       selectedRow: [row.id],
     });
-    this.props.selectUser(row);
+    this.props.usersActions.selectUser(row);
+  }
+
+  handleOnCreateUser(user) {
+    this.props.usersActions.createUser(user);
   }
 
   render() {
@@ -64,6 +69,7 @@ export class HomePage extends React.Component {
             <Col md="4">
               <ActionButtons
                 user={this.state.user}
+                onCreateUser={this.handleOnCreateUser}
               />
             </Col>
           </Row>
@@ -83,8 +89,7 @@ export class HomePage extends React.Component {
 
 HomePage.propTypes = {
   users: PropTypes.array,
-  getUsers: PropTypes.func,
-  selectUser: PropTypes.func
+  usersActions: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
@@ -95,7 +100,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    ...bindActionCreators(usersActions, dispatch)
+    usersActions: bindActionCreators(usersActions, dispatch)
   };
 }
 
