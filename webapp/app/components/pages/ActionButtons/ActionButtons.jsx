@@ -184,7 +184,7 @@ export class ActionButtons extends React.Component {
     const modalInfo = {
       ...this.getModalLabels(this.state.actionType),
       title: `${this.state.actionType} User`
-    }
+    };
 
     return (
       <div className="user-list-action-buttons">
