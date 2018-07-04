@@ -42,8 +42,8 @@ export default handleActions({
   [`${USERS.CREATE}_FULFILLED`]: (state, action) => ({
     ...state,
     data: [
-      ...state.data,
-      ...action.payload
+      action.payload.data,
+      ...state.data
     ],
     fetch: usersInitialState.fetch
   }),
