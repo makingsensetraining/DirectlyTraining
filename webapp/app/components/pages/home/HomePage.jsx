@@ -44,9 +44,9 @@ export class HomePage extends React.Component {
       case 'add': 
         return usersActions.createUser(user);
       case 'edit':
-        return usersActions.updateUser(user.id, user);
+        return usersActions.updateUser(user);
       case 'delete':
-        return usersActions.deleteUser(user.id, user);
+        return usersActions.deleteUser(user);
       default:
         throw new TypeError(`Unhandled User Action Type ${type}`);
     }
