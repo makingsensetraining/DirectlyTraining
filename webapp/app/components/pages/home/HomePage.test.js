@@ -16,8 +16,6 @@ describe('<HomePage /> component', () => {
     });
 
     expect(wrapper.find('Header')).toHaveLength(1);
-    expect(wrapper.find('Footer')).toHaveLength(1);
-
     expect(wrapper.find('.container')).toHaveLength(1);
   });
 });

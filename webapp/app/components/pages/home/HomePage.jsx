@@ -6,7 +6,6 @@ import { Col, Row } from 'reactstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import * as usersActions from '../../../actions/usersActions';
-import Footer from './../partials/footer/Footer';
 import Header from './../partials/header/Header';
 import ActionButtons from '../ActionButtons/ActionButtons';
 import './HomePage.css';
@@ -96,7 +95,6 @@ export class HomePage extends React.Component {
             pagination={ paginationFactory() }
           />
         </div>
-        <Footer />
       </div>
     );
   }
