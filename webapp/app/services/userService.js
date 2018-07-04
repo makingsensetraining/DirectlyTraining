@@ -6,7 +6,7 @@ export function fetchUsers(params = {}) {
 }
 
 export function createUsers(data = {}) {
-  return axios.post(`${DEFAULT_API_BASE_URL}/users`, { data });
+  return axios.post(`${DEFAULT_API_BASE_URL}/users`, { ...data });
 }
 
 export function deleteUsers(userId) {
@@ -14,5 +14,5 @@ export function deleteUsers(userId) {
 }
 
 export function updateUsers(userId, data = {}) {
-  return axios.put(`${DEFAULT_API_BASE_URL}/users/${userId}`, { data });
+  return axios.put(`${DEFAULT_API_BASE_URL}/users/${userId}`, { ...data });
 }
