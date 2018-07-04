@@ -1,7 +1,6 @@
 import { createAction } from 'redux-actions';
 import actionTypes from '../actions/actionTypes';
 import identity from 'lodash/identity';
-import get from 'lodash/get';
 import omit from 'lodash/omit';
 import {
   createUsers,
@@ -9,20 +8,11 @@ import {
   fetchUsers,
   updateUsers
 } from '../services/userService';
+import { getUserId } from '../utils/user';
 
 const DEFAULT_USER_VALID_ID_PATHS = ['_id', 'id'];
 const DEFAULT_PAGINATION_QUERY = { page: 1, limit: 100 };
 const { USERS } =  actionTypes;
-
-function getUserId(user = {}) {
-  let userId = get(user, '_id', undefined);
-
-  if (!userId) {
-    userId = get(user, 'id');
-  }
-
-  return userId;
-}
 
 export const selectUser = createAction(USERS.SELECT);
 export const getUsers = createAction(USERS.GET_ALL, (queryParams = DEFAULT_PAGINATION_QUERY) => {
@@ -44,7 +34,10 @@ export const updateUser = createAction(USERS.UPDATE, user => {
 }, identity);
 
 export const deleteUser = createAction(USERS.DELETE, user => {
+  const userId = getUserId(user);
   return {
-    promise: deleteUsers(getUserId(user))
+    promise: new Promise(resolve => {
+      deleteUsers(userId).then(() => resolve(user));
+    })
   };
 }, identity);
