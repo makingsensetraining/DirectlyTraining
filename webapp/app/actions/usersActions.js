@@ -14,12 +14,14 @@ const DEFAULT_USER_VALID_ID_PATHS = ['_id', 'id'];
 const DEFAULT_PAGINATION_QUERY = { page: 1, limit: 100 };
 const { USERS } =  actionTypes;
 
-function getUserId(user) {
-  if ('_id' in user) {
-    return get(user, '_id');
+function getUserId(user = {}) {
+  let userId = get(user, '_id', undefined);
+
+  if (!userId) {
+    userId = get(user, 'id');
   }
 
-  return get(user, 'id');
+  return userId;
 }
 
 export const selectUser = createAction(USERS.SELECT);
