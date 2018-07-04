@@ -10,7 +10,7 @@ export function createUsers(data = {}) {
 }
 
 export function deleteUsers(userId) {
-  return axios.delete(`${DEFAULT_API_BASE_URL}/users${userId}`);
+  return axios.delete(`${DEFAULT_API_BASE_URL}/users/${userId}`);
 }
 
 export function updateUsers(userId, data = {}) {
