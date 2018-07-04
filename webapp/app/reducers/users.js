@@ -54,6 +54,32 @@ export default handleActions({
       error: true
     }
   }),
+  [`${USERS.UPDATE}_PENDING`]: state => ({
+    ...state,
+    fetch: {
+      ...state.fetch,
+      pending: true
+    }
+  }),
+  [`${USERS.UPDATE}_FULFILLED`]: (state, action) => {
+    const targetUser = action.payload.data;
+    
+    return ({
+      ...state,
+      data: [
+        targetUser,
+        ...state.data.filter(user => getUserId(targetUser) !== getUserId(user))
+      ],
+      fetch: usersInitialState.fetch
+    });
+  },
+  [`${USERS.UPDATE}_REJECTED`]: state => ({
+    ...state,
+    fetch: {
+      ...usersInitialState.fetch,
+      error: true
+    }
+  }),
   [`${USERS.DELETE}_PENDING`]: state => ({
     ...state,
     fetch: {
