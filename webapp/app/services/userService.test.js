@@ -5,7 +5,7 @@ import {
   fetchUsers,
   updateUsers
 } from './userService';
-import { DEFAULT_API_BASE_URL } from '../constants';
+import { DEFAULT_API_USERS_ENDPOINT } from '../constants';
 
 describe('User Service', () => {
   describe('fetchUsers', () => {
@@ -44,7 +44,7 @@ describe('User Service', () => {
       });
 
       expect(mockAxios.get).toHaveBeenCalledWith(
-        `${DEFAULT_API_BASE_URL}/users`,
+        DEFAULT_API_USERS_ENDPOINT,
         { 
           params: {
             foo: '',
@@ -64,7 +64,7 @@ describe('User Service', () => {
       fetchUsers();
 
       expect(mockAxios.get).toHaveBeenCalledWith(
-        `${DEFAULT_API_BASE_URL}/users`,
+        DEFAULT_API_USERS_ENDPOINT,
         {
           params: {}
         }
