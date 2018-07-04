@@ -9,7 +9,7 @@ export default {
   routing: null,
   users: {
     data: [],
-    selectedUser: null,
+    selectedUser: {},
     fetch: {
       pending: false,
       error: false

@@ -3,9 +3,7 @@ import promiseMiddleware from 'redux-promise-middleware';
 import {
   createUser,
   getUsers,
-  selectUser,
-  updateUser,
-  deleteUser
+  selectUser
 } from './usersActions';
 import actionTypes from '../actions/actionTypes';
 import * as userService from '../services/userService';
@@ -116,20 +114,14 @@ describe('usersActions', () => {
   });
 
   describe('createUsers', () => {
-    beforeEach(() => {
-      userService.createUsers.mockImplementationOnce(() =>
-        Promise.resolve({
-          statusCode: 200,
-          statusText: 'OK',
-          data: 'foo'
-        })
-      );
+    it('should be defined', () => {
+      expect(userService.createUsers).toBeDefined();
     });
 
-    afterEach(() => {
-      userService.createUsers.mockClear();
+    it('should be a function', () => {
+      expect(userService.createUsers).toEqual(expect.any(Function));
     });
-
+    
     describe('when the service call is successful', () => {
       it('should create an action to create a user', async () => {
         const expectedUser = { 'name': 'foo' };
@@ -156,6 +148,26 @@ describe('usersActions', () => {
 
     describe('when the service call fails', () => {
       // TODO add tests for createAction/handleAction middleware when the promise fails
+    });
+  });
+
+  describe('updateUsers', () => {
+    it('should be defined', () => {
+      expect(userService.updateUsers).toBeDefined();
+    });
+
+    it('should be a function', () => {
+      expect(userService.updateUsers).toEqual(expect.any(Function));
+    });
+  });
+
+  describe('deleteUsers', () => {
+    it('should be defined', () => {
+      expect(userService.deleteUsers).toBeDefined();
+    });
+
+    it('should be a function', () => {
+      expect(userService.deleteUsers).toEqual(expect.any(Function));
     });
   });
 });

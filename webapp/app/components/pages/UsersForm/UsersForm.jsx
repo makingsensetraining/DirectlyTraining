@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import isEmpty from 'lodash/isEmpty';
 import { Row } from 'reactstrap';
 import FormInput from '../../common/form/FormInput';
 
 
 const UsersForm = ({user, onChange, errors}) => {
-  const isNameInvalid = errors.name !== '';
-  const isEmailInvalid =  errors.email.invalid !== '' || errors.email.missing !== '';
-  const emailFeedback = errors.email.invalid || errors.email.missing;
+  const isNameInvalid = !isEmpty(errors.name);
+  const isEmailInvalid =  !isEmpty(errors.email);
+  const emailFeedback = errors.email || '';
   return (
     <div>
       <div className="container">
@@ -63,16 +64,16 @@ const UsersForm = ({user, onChange, errors}) => {
 UsersForm.propTypes = {
   onChange: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
-  errors: PropTypes.object
+  errors: PropTypes.shape({
+    name: PropTypes.string,
+    email: PropTypes.string
+  })
 };
 
 UsersForm.defaultProps = {
   errors: {
     name: '',
-    email: {
-      invalid: '',
-      missing: ''
-    }
+    email: ''
   }
 };
 export default UsersForm;

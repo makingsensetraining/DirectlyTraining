@@ -9,6 +9,7 @@ import * as usersActions from '../../../actions/usersActions';
 import Footer from './../partials/footer/Footer';
 import Header from './../partials/header/Header';
 import ActionButtons from '../ActionButtons/ActionButtons';
+import './HomePage.css';
 
 export class HomePage extends React.Component {
   constructor(props, context) {
@@ -20,22 +21,36 @@ export class HomePage extends React.Component {
     };
 
     this.setSelectedRow = this.setSelectedRow.bind(this);
-    this.handleOnCreateUser = this.handleOnCreateUser.bind(this);
+    this.handleUserActionType = this.handleUserActionType.bind(this);
   }
 
   componentDidMount() {
     this.props.usersActions.getUsers();
   }
 
-  setSelectedRow(row) {
+  setSelectedRow(user) {
     this.setState({
-      selectedRow: [row.id],
+      selectedRow: [user.id]
+    }, () => {
+      if (typeof this.props.usersActions.selectUser === 'function') {
+        this.props.usersActions.selectUser(user);
+      }
     });
-    this.props.usersActions.selectUser(row);
   }
 
-  handleOnCreateUser(user) {
-    this.props.usersActions.createUser(user);
+  handleUserActionType(type = 'add', user) {
+    const { usersActions } = this.props;
+    
+    switch(type) {
+      case 'add': 
+        return usersActions.createUser(user);
+      case 'edit':
+        return usersActions.updateUser(user.id, user);
+      case 'delete':
+        return usersActions.deleteUser(user.id, user);
+      default:
+        throw new TypeError(`Unhandled User Action Type ${type}`);
+    }
   }
 
   render() {
@@ -69,7 +84,7 @@ export class HomePage extends React.Component {
             <Col md="4">
               <ActionButtons
                 user={this.state.user}
-                onCreateUser={this.handleOnCreateUser}
+                onConfirm={this.handleUserActionType}
               />
             </Col>
           </Row>

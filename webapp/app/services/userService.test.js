@@ -1,5 +1,10 @@
 import mockAxios from 'axios';
-import { fetchUsers } from './userService';
+import {
+  createUsers,
+  deleteUsers,
+  fetchUsers,
+  updateUsers
+} from './userService';
 import { DEFAULT_API_BASE_URL } from '../constants';
 
 describe('User Service', () => {
@@ -64,6 +69,36 @@ describe('User Service', () => {
           params: {}
         }
       );
+    });
+  });
+
+  describe('createUsers', () => {
+    it('should be defined', () => {
+      expect(createUsers).toBeDefined();
+    });
+
+    it('should be a function', () => {
+      expect(createUsers).toEqual(expect.any(Function));
+    });
+  });
+
+  describe('updateUsers', () => {
+    it('should be defined', () => {
+      expect(updateUsers).toBeDefined();
+    });
+
+    it('should be a function', () => {
+      expect(updateUsers).toEqual(expect.any(Function));
+    });
+  });
+
+  describe('deleteUsers', () => {
+    it('should be defined', () => {
+      expect(deleteUsers).toBeDefined();
+    });
+
+    it('should be a function', () => {
+      expect(deleteUsers).toEqual(expect.any(Function));
     });
   });
 });

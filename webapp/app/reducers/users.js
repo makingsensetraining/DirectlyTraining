@@ -25,8 +25,10 @@ export default handleActions({
       error: true
     }
   }),
-  [USERS.SELECT]: (state, action) => ({
-    ...state,
-    selectedUser: action.payload
-  })
+  [USERS.SELECT]: (state, action) => {
+    return ({
+      ...state,
+      selectedUser: action.payload
+    });
+  }
 }, initialState.users);

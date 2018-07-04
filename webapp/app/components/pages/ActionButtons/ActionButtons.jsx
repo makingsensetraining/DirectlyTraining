@@ -2,57 +2,63 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'reactstrap';
 import { connect } from 'react-redux';
-import cloneDeep from 'lodash/cloneDeep';
 import isEmpty from 'lodash/isEmpty';
+import has from 'lodash/has';
 import MsModal from '../../common/modal/MsModal';
 import UsersForm from '../UsersForm/UsersForm';
-import { EMAIL_REGEX } from '../../../constants';
+import { EMAIL_REGEXP } from '../../../constants';
 
 const EMPTY_USER = {
-  id: '',
   name: '',
   email: '',
   phone: '',
   skypeId: ''
 };
 
-const FORM_ERRORS = {
-  name: '',
-  email: {
-    invalid: '',
-    missing: ''
-  }
+const DEFAULT_USER_MODAL_LABELS = {
+  confirmButtonText: 'Save'
 };
+
+function isUserMatchById(sourceUser = {}, targetUser = {}) {
+  return sourceUser['id'] === targetUser['id']; 
+}
+
+function isValidUser(user) {
+  return has(user, 'id') && isEmpty(user, 'id') === false;
+}
 
 export class ActionButtons extends React.Component {
   constructor(props) {
     super(props);
     
     this.state = {
+      actionType: null,
       user: {...EMPTY_USER, ...props.user},
-      modal: false,
+      isUserModalOpen: false,
       modalTitle: '',
       modalBody: {},
       modalYesLabel: '',
-      errors: cloneDeep(FORM_ERRORS)
+      errors: {}
     };
 
     this.toggle = this.toggle.bind(this);
     this.toggleAddModal = this.toggleAddModal.bind(this);
     this.toggleEditModal = this.toggleEditModal.bind(this);
     this.toggleDeleteModal = this.toggleDeleteModal.bind(this);
-    this.noUserSelected = this.noUserSelected.bind(this);
     this.updateUserState = this.updateUserState.bind(this);
     this.saveUser = this.saveUser.bind(this);
     this.cancel = this.cancel.bind(this);
-    this.isFormValid = this.isFormValid.bind(this);
+    this.validateForm = this.validateForm.bind(this);
+    this.renderUserModalBody = this.renderUserModalBody.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.user.id !== nextProps.user.id) {
+  componentWillReceiveProps({ user: newUser }) {
+    const { user: currentSelectedUser } = this.props;
+
+    if (!isUserMatchById(currentSelectedUser, newUser)) {
       this.setState({
         user: {
-          ...nextProps.user
+          ...newUser
         }
       });
     }
@@ -60,37 +66,27 @@ export class ActionButtons extends React.Component {
 
   toggle() {
     this.setState({
-      modal: !this.state.modal
+      isUserModalOpen: !this.state.isUserModalOpen
     });
   }
 
   toggleAddModal() {
     this.setState({
-      user: EMPTY_USER,
-      modalBody:'',
-      modalTitle: 'Add User',
-      modalYesLabel: 'Save'
+      actionType: 'add',
+      user: EMPTY_USER
     }, this.toggle);
   }
 
   toggleEditModal() {
     this.setState({
-      modalBody:'',
-      modalTitle: 'Edit User',
-      modalYesLabel: 'Save'
+      actionType: 'edit'
     }, this.toggle);
   }
 
   toggleDeleteModal() {
     this.setState({
-      modalBody: `Are you sure to delete User ${this.props.user.name}`,
-      modalTitle: 'Delete User',
-      modalYesLabel: 'Delete'
+      actionType: 'delete'
     }, this.toggle);
-  }
-
-  noUserSelected() {
-    return isEmpty(this.props.user);
   }
 
   updateUserState(event) {
@@ -101,60 +97,119 @@ export class ActionButtons extends React.Component {
     return this.setState({user});
   }
 
-  isFormValid() {
-    let checkErrors = cloneDeep(FORM_ERRORS);
-    if (this.state.user.name.length === 0) {
-      checkErrors.name = 'User name is required';
+  validateForm() {
+    const { user } = this.state;
+    const isValidUsername = isEmpty(user.name) === false;
+    const isValidEmail = (EMAIL_REGEXP.test(user.email) === true);
+    const errors = {};
+
+    if (!isValidUsername) {
+      errors.name = 'User name is required';
     }
 
-    if (this.state.user.email.length === 0) {
-      checkErrors.email.missing = 'Email is required';
+    if (!isValidEmail) {
+      errors.email = 'Email is invalid';
     }
 
-    if (this.state.user.email.length > 0 &&
-      !EMAIL_REGEX.test(this.state.user.email)) {
-      checkErrors.email.invalid = 'Email is invalid';
-    }
+    this.setState({ errors });
 
-    this.setState({errors: checkErrors});
+    return errors;
+  }
+
+  canSubmitForm() {
+    return isEmpty(this.validateForm()) === true;
   }
 
   saveUser() {
-    if (!this.isFormValid()) {
+    if (this.canSubmitForm() === false) {
       return;
+    }    
+
+    if (typeof this.props.onConfirm === 'function') {
+      this.props.onConfirm(this.state.actionType, this.state.user)
+        .then(() => {
+          this.toggle();
+        });
     }
-    // save the user on the server
-    this.toggle();
   }
 
   cancel() {
+    let user = EMPTY_USER;
+
+    if (isValidUser(this.props.user) === true) {
+      user = this.props.user;
+    }
 
     this.setState({
-      user: cloneDeep(isEmpty(this.props.user) ? EMPTY_USER : this.props.user),
-      errors: cloneDeep(FORM_ERRORS)
-    }, this.toggle());
+      user: { ...user },
+      errors: {}
+    }, this.toggle);
+  }
+
+  renderUserModalBody() {
+    const {
+      user,
+      errors
+    } = this.state;
+
+    if (this.state.actionType === 'delete') {
+      return (
+        <p>{`Are you sure to delete User ${user.name}`}</p>
+      );
+    }
+
+    return (
+      <UsersForm
+        onChange={this.updateUserState}
+        user={user}
+        errors={errors}
+      />
+    );
+  }
+
+  getModalLabels(actionType = 'add') {
+    if (actionType === 'delete') {
+      return {
+        ...DEFAULT_USER_MODAL_LABELS,
+        confirmButtonText: 'Delete'
+      };
+    }
+
+    return DEFAULT_USER_MODAL_LABELS;
   }
 
   render() {
-    const usersForm = <UsersForm
-      onChange={this.updateUserState}
-      user={this.state.user}
-      errors={this.state.errors}
-    />;
-    const modalBody = this.state.modalBody !== '' ? this.state.modalBody : usersForm;
+    const modalBody = this.renderUserModalBody();
+    const isUserEditDisabled = isValidUser(this.state.user) === false;
+    const modalInfo = {
+      ...this.getModalLabels(this.state.actionType),
+      title: `${this.state.actionType} User`
+    }
+
     return (
-      <div>
-        <Button color="primary" onClick={this.toggleAddModal}>Add</Button>{' '}
-        <Button color="info" onClick={this.toggleEditModal} disabled={this.noUserSelected()}>Edit</Button>{' '}
-        <Button color="danger" onClick={this.toggleDeleteModal} disabled={this.noUserSelected()}>Delete</Button>{' '}
+      <div className="user-list-action-buttons">
+        <Button
+          color="primary"
+          onClick={this.toggleAddModal}
+        >Add</Button>
+        <Button
+          color="info"
+          disabled={isUserEditDisabled}
+          onClick={this.toggleEditModal}
+        >Edit</Button>
+        <Button
+          color="danger"
+          disabled={isUserEditDisabled}
+          onClick={this.toggleDeleteModal}
+        >Delete</Button>
         <MsModal
-          okButtonLabel={this.state.modalYesLabel}
+          okButtonLabel={modalInfo.confirmButtonText}
           cancelButtonLabel='Cancel'
           body={modalBody}
-          isOpen={this.state.modal}
+          isOpen={this.state.isUserModalOpen}
           okCallback={this.saveUser}
           cancelCallback={this.cancel}
-          modalTitle={this.state.modalTitle}
+          modalTitle={modalInfo.title}
         />
       </div>
     );
@@ -163,12 +218,12 @@ export class ActionButtons extends React.Component {
 
 ActionButtons.propTypes = {
   user: PropTypes.object,
-  onCreateUser: PropTypes.func
+  onConfirm: PropTypes.func
 };
 
-function mapStateToProps(state) {
+function mapStateToProps({ users }) {
   return {
-    user: state.users.selectedUser
+    user: users.selectedUser
   };
 }
 
