@@ -90,11 +90,12 @@ export class ActionButtons extends React.Component {
   }
 
   updateUserState(event) {
-    const user = {
-      ...this.state.user,
-      [event.target.name]: event.target.value
-    };
-    return this.setState({user});
+    this.setState({
+      user: {
+        ...this.state.user,
+        [event.target.name]: event.target.value
+      }
+    });
   }
 
   validateForm() {
