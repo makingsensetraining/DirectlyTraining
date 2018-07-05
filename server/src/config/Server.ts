@@ -47,7 +47,7 @@ export class Server {
 
   private allowCors(req: express.Request, res: express.Response, next: express.NextFunction): void {
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS,CONNECT');
     res.header(
       'Access-Control-Allow-Headers',
       'Origin, X-Requested-With, Content-Type, Accept, Authorization, apikey, x-access-token'
