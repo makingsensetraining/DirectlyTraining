@@ -73,7 +73,7 @@ export class ActionButtons extends React.Component {
   toggleAddModal() {
     this.setState({
       actionType: 'add',
-      user: EMPTY_USER
+      user: { ...EMPTY_USER }
     }, this.toggle);
   }
 
@@ -100,8 +100,8 @@ export class ActionButtons extends React.Component {
 
   validateForm() {
     const { user } = this.state;
-    const isValidUsername = isEmpty(user.name) === false;
-    const isValidEmail = (EMAIL_REGEXP.test(user.email) === true);
+    const isValidUsername = !isEmpty(user.name);
+    const isValidEmail = EMAIL_REGEXP.test(user.email);
     const errors = {};
 
     if (!isValidUsername) {
@@ -118,11 +118,11 @@ export class ActionButtons extends React.Component {
   }
 
   canSubmitForm() {
-    return isEmpty(this.validateForm()) === true;
+    return isEmpty(this.validateForm());
   }
 
   saveUser() {
-    if (this.canSubmitForm() === false) {
+    if (!this.canSubmitForm()) {
       return;
     }    
 
@@ -229,4 +229,3 @@ function mapStateToProps({ users }) {
 }
 
 export default connect(mapStateToProps)(ActionButtons);
-
