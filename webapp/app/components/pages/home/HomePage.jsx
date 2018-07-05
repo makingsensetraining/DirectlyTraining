@@ -6,9 +6,9 @@ import { Col, Row } from 'reactstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import * as usersActions from '../../../actions/usersActions';
-import Footer from './../partials/footer/Footer';
 import Header from './../partials/header/Header';
 import ActionButtons from '../ActionButtons/ActionButtons';
+import './HomePage.css';
 
 export class HomePage extends React.Component {
   constructor(props, context) {
@@ -20,17 +20,36 @@ export class HomePage extends React.Component {
     };
 
     this.setSelectedRow = this.setSelectedRow.bind(this);
+    this.handleUserActionType = this.handleUserActionType.bind(this);
   }
 
   componentDidMount() {
-    this.props.getUsers();
+    this.props.usersActions.getUsers();
   }
 
-  setSelectedRow(row) {
+  setSelectedRow(user) {
     this.setState({
-      selectedRow: [row.id],
+      selectedRow: [user.id]
+    }, () => {
+      if (typeof this.props.usersActions.selectUser === 'function') {
+        this.props.usersActions.selectUser(user);
+      }
     });
-    this.props.selectUser(row);
+  }
+
+  handleUserActionType(type = 'add', user) {
+    const { usersActions } = this.props;
+    
+    switch(type) {
+      case 'add': 
+        return usersActions.createUser(user);
+      case 'edit':
+        return usersActions.updateUser(user);
+      case 'delete':
+        return usersActions.deleteUser(user);
+      default:
+        throw new TypeError(`Unhandled User Action Type ${type}`);
+    }
   }
 
   render() {
@@ -64,6 +83,7 @@ export class HomePage extends React.Component {
             <Col md="4">
               <ActionButtons
                 user={this.state.user}
+                onConfirm={this.handleUserActionType}
               />
             </Col>
           </Row>
@@ -75,7 +95,6 @@ export class HomePage extends React.Component {
             pagination={ paginationFactory() }
           />
         </div>
-        <Footer />
       </div>
     );
   }
@@ -83,8 +102,7 @@ export class HomePage extends React.Component {
 
 HomePage.propTypes = {
   users: PropTypes.array,
-  getUsers: PropTypes.func,
-  selectUser: PropTypes.func
+  usersActions: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
@@ -95,19 +113,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    ...bindActionCreators(usersActions, dispatch)
+    usersActions: bindActionCreators(usersActions, dispatch)
   };
 }
-
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     getUsers() {
-//       dispatch(usersActions.getUsers());
-//     },
-//     selectUser (user) {
-//       dispatch(usersActions.selectUser(user));
-//     }
-//   };
-// };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

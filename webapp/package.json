@@ -22,7 +22,9 @@
     "prestart": "npm run validate",
     "start": "webpack-dev-server --open --config webpack.dev.js",
     "lint": "eslint --ext .js --ext .jsx --fix ./app",
-    "test": "jest --coverage",
+    "test": "jest",
+    "test:dev": "jest --watch",
+    "test:coverage": "jest --coverage",
     "validate": "npm run lint && npm run test"
   },
   "dependencies": {
@@ -51,7 +53,7 @@
     "babel-jest": "22.4.3",
     "babel-loader": "7.1.4",
     "babel-plugin-transform-object-rest-spread": "6.26.0",
-    "babel-preset-env": "1.6.1",
+    "babel-preset-env": "^1.7.0",
     "babel-preset-react": "6.24.1",
     "clean-webpack-plugin": "0.1.19",
     "css-loader": "^0.28.11",

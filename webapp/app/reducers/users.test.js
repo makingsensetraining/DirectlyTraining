@@ -5,11 +5,6 @@ import initialState from './initialState';
 const {USERS} = actionTypes;
 
 describe('users reducer', () => {
-  const fetch = {
-    pending: false,
-    error: false
-  };
-
   const { users: usersInitialState } = initialState;
 
   it('should return the initial state', () => {

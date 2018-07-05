@@ -8,17 +8,14 @@ function setup(props) {
 
 describe('<HomePage /> component', () => {
   it('renders itself', () => {
-    const user = {
-      name: 'John'
-    };
     const wrapper = setup({
-      getUsers: () => {},
-      user
+      usersActions: {
+        getUsers: jest.fn(),
+        selectUser: jest.fn()
+      }
     });
 
     expect(wrapper.find('Header')).toHaveLength(1);
-    expect(wrapper.find('Footer')).toHaveLength(1);
-
     expect(wrapper.find('.container')).toHaveLength(1);
   });
 });

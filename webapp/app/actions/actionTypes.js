@@ -8,6 +8,9 @@ export default keyMirror({
   },
   USERS: {
     GET_ALL: null,
-    SELECT: null
+    SELECT: null,
+    CREATE: null,
+    UPDATE: null,
+    DELETE: null
   },
 }, { connChar: '/' });

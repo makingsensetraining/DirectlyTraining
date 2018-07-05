@@ -9,7 +9,8 @@ function setup(props) {
 describe('<Main /> component', () => {
   it('renders itself', () => {
     const wrapper = setup({
-      actions: {}
+      actions: {},
+      usersActions: {}
     });
 
     expect(wrapper.find('Switch')).toHaveLength(1);
