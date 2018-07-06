@@ -1,5 +1,5 @@
-export const DEFAULT_API_BASE_URL = 'http://localhost:3030/service';
-export const DEFAULT_API_USERS_ENDPOINT = 'http://localhost:3030/service/users';
+export const DEFAULT_API_BASE_URL = 'https://ms-labs-be.herokuapp.com/service';
+export const DEFAULT_API_USERS_ENDPOINT = `${DEFAULT_API_BASE_URL}/users`;
 
 // from http://emailregex.com
 /* eslint-disable-next-line */
