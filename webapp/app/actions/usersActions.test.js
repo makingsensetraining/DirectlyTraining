@@ -1,20 +1,33 @@
 import configureStore from 'redux-mock-store';
-import promiseMiddleware from 'redux-promise-middleware';
+import thunkMiddleware from 'redux-thunk';
+import omit from 'lodash/omit';
 import {
   createUser,
   getUsers,
-  selectUser
+  selectUser,
+  updateUser,
+  deleteUser
 } from './usersActions';
-import actionTypes from '../actions/actionTypes';
 import * as userService from '../services/userService';
-const { USERS } = actionTypes;
+import {
+  LOADING_USERS_BEGIN,
+  LOADING_USERS_COMPLETE,
+  CREATE_USERS_SUCCESS,
+  GET_USERS_SUCCESS,
+  DELETE_USERS_SUCCESS,
+  UPDATE_USERS_SUCCESS,
+  SELECT_USERS_SUCCESS,
+} from '../actions/actionTypes';
 
 describe('usersActions', () => {
-  const middlewares = [promiseMiddleware()];
+  const middlewares = [
+    thunkMiddleware
+  ];
   const mockStore = configureStore(middlewares);
   const defaultReponseStatusProps = {
-    statusCode: 200,
-    statusText: 'OK'
+    status: 200,
+    statusText: 'OK',
+    ok: true
   };
   const defaultPaginatedResponse = {
     count: 1,
@@ -23,27 +36,42 @@ describe('usersActions', () => {
     totalPages: 1,
     docs: [{ foo: 'bar' }]
   };
+  let store;
+
+  function createResponse(response) {
+    return {
+      ...omit(response, ['data']),
+      json: () => ({
+        data: { ...response.data }
+      })
+    };
+  }
 
   beforeEach(() => {
-    userService.createUsers = jest.fn(() => Promise.resolve({
+    store = mockStore({});
+
+    userService.createUsers = jest.fn(data => Promise.resolve(createResponse({
       ...defaultReponseStatusProps,
-      data: 'foo'
-    }));
+      data
+    })));
       
-    userService.deleteUsers = jest.fn(() => Promise.resolve({
+    userService.deleteUsers = jest.fn(() => Promise.resolve(createResponse({
       ...defaultReponseStatusProps,
       statusCode: 204
-    }));
+    })));
 
-    userService.fetchUsers = jest.fn(() => Promise.resolve({
+    userService.fetchUsers = jest.fn(() => Promise.resolve(createResponse({
       ...defaultReponseStatusProps,
       data: defaultPaginatedResponse
-    }));
+    })));
 
-    userService.updateUsers = jest.fn(() => Promise.resolve({
+    userService.updateUsers = jest.fn((userId, user) => Promise.resolve(createResponse({
       ...defaultReponseStatusProps,
-      data: 'foo'
-    }));
+      data: {
+        _id: userId,
+        ...user
+      }
+    })));
   });
 
   afterEach(() => {
@@ -65,26 +93,21 @@ describe('usersActions', () => {
     describe('when the service call is successful', () => {
       it('should create an action to get users', async () => {
         const expectedActions = [
-          { type: 'USERS/GET_ALL_PENDING' },
+          { type: LOADING_USERS_BEGIN },
+          { type: LOADING_USERS_COMPLETE },
           { 
-            type: 'USERS/GET_ALL_FULFILLED',
+            type: GET_USERS_SUCCESS,
             payload: {
-              data: {
-                count: 1,
-                page: 0,
-                limit: 0,
-                totalPages: 1,
-                docs: [{ foo: 'bar' }]
-              },
-              statusCode: 200,
-              statusText: 'OK'
+              count: 1,
+              page: 0,
+              limit: 0,
+              totalPages: 1,
+              users: [{ foo: 'bar' }]
             }
           }
         ];
-        const initalState = {};
-  
-        const store = mockStore(initalState);
-        const getUsersActionResult = await getUsers(); 
+        
+        const getUsersActionResult = await getUsers();
   
         store.dispatch(getUsersActionResult).then(() => {
           expect(store.getActions()).toEqual(expectedActions);
@@ -100,11 +123,20 @@ describe('usersActions', () => {
   describe('selectUser', () => {
     describe('when the service call is successful', () => {
       it('should create an action to select a user', async () => {
-        const result = await selectUser();
-    
-        expect(result).toEqual(expect.objectContaining({
-          type: USERS.SELECT
-        }));
+        const selectUsersActionResult = await selectUser({
+          _id: 'fake.id.john',
+          name: 'John Doe'
+        }); 
+
+        store.dispatch(selectUsersActionResult).then(() => {
+          expect(store.getActions()).toEqual([{
+            payload: {
+              _id: 'fake.id.john',
+              name: 'John Doe'
+            },
+            type: SELECT_USERS_SUCCESS
+          }]);
+        });
       });
     });
 
@@ -124,21 +156,18 @@ describe('usersActions', () => {
     
     describe('when the service call is successful', () => {
       it('should create an action to create a user', async () => {
-        const expectedUser = { 'name': 'foo' };
         const expectedActions = [
-          { meta: { ...expectedUser }, type: 'USERS/CREATE_PENDING' },
-          { meta: { ...expectedUser }, 
-            type: 'USERS/CREATE_FULFILLED',
+          { type: LOADING_USERS_BEGIN },
+          { type: LOADING_USERS_COMPLETE },
+          { 
+            type: CREATE_USERS_SUCCESS,
             payload: {
-              data: 'foo',
-              statusCode: 200,
-              statusText: 'OK'
+              name: 'John Doe'
             }
           }
         ];
   
-        const store = mockStore({});
-        const createUsersActionResult = await createUser(expectedUser); 
+        const createUsersActionResult = await createUser({ name: 'John Doe' }); 
   
         store.dispatch(createUsersActionResult).then(() => {
           expect(store.getActions()).toEqual(expectedActions);
@@ -159,6 +188,31 @@ describe('usersActions', () => {
     it('should be a function', () => {
       expect(userService.updateUsers).toEqual(expect.any(Function));
     });
+
+    describe('when the service call is successful', () => {
+      it('should create an action to update a user', async () => {
+        const expectedActions = [
+          { type: LOADING_USERS_BEGIN },
+          { type: LOADING_USERS_COMPLETE },
+          { 
+            type: UPDATE_USERS_SUCCESS,
+            payload: {
+              _id: 'fake.id.john',
+              name: 'John Doe Jr.'
+            }
+          }
+        ];
+
+        const createUsersActionResult = await updateUser({
+          _id: 'fake.id.john',
+          name: 'John Doe Jr.'
+        }); 
+
+        store.dispatch(createUsersActionResult).then(() => {
+          expect(store.getActions()).toEqual(expectedActions);
+        });
+      });
+    });
   });
 
   describe('deleteUsers', () => {
@@ -168,6 +222,31 @@ describe('usersActions', () => {
 
     it('should be a function', () => {
       expect(userService.deleteUsers).toEqual(expect.any(Function));
+    });
+
+    describe('when the service call is successful', () => {
+      it('should create an action to delete a user', async () => {
+        const expectedActions = [
+          { type: LOADING_USERS_BEGIN },
+          { type: LOADING_USERS_COMPLETE },
+          { 
+            type: DELETE_USERS_SUCCESS,
+            payload: {
+              _id: 'fake.id.john',
+              name: 'John Doe'
+            }
+          }
+        ];
+
+        const createUsersActionResult = await deleteUser({
+          _id: 'fake.id.john',
+          name: 'John Doe'
+        });
+
+        store.dispatch(createUsersActionResult).then(() => {
+          expect(store.getActions()).toEqual(expectedActions);
+        });
+      });
     });
   });
 });

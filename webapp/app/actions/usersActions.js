@@ -1,43 +1,143 @@
-import { createAction } from 'redux-actions';
-import actionTypes from '../actions/actionTypes';
-import identity from 'lodash/identity';
 import omit from 'lodash/omit';
+import {
+  LOADING_USERS_BEGIN,
+  LOADING_USERS_COMPLETE,
+  LOADING_USERS_FAILED,
+  CREATE_USERS_SUCCESS,
+  GET_USERS_SUCCESS,
+  DELETE_USERS_SUCCESS,
+  UPDATE_USERS_SUCCESS,
+  SELECT_USERS_SUCCESS,
+} from '../actions/actionTypes';
 import {
   createUsers,
   deleteUsers,
   fetchUsers,
   updateUsers
 } from '../services/userService';
+import {
+  DEFAULT_USER_VALID_ID_PATHS,
+  DEFAULT_PAGINATION_QUERY
+} from '../constants';
 import { getUserId } from '../utils/user';
 
-const DEFAULT_USER_VALID_ID_PATHS = ['_id', 'id'];
-const DEFAULT_PAGINATION_QUERY = { page: 1, limit: 100 };
-const { USERS } =  actionTypes;
+export const loadingUsersBegin = () => {
+  return ({
+    type: LOADING_USERS_BEGIN
+  });
+};
 
-export const selectUser = createAction(USERS.SELECT);
-export const getUsers = createAction(USERS.GET_ALL, (queryParams = DEFAULT_PAGINATION_QUERY) => {
-  return {
-    promise: fetchUsers(queryParams)
-  };
-}, identity);
+export const loadingUsersComplete = () => ({
+  type: LOADING_USERS_COMPLETE
+});
 
-export const createUser = createAction(USERS.CREATE, userData => {
-  return {
-    promise: createUsers(omit(userData, DEFAULT_USER_VALID_ID_PATHS))
-  };
-}, identity);
+export const loadingUsersFailed = error => ({
+  type: LOADING_USERS_FAILED,
+  payload: { error }
+});
 
-export const updateUser = createAction(USERS.UPDATE, user => {
-  return {
-    promise: updateUsers(getUserId(user), omit(user, DEFAULT_USER_VALID_ID_PATHS))
-  };
-}, identity);
+export const createUsersSuccess = user => ({
+  type: CREATE_USERS_SUCCESS,
+  payload: user
+});
 
-export const deleteUser = createAction(USERS.DELETE, user => {
-  const userId = getUserId(user);
-  return {
-    promise: new Promise(resolve => {
-      deleteUsers(userId).then(() => resolve(user));
-    })
+export const selectUsersSuccess = user => ({
+  type: SELECT_USERS_SUCCESS,
+  payload: user
+});
+
+export const getUsersSuccess = (usersData) => ({
+  type: GET_USERS_SUCCESS,
+  payload: { ...usersData }
+});
+
+export const updateUsersSuccess = user => ({
+  type: UPDATE_USERS_SUCCESS,
+  payload: user
+});
+
+export const deleteUsersSuccess = user => ({
+  type: DELETE_USERS_SUCCESS,
+  payload: user
+});
+
+export function selectUser(user) {
+  return dispatch => {
+    return new Promise(resolve => {
+      dispatch(selectUsersSuccess(user));
+      resolve(user);
+    });
   };
-}, identity);
+}
+
+export function deleteUser(user) {
+  return dispatch => {
+    dispatch(loadingUsersBegin());
+    return deleteUsers(getUserId(user))
+      .then(handleErrors)
+      .then(res => res.json())
+      .then(() => {
+        dispatch(loadingUsersComplete());
+        dispatch(deleteUsersSuccess(user));
+        return user;
+      })
+      .catch(error => dispatch(loadingUsersFailed(error)));
+  };
+}
+
+export function updateUser(user) {
+  return dispatch => {
+    dispatch(loadingUsersBegin());
+    return updateUsers(getUserId(user), omit(user, DEFAULT_USER_VALID_ID_PATHS))
+      .then(handleErrors)
+      .then(res => res.json())
+      .then(json => {
+        dispatch(loadingUsersComplete());
+        dispatch(updateUsersSuccess(json.data));
+        return json.data;
+      })
+      .catch(error => dispatch(loadingUsersFailed(error)));
+  };
+}
+
+export function createUser(userData) {
+  return dispatch => {
+    dispatch(loadingUsersBegin());
+    return createUsers(omit(userData, DEFAULT_USER_VALID_ID_PATHS))
+      .then(handleErrors)
+      .then(res => res.json())
+      .then(json => {
+        dispatch(loadingUsersComplete());
+        dispatch(createUsersSuccess(json.data));
+        return json.data;
+      })
+      .catch(error => dispatch(loadingUsersFailed(error)));
+  };
+}
+
+export function getUsers(queryParams = DEFAULT_PAGINATION_QUERY) {
+  return dispatch => {
+    dispatch(loadingUsersBegin());
+    return fetchUsers(queryParams)
+      .then(handleErrors)
+      .then(res => res.json())
+      .then(json => {
+        const usersPayload = {
+          ...omit(json.data, ['docs']),
+          users: json.data.docs
+        };
+        dispatch(loadingUsersComplete());
+        dispatch(getUsersSuccess(usersPayload));
+        return usersPayload;
+      })
+      .catch(error => dispatch(loadingUsersFailed(error)));
+  };
+}
+
+// TODO move to service errors utility
+function handleErrors(response) {
+  if (!response.ok) {
+    throw Error(response.statusText);
+  }
+  return response;
+}

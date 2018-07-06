@@ -1,14 +1,14 @@
-import reducer from './auth';
-import actionTypes from '../actions/actionTypes';
+import authReducer from './authReducer';
+import {
+  AUTH_LOGIN_BEGIN,
+  AUTH_LOGIN_SUCCESS,
+  AUTH_LOGIN_FAILED
+} from '../actions/actionTypes';
 
-const { AUTH } = actionTypes;
-
-describe('auth reducer', () => {
+describe('authReducer', () => {
   it('should return the initial state', () => {
-    // Act.
-    const result = reducer(undefined, {});
+    const result = authReducer(undefined, {});
 
-    // Assert.
     expect(result).toEqual({
       authenticating: false,
       isAuthenticated: false,
@@ -19,12 +19,10 @@ describe('auth reducer', () => {
   });
 
   it('should handle a login request', () => {
-    // Act.
-    const result = reducer([], {
-      type: AUTH.LOGIN_REQUEST
+    const result = authReducer([], {
+      type: AUTH_LOGIN_BEGIN
     });
 
-    // Assert.
     expect(result).toEqual({
       authenticating: true,
       isAuthenticated: false,
@@ -35,15 +33,13 @@ describe('auth reducer', () => {
   });
 
   it('should handle a successfully login', () => {
-    // Act.
-    const result = reducer([], {
-      type: AUTH.LOGIN_SUCCESS,
+    const result = authReducer([], {
+      type: AUTH_LOGIN_SUCCESS,
       user: {
         name: 'John'
       }
     });
 
-    // Assert.
     expect(result).toEqual({
       authenticating: false,
       isAuthenticated: true,
@@ -56,13 +52,11 @@ describe('auth reducer', () => {
   });
 
   it('should handle a failed login', () => {
-    // Act.
-    const result = reducer([], {
-      type: AUTH.LOGIN_ERROR,
+    const result = authReducer([], {
+      type: AUTH_LOGIN_FAILED,
       message: 'Unexpected error.'
     });
 
-    // Assert.
     expect(result).toEqual({
       authenticating: false,
       isAuthenticated: false,

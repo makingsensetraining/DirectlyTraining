@@ -48,7 +48,7 @@ describe('<Main /> component', () => {
       const expectedActions = [
         'loginRequest',
         'loginSuccess',
-        'loginError',
+        'loginFailed',
         'login'
       ];
 

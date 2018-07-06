@@ -10,7 +10,6 @@ function setup(props) {
 
 describe('<HomePage /> component', () => {
   it('renders itself', () => {
-    // Arrange Act
     const wrapper = setup({
       usersActions: {
         getUsers: jest.fn(),
@@ -18,59 +17,56 @@ describe('<HomePage /> component', () => {
       }
     });
 
-    //Assert
     expect(wrapper.find('Header')).toHaveLength(1);
     expect(wrapper.find('.container')).toHaveLength(1);
   });
 
   describe('mapStateToProps functions', () => {
     it('should return the initial state of users module', () => {
-      // Arramge
       const expectedProps = {
         users: []
       };
 
-      // Act
       const props = mapStateToProps(initialState);
 
-      // Assert
       expect(props).toEqual(expectedProps);
     });
   });
 
   describe('mapDispatchToProps functions', () => {
     it('usersActions prop should be defined', () => {
-      // Arrange
       const dispatch = () => {};
-      // Act
       const props = mapDispatchToProps(dispatch);
 
-      // Assert
       expect(props.usersActions).toBeDefined();
     });
 
     it('should return the binded actions', () => {
-      // Arrange
       const dispatch = () => {};
       const expectedActions = [
+        'loadingUsersBegin',
+        'loadingUsersComplete',
+        'loadingUsersFailed',
+        'createUsersSuccess',
+        'selectUsersSuccess',
+        'getUsersSuccess',
+        'updateUsersSuccess',
+        'deleteUsersSuccess',
         'selectUser',
-        'getUsers',
-        'createUser',
+        'deleteUser',
         'updateUser',
-        'deleteUser'
+        'createUser',
+        'getUsers'
       ];
 
-      // Act
       const props = mapDispatchToProps(dispatch);
 
-      // Assert
       expect(keys(props.usersActions)).toEqual(expectedActions);
     });
   });
 
   describe('setSelectedRow handler', () => {
     it('should select user', () => {
-      // Arrange
       const user = {
         id: 'id'
       };
@@ -85,17 +81,14 @@ describe('<HomePage /> component', () => {
         },
       });
 
-      // Act
       wrapper.instance().setSelectedRow(user);
 
-      // Assert
       expect(selectUser).toHaveBeenCalledTimes(1);
     });
   });
 
   describe('handleUserActionType handler', () => {
     it('should return Add handler', () => {
-      // Arrange
       const type = 'add';
       const user = {
         id: 'id'
@@ -111,15 +104,12 @@ describe('<HomePage /> component', () => {
         },
       });
 
-      // Act
       wrapper.instance().handleUserActionType(type, user);
 
-      // Assert
       expect(createUser).toHaveBeenCalledTimes(1);
     });
 
     it('should return Edit handler', () => {
-      // Arrange
       const type = 'edit';
       const user = {
         id: 'id'
@@ -135,15 +125,12 @@ describe('<HomePage /> component', () => {
         },
       });
 
-      // Act
       wrapper.instance().handleUserActionType(type, user);
 
-      // Assert
       expect(updateUser).toHaveBeenCalledTimes(1);
     });
 
     it('should return Delete handler', () => {
-      // Arrange
       const type = 'delete';
       const user = {
         id: 'id'
@@ -159,15 +146,12 @@ describe('<HomePage /> component', () => {
         },
       });
 
-      // Act
       wrapper.instance().handleUserActionType(type, user);
 
-      // Assert
       expect(deleteUser).toHaveBeenCalledTimes(1);
     });
 
     it('should throw error on invalid type', () => {
-      // Arrange
       const type = 'other';
       const user = {
         id: 'id'
@@ -185,19 +169,16 @@ describe('<HomePage /> component', () => {
         },
       });
 
-      // Act
       try {
         wrapper.instance().handleUserActionType(type, user);
       } catch (error) {
         receivedError = error;
       }
 
-      // Assert
       expect(receivedError).toEqual(expectedError);
     });
 
     it('should return Add as default handler when no type is passed', () => {
-      // Arrange
       const type = undefined;
       const user = {
         id: 'id'
@@ -213,10 +194,8 @@ describe('<HomePage /> component', () => {
         },
       });
 
-      // Act
       wrapper.instance().handleUserActionType(type, user);
 
-      // Assert
       expect(createUser).toHaveBeenCalledTimes(1);
     });
   });

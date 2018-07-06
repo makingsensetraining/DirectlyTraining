@@ -1,25 +1,28 @@
 import { push } from 'react-router-redux';
-import actionTypes from '../actions/actionTypes';
 import * as authService from '../services/authService';
 
-const { AUTH } = actionTypes;
+import {
+  AUTH_LOGIN_BEGIN,
+  AUTH_LOGIN_SUCCESS,
+  AUTH_LOGIN_FAILED
+} from '../actions/actionTypes';
 
 export function loginRequest() {
   return {
-    type: AUTH.LOGIN_REQUEST
+    type: AUTH_LOGIN_BEGIN
   };
 }
 
 export function loginSuccess(user) {
   return {
-    type: AUTH.LOGIN_SUCCESS,
+    type: AUTH_LOGIN_SUCCESS,
     user
   };
 }
 
-export function loginError(error) {
+export function loginFailed(error) {
   return {
-    type: AUTH.LOGIN_ERROR,
+    type: AUTH_LOGIN_FAILED,
     message: error
   };
 }
@@ -33,7 +36,7 @@ export function login(username, password) {
           dispatch(loginSuccess(response));
           dispatch(push('/'));
         },
-        error => dispatch(loginError(error))
+        error => dispatch(loginFailed(error))
       );
   };
 }

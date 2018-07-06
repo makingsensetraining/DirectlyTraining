@@ -1,61 +1,54 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import * as authActions from './authActions';
-import actionTypes from '../actions/actionTypes';
+import {
+  AUTH_LOGIN_BEGIN,
+  AUTH_LOGIN_SUCCESS,
+  AUTH_LOGIN_FAILED
+} from '../actions/actionTypes';
 
-const { AUTH } = actionTypes;
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
 describe('authActions', () => {
   it('should create an action to start a login request', () => {
-    // Arrange.
     const expectedAction = {
-      type: AUTH.LOGIN_REQUEST
+      type: AUTH_LOGIN_BEGIN
     };
 
-    // Act.
     const result = authActions.loginRequest();
 
-    // Assert.
     expect(result).toEqual(expectedAction);
   });
 
   it('should create an action to handle a successfully login', () => {
-    // Arrange.
     const user = {
       name: 'John'
     };
 
     const expectedAction = {
-      type: AUTH.LOGIN_SUCCESS,
+      type: AUTH_LOGIN_SUCCESS,
       user
     };
 
-    // Act.
     const result = authActions.loginSuccess(user);
 
-    // Assert.
     expect(result).toEqual(expectedAction);
   });
 
   it('should create an action to handle a failed login', () => {
-    // Arrange.
     const message = 'Testing an error.';
     const expectedAction = {
-      type: AUTH.LOGIN_ERROR,
+      type: AUTH_LOGIN_FAILED,
       message
     };
 
-    // Act.
-    const result = authActions.loginError(message);
+    const result = authActions.loginFailed(message);
 
-    // Assert.
     expect(result).toEqual(expectedAction);
   });
 
   it('should handle successful login when valid credentials provided', () => {
-    // Arrange.
     const username = 'username';
     const password = 'password';
     const user = {
@@ -66,18 +59,14 @@ describe('authActions', () => {
       auth: {}
     });
 
-    // TODO: Mock service response.
-
-    // Act & assert.
     return store.dispatch(authActions.login(username, password)).then(() => {
       const actions = store.getActions();
-      expect(actions[0]).toEqual({ type: AUTH.LOGIN_REQUEST });
-      expect(actions[1]).toEqual({ type: AUTH.LOGIN_SUCCESS, user });
+      expect(actions[0]).toEqual({ type: AUTH_LOGIN_BEGIN });
+      expect(actions[1]).toEqual({ type: AUTH_LOGIN_SUCCESS, user });
     });
   });
 
   it('should handle failed login when invalid credentials provided', () => {
-    // Arrange.
     const username = 'invalid';
     const password = 'invalid';
     const message = 'Invalid credentials.';
@@ -85,13 +74,10 @@ describe('authActions', () => {
       auth: {}
     });
 
-    // TODO: Mock service response.
-
-    // Act & assert.
     return store.dispatch(authActions.login(username, password)).then(() => {
       const actions = store.getActions();
-      expect(actions[0]).toEqual({ type: AUTH.LOGIN_REQUEST });
-      expect(actions[1]).toEqual({ type: AUTH.LOGIN_ERROR, message });
+      expect(actions[0]).toEqual({ type: AUTH_LOGIN_BEGIN });
+      expect(actions[1]).toEqual({ type: AUTH_LOGIN_FAILED, message });
     });
   });
 });

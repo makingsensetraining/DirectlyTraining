@@ -10,9 +10,9 @@ export default {
   users: {
     data: [],
     selectedUser: {},
-    fetch: {
-      pending: false,
-      error: false
+    fetch: {  
+      loading: false,
+      error: null
     }
   }
 };
