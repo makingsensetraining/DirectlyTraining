@@ -8,12 +8,13 @@ function setup(props) {
 
 describe('<Footer /> component', () => {
   it('renders itself', () => {
+    // Arrange Act
     const wrapper = setup();
+    const linkToGitHub = wrapper.find('.footer__github-link');
 
+    // Assert
     expect(wrapper.find('footer')).toHaveLength(1);
     expect(wrapper.find('p')).toHaveLength(2);
-
-    const linkToGitHub = wrapper.find('.footer__github-link');
     expect(linkToGitHub).toHaveLength(1);
     expect(linkToGitHub.text()).toBe('GitHub');
   });

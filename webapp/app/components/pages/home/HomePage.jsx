@@ -105,13 +105,13 @@ HomePage.propTypes = {
   usersActions: PropTypes.object.isRequired
 };
 
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
   return {
     users: state.users.data
   };
 }
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
     usersActions: bindActionCreators(usersActions, dispatch)
   };

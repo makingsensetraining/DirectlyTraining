@@ -9,14 +9,20 @@ module.exports = {
   collectCoverageFrom: [
     '**/app/**/*.{js,jsx}',
     '!**/node_modules/**',
-    '!**/vendor/**'
+    '!**/vendor/**',
+    '!**/app/index.jsx',
+    '!**/app/**/PrivateRoute.jsx' // Ignored sin it's unused for now
   ],
   coverageDirectory: `${buildLogFolder}/coverage`,
   reporters: [
     'default',
     ['./node_modules/jest-html-reporter', {
       pageTitle: 'Directly Trainning Test Report',
-      outputPath: `${buildLogFolder}/test-results.html`
+      outputPath: `${buildLogFolder}/test-results.html`,
+      includeFailureMsg: true,
+      includeConsoleLog: true,
+      theme: 'darkTheme',
+      sort: 'status'
     }]
   ]
 };

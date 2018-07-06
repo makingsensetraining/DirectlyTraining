@@ -222,7 +222,7 @@ ActionButtons.propTypes = {
   onConfirm: PropTypes.func
 };
 
-function mapStateToProps({ users }) {
+export function mapStateToProps({ users }) {
   return {
     user: users.selectedUser
   };

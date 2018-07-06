@@ -29,13 +29,13 @@ Main.propTypes = {
   usersActions: PropTypes.object.isRequired
 };
 
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
   return {
     isAuthenticated: state.auth.isAuthenticated
   };
 }
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(actions, dispatch),
     usersActions: bindActionCreators(usersActions, dispatch)

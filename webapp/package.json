@@ -21,10 +21,10 @@
     "build": "webpack --config webpack.prod.js",
     "prestart": "npm run validate",
     "start": "webpack-dev-server --open --config webpack.dev.js",
-    "lint": "eslint --ext .js --ext .jsx --fix ./app",
-    "test": "jest",
-    "test:dev": "jest --watch",
-    "test:coverage": "jest --coverage",
+    "lint": "eslint --ext .js --ext .jsx --fix ./app --o buildlog/linter.html -f html",
+    "test": "jest --coverage",
+    "test:dev": "jest --coverage --watch",
+    "prevalidate": "rimraf buildlog",
     "validate": "npm run lint && npm run test"
   },
   "dependencies": {
@@ -46,7 +46,8 @@
     "redux": "3.7.2",
     "redux-actions": "^2.4.0",
     "redux-promise-middleware": "^5.1.1",
-    "redux-thunk": "2.2.0"
+    "redux-thunk": "2.2.0",
+    "rimraf": "^2.6.2"
   },
   "devDependencies": {
     "babel-core": "6.26.3",

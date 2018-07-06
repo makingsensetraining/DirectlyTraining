@@ -8,7 +8,10 @@ function setup(props) {
 
 describe('<PrivateRoute /> component', () => {
   it('renders itself', () => {
+    // Arrange Act
     const wrapper = setup();
+
+    // Assert
     expect(wrapper.find('Route')).toHaveLength(1);
   });
 });

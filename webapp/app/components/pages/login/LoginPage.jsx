@@ -29,11 +29,13 @@ LoginPage.propTypes = {
   actions: PropTypes.object.isRequired
 };
 
-function mapStateToProps(state) {
-  return state;
+export function mapStateToProps(state) {
+  return {
+    ...state.auth
+  };
 }
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(authActions, dispatch)
   };

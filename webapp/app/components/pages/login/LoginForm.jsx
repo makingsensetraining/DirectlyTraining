@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import InputForm from '../../common/form/FormInput';
+import FormInput from '../../common/form/FormInput';
 import './LoginForm.css';
 
 class LoginForm extends React.Component {
@@ -32,14 +32,14 @@ class LoginForm extends React.Component {
       <div className="">
         <form className="form-signin" onSubmit={this.handleOnSubmit}>
           <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>          
-          <InputForm
+          <FormInput
             inputId="inputEmail"
             label="Username or email address"
             onChange={this.handleOnChange}
             name="username"
             placeholder="Username or email address"
             value={this.state.username} />
-          <InputForm
+          <FormInput
             inputId="inputPassword"
             label="Password"
             onChange={this.handleOnChange}

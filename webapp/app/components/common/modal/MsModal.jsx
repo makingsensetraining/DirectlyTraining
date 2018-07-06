@@ -2,39 +2,18 @@ import React from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import PropTypes from 'prop-types';
 
-class MsModal extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      modal: false
-    };
-
-    this.toggle = this.toggle.bind(this);
-  }
-
-  toggle() {
-    this.setState({
-      modal: !this.state.modal
-    });
-  }
-
-  render() {
-    return (
-      <div>
-        <Modal isOpen={this.props.isOpen} toggle={this.props.cancelCallback}>
-          <ModalHeader toggle={this.props.cancelCallback}>{this.props.modalTitle}</ModalHeader>
-          <ModalBody>
-            {this.props.body}
-          </ModalBody>
-          <ModalFooter>
-            <Button color="primary" onClick={this.props.okCallback}>{this.props.okButtonLabel}</Button>{' '}
-            <Button color="secondary" onClick={this.props.cancelCallback}>{this.props.cancelButtonLabel}</Button>
-          </ModalFooter>
-        </Modal>
-      </div>
-    );
-  }
-}
+const MsModal = ({isOpen, cancelCallback, modalTitle, body, okCallback, okButtonLabel, cancelButtonLabel}) => (
+  <Modal isOpen={isOpen} toggle={cancelCallback}>
+    <ModalHeader toggle={cancelCallback}>{modalTitle}</ModalHeader>
+    <ModalBody>
+      {body}
+    </ModalBody>
+    <ModalFooter>
+      <Button color="primary" onClick={okCallback}>{okButtonLabel}</Button>{' '}
+      <Button color="secondary" onClick={cancelCallback}>{cancelButtonLabel}</Button>
+    </ModalFooter>
+  </Modal>
+);
 
 
 MsModal.propTypes= {

@@ -8,11 +8,13 @@ function setup(props) {
 
 describe('<UsersForm /> component', () => {
   it('renders itself', () => {
+    // Arrange Act
     const wrapper = setup({
       onChange: () => {},
       user: {}
     });
 
+    // Assert
     expect(wrapper.find('form')).toHaveLength(1);
     expect(wrapper.find('FormInput')).toHaveLength(4);
   });

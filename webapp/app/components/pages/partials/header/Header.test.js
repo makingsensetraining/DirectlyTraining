@@ -8,7 +8,7 @@ function setup(props) {
 
 describe('<Header /> component', () => {
   it('renders itself', () => {
-    // Act
+    // Arrange Act
     const wrapper = setup();
 
     // Assert
