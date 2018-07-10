@@ -17,6 +17,10 @@ class App extends React.Component {
   }
 }
 
+/**
+ * mismo comment que en Main.jsx aplica a todos los propTypes
+ */
+
 App.propTypes = {
   store: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired

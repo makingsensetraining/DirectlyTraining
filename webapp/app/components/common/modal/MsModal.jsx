@@ -10,6 +10,9 @@ const MsModal = ({isOpen, cancelCallback, modalTitle, body, okCallback, okButton
     </ModalBody>
     <ModalFooter>
       <Button color="primary" onClick={okCallback}>{okButtonLabel}</Button>{' '}
+      {/**
+      * the space between buttons should be done with styles
+      */}
       <Button color="secondary" onClick={cancelCallback}>{cancelButtonLabel}</Button>
     </ModalFooter>
   </Modal>

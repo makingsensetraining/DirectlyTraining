@@ -4,6 +4,17 @@ import FormInput from '../../common/form/FormInput';
 import './LoginForm.css';
 
 class LoginForm extends React.Component {
+
+  /**
+  * state = {
+  *   username: '',
+  *   password: ''
+  * };
+  */
+
+  /**
+   * este constructor puede ser evitado haciendo lo que dicen los otros comments
+   */
   constructor(props, context) {
     super(props, context);
 
@@ -16,6 +27,10 @@ class LoginForm extends React.Component {
     this.handleOnSubmit = this.handleOnSubmit.bind(this);
   }
 
+  /**
+   * bindear el contexto con una arrow en lugar de usar bind en el constructor
+   * handleOnChange = (e) => { ... }
+   */
   handleOnChange(e) {
     this.setState({
       [e.target.name]: e.target.value
@@ -31,7 +46,7 @@ class LoginForm extends React.Component {
     return (
       <div className="">
         <form className="form-signin" onSubmit={this.handleOnSubmit}>
-          <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>          
+          <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
           <FormInput
             inputId="inputEmail"
             label="Username or email address"

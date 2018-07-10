@@ -11,6 +11,9 @@ import ActionButtons from '../ActionButtons/ActionButtons';
 import './HomePage.css';
 
 export class HomePage extends React.Component {
+  /**
+   * mismo comment que en LoginForm.jsx pueden evitar escribir este constructor
+   */
   constructor(props, context) {
     super(props, context);
 
@@ -48,11 +51,17 @@ export class HomePage extends React.Component {
       case 'delete':
         return usersActions.deleteUser(user);
       default:
+        /**
+        * encapsular esto en un logger para evitar errores visibles en produccion 
+        */
         throw new TypeError(`Unhandled User Action Type ${type}`);
     }
   }
 
   render() {
+    /**
+     * "paginationFactory()" puede ser llamado en este lugar para dejar mas claro que se ejecuta en el render
+     */
     const columns = [{
       dataField: 'name',
       text: 'Full Name'

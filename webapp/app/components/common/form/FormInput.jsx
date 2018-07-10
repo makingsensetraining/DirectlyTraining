@@ -4,6 +4,9 @@ import { FormFeedback, FormGroup, Input, Label } from 'reactstrap';
 
 const FormInput = ({ type, name, placeholder, value, onChange, label, inputId, invalid, required, feedback }) => {
   const asteristk = required ? '*' : '';
+  /**
+   * try to not use ids on components since the might probably be repeted
+   */
   return (
     <FormGroup>
       <Label>{label}{asteristk}</Label>

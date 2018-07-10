@@ -1,3 +1,8 @@
+/**
+ * no deberia hacer falta escribir UT de acciones, porque las acciones no deberian tener logica asociada.
+ * Esta logica deberia ser responsabilidad de otra pieza de codigo y las acciones pueden omitirse de la cobertura
+ */
+
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import * as authActions from './authActions';

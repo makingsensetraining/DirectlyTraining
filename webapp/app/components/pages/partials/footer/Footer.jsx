@@ -1,4 +1,7 @@
 import React from 'react';
+/**
+ * si se va a usar css/sass, intentar usar selectores mas complejos para evitar accidentes
+ */
 import './Footer.css';
 
 const Footer = () => {

@@ -19,6 +19,12 @@ const DEFAULT_USER_MODAL_LABELS = {
   confirmButtonText: 'Save'
 };
 
+/** 
+ * estas funciones deberian ser alguna de las siguientes opciones:
+ * - metodos de ActionButtons
+ * - utilidades escritas en otro archivo
+ * - colocadas al final del archivo aprovechando el hoisting para mostrar primero el componente que le da nombre al archivo
+ */
 function isUserMatchById(sourceUser = {}, targetUser = {}) {
   return sourceUser['id'] === targetUser['id']; 
 }
@@ -28,6 +34,9 @@ function isValidUser(user) {
 }
 
 export class ActionButtons extends React.Component {
+  /**
+   * este constructor se puede evitar siguiendo los consejos de los comments de LoginForm.jsx
+   */
   constructor(props) {
     super(props);
     
@@ -52,6 +61,10 @@ export class ActionButtons extends React.Component {
     this.renderUserModalBody = this.renderUserModalBody.bind(this);
   }
 
+  /**
+   * necesitar componentWillReceiveProps puede indicar errores de diseño.
+   * porque no usar la prop directamente sin pasarla al estado?
+   */
   componentWillReceiveProps({ user: newUser }) {
     const { user: currentSelectedUser } = this.props;
 
@@ -147,6 +160,9 @@ export class ActionButtons extends React.Component {
     }, this.toggle);
   }
 
+  /**
+   * necesitar un metodo extra de render puede indicar que se necesita crear otro componente de presentacion
+   */
   renderUserModalBody() {
     const {
       user,

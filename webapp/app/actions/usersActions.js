@@ -1,3 +1,7 @@
+/** 
+ * evitar usar lodash siempre que sea posible. El peso de la libreria es MUCHO y no ayuda tanto importar
+ * las funciones por separado porque la codependencia interna de lodash es demasiado alta
+ */
 import omit from 'lodash/omit';
 import {
   LOADING_USERS_BEGIN,
@@ -70,6 +74,10 @@ export function selectUser(user) {
   };
 }
 
+/**
+ * !!
+ * las acciones solo deberian describir modelos. La logica deberia estar en otro lado (servicio/saga/thunk)
+ */
 export function deleteUser(user) {
   return dispatch => {
     dispatch(loadingUsersBegin());

@@ -4,7 +4,9 @@ import isEmpty from 'lodash/isEmpty';
 import { Row } from 'reactstrap';
 import FormInput from '../../common/form/FormInput';
 
-
+/**
+ * es preferible usar class syntax en todos los componentes por constencia
+ */
 const UsersForm = ({user, onChange, errors}) => {
   const isNameInvalid = !isEmpty(errors.name);
   const isEmailInvalid =  !isEmpty(errors.email);
