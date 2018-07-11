@@ -25,7 +25,7 @@ export function getStore() {
     thunk
   ];
 
-  if (getQuery()['logger']) {
+  if (getQuery(location.search).logger) {
     middleWares.push(logger);
   }
 
