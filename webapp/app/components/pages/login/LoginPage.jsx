@@ -1,11 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as authActions from '../../../actions/authActions';
 import LoginForm from './LoginForm';
 
-export class LoginPage extends React.Component {
+class LoginPage extends React.Component {
   constructor(props, context) {
     super(props, context);
 
@@ -13,7 +10,7 @@ export class LoginPage extends React.Component {
   }
 
   handleOnSubmit(username, password) {
-    this.props.actions.login(username, password);
+    this.props.authActions.login(username, password);
   }
 
   render() {
@@ -26,19 +23,7 @@ export class LoginPage extends React.Component {
 }
 
 LoginPage.propTypes = {
-  actions: PropTypes.object.isRequired
+  authActions: PropTypes.object.isRequired
 };
 
-export function mapStateToProps(state) {
-  return {
-    ...state.auth
-  };
-}
-
-export function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(authActions, dispatch)
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
+export default LoginPage;

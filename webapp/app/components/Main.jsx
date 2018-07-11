@@ -1,45 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { Switch, Route, withRouter } from 'react-router-dom';
-import * as actions from '../actions/authActions';
-import * as usersActions from '../actions/usersActions';
+import HomePage from './pages/home/HomePage';
 import LoginPage from './pages/login/LoginPage';
 import NotFoundPage from './pages/not_found/NotFoundPage';
-import HomePage from './pages/home/HomePage';
+import * as usersActions from '../actions/usersActions';
+import * as authActions from '../actions/authActions';
+import { Switch, Route } from 'react-router-dom';
 
-export class Main extends React.Component {
+class Main extends React.Component {
+
   render() {
     return (
-      <div>        
+      <div>
         <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route path="/login" component={LoginPage} />
+          // inject context prop, we need the initial state from users
+          <Route
+            exact
+            path="/"
+            render={() => <HomePage
+              context={this.props.context}
+              usersActions={usersActions} /> } />
+          // inject context prop, we need the initial state from auth
+          <Route
+            ath="/login"
+            render={() => <LoginPage
+              context={this.props.context}
+              authActions={authActions} /> } />
           <Route component={NotFoundPage} />
-        </Switch>        
+        </Switch>
       </div>
     );
   }
 }
 
 Main.propTypes = {
-  actions: PropTypes.object.isRequired,
-  isAuthenticated: PropTypes.bool,
-  usersActions: PropTypes.object.isRequired
+  context: PropTypes.object.isRequired
 };
 
-export function mapStateToProps(state) {
-  return {
-    isAuthenticated: state.auth.isAuthenticated
-  };
-}
-
-export function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(actions, dispatch),
-    usersActions: bindActionCreators(usersActions, dispatch)
-  };
-}
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));
+export default Main;

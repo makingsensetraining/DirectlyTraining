@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { ActionButtons, mapStateToProps } from './ActionButtons';
+import ActionButtons from './ActionButtons';
 import initialState from '../../../reducers/initialState';
 
 function setup(props) {
@@ -20,18 +20,6 @@ describe('<ActionButtons />', () => {
 
     expect(wrapper.find('Button')).toHaveLength(3);
     expect(wrapper.find('MsModal')).toHaveLength(1);
-  });
-
-  describe('mapStateToProps function', () => {
-    it('should return the initial state', () => {
-      const expectedProps = {
-        user: {}
-      };
-
-      const props = mapStateToProps(initialState);
-
-      expect(props).toEqual(expectedProps);
-    });
   });
 
   describe('componentWillReceiveProps function', () => {

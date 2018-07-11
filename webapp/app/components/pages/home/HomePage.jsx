@@ -1,22 +1,21 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { Col, Row } from 'reactstrap';
-import BootstrapTable from 'react-bootstrap-table-next';
-import paginationFactory from 'react-bootstrap-table2-paginator';
-import * as usersActions from '../../../actions/usersActions';
 import Header from './../partials/header/Header';
 import ActionButtons from '../ActionButtons/ActionButtons';
+import BootstrapTable from 'react-bootstrap-table-next';
+import PropTypes from 'prop-types';
+import paginationFactory from 'react-bootstrap-table2-paginator';
+import { Col, Row } from 'reactstrap';
+import { get } from 'lodash';
 import './HomePage.css';
 
-export class HomePage extends React.Component {
-  constructor(props, context) {
-    super(props, context);
+class HomePage extends React.Component {
+  constructor(props) {
+    super(props);
 
     this.state = {
       selectedRow: [],
-      user: {}
+      user: {},
+      users: get(props, 'context.users', [])
     };
 
     this.setSelectedRow = this.setSelectedRow.bind(this);
@@ -39,9 +38,9 @@ export class HomePage extends React.Component {
 
   handleUserActionType(type = 'add', user) {
     const { usersActions } = this.props;
-    
+
     switch(type) {
-      case 'add': 
+      case 'add':
         return usersActions.createUser(user);
       case 'edit':
         return usersActions.updateUser(user);
@@ -71,7 +70,7 @@ export class HomePage extends React.Component {
       selected: this.state.selectedRow,
       onSelect: this.setSelectedRow
     };
-    
+
     return (
       <div>
         <Header />
@@ -89,7 +88,7 @@ export class HomePage extends React.Component {
           </Row>
           <BootstrapTable
             keyField='id'
-            data={ this.props.users }
+            data={ this.state.users }
             columns={ columns }
             selectRow={ selectRow }
             pagination={ paginationFactory() }
@@ -101,20 +100,8 @@ export class HomePage extends React.Component {
 }
 
 HomePage.propTypes = {
-  users: PropTypes.array,
+  context: PropTypes.object.isRequired,
   usersActions: PropTypes.object.isRequired
 };
 
-export function mapStateToProps(state) {
-  return {
-    users: state.users.data
-  };
-}
-
-export function mapDispatchToProps(dispatch) {
-  return {
-    usersActions: bindActionCreators(usersActions, dispatch)
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
+export default HomePage;

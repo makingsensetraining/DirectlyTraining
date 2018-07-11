@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'reactstrap';
-import { connect } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 import has from 'lodash/has';
 import MsModal from '../../common/modal/MsModal';
@@ -20,17 +19,17 @@ const DEFAULT_USER_MODAL_LABELS = {
 };
 
 function isUserMatchById(sourceUser = {}, targetUser = {}) {
-  return sourceUser['id'] === targetUser['id']; 
+  return sourceUser['id'] === targetUser['id'];
 }
 
 function isValidUser(user) {
   return has(user, 'id') && isEmpty(user, 'id') === false;
 }
 
-export class ActionButtons extends React.Component {
+class ActionButtons extends React.Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
       actionType: null,
       user: {...EMPTY_USER, ...props.user},
@@ -124,7 +123,7 @@ export class ActionButtons extends React.Component {
   saveUser() {
     if (!this.canSubmitForm()) {
       return;
-    }    
+    }
 
     if (typeof this.props.onConfirm === 'function') {
       this.props.onConfirm(this.state.actionType, this.state.user)
@@ -222,10 +221,12 @@ ActionButtons.propTypes = {
   onConfirm: PropTypes.func
 };
 
+/**
 export function mapStateToProps({ users }) {
   return {
     user: users.selectedUser
   };
 }
+**/
 
-export default connect(mapStateToProps)(ActionButtons);
+export default ActionButtons;

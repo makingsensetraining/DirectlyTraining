@@ -1,11 +1,10 @@
 import React from 'react';
 import { render } from 'react-dom';
-import store, { history } from './store';
 import App from './components/App';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import './styles.css';
 render(
-  <App store={store} history={history} />,
+  <App />,
   document.getElementById('app')
 );

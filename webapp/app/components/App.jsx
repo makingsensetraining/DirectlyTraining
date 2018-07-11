@@ -1,25 +1,24 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'react-router-redux';
+// AppProvider context from app
+// AppConsumer get states from app
+import { AppProvider, AppConsumer } from '../context-api/context';
+// Added browser router to manage urls
+import { BrowserRouter } from 'react-router-dom';
+import { browserHistory } from 'react-router';
 import Main from './Main';
 
 class App extends React.Component {
   render() {
-    const { store, history } = this.props;
     return (
-      <Provider store={store}>
-        <ConnectedRouter history={history}>
-          <Main />
-        </ConnectedRouter>
-      </Provider>
+      <AppProvider>
+        <BrowserRouter history={browserHistory}>
+          <AppConsumer>
+            {context => <Main context={context} />}
+          </AppConsumer>
+        </BrowserRouter>
+      </AppProvider>
     );
   }
 }
-
-App.propTypes = {
-  store: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired
-};
 
 export default App;
