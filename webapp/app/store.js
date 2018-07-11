@@ -6,7 +6,7 @@ import logger from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
 import thunk from 'redux-thunk';
 
-import { getQuery } from './utils/url';
+import { getQuery } from './utils';
 import { initSagas } from './initSagas';
 import initialState from './reducers/initialState';
 import rootReducer from './reducers/rootReducer';
