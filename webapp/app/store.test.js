@@ -8,7 +8,7 @@ describe('Store', () => {
     store = getStore();
   });
 
-  describe('getStore', () => {
+  fdescribe('getStore', () => {
     it('should be defined', () => {
       expect(getStore).toBeDefined();
     });

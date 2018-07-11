@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Switch, Route, withRouter } from 'react-router-dom';
-import * as actions from '../actions/authActions';
 import * as usersActions from '../actions/usersActions';
 import LoginPage from './pages/login/LoginPage';
 import NotFoundPage from './pages/not_found/NotFoundPage';
@@ -24,22 +23,13 @@ export class Main extends React.Component {
 }
 
 Main.propTypes = {
-  actions: PropTypes.object.isRequired,
-  isAuthenticated: PropTypes.bool,
   usersActions: PropTypes.object.isRequired
 };
 
-export function mapStateToProps(state) {
-  return {
-    isAuthenticated: state.auth.isAuthenticated
-  };
-}
-
 export function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(actions, dispatch),
     usersActions: bindActionCreators(usersActions, dispatch)
   };
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));
+export default withRouter(connect(null, mapDispatchToProps)(Main));

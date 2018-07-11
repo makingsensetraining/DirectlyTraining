@@ -10,8 +10,7 @@ module.exports = {
     '**/app/**/*.{js,jsx}',
     '!**/node_modules/**',
     '!**/vendor/**',
-    '!**/app/index.jsx',
-    '!**/app/**/PrivateRoute.jsx' // Ignored sin it's unused for now
+    '!**/app/index.jsx'
   ],
   coverageDirectory: `${buildLogFolder}/coverage`,
   reporters: [

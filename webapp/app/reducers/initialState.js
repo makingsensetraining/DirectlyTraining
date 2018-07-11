@@ -1,12 +1,7 @@
 export default {
-  auth: {
-    authenticating: false,
-    isAuthenticated: false,
-    error: false,
-    errorMessage: null,
-    user: null
+  routing: {
+    location: null
   },
-  routing: null,
   users: {
     data: [],
     selectedUser: {},
