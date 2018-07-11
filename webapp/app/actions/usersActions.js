@@ -75,7 +75,6 @@ export function deleteUser(user) {
     dispatch(loadingUsersBegin());
     return deleteUsers(getUserId(user))
       .then(handleErrors)
-      .then(res => res.json())
       .then(() => {
         dispatch(loadingUsersComplete());
         dispatch(deleteUsersSuccess(user));
@@ -90,11 +89,10 @@ export function updateUser(user) {
     dispatch(loadingUsersBegin());
     return updateUsers(getUserId(user), omit(user, DEFAULT_USER_VALID_ID_PATHS))
       .then(handleErrors)
-      .then(res => res.json())
-      .then(json => {
+      .then(({ data }) => {
         dispatch(loadingUsersComplete());
-        dispatch(updateUsersSuccess(json.data));
-        return json.data;
+        dispatch(updateUsersSuccess(data));
+        return data;
       })
       .catch(error => dispatch(loadingUsersFailed(error)));
   };
@@ -105,11 +103,10 @@ export function createUser(userData) {
     dispatch(loadingUsersBegin());
     return createUsers(omit(userData, DEFAULT_USER_VALID_ID_PATHS))
       .then(handleErrors)
-      .then(res => res.json())
-      .then(json => {
+      .then(({ data }) => {
         dispatch(loadingUsersComplete());
-        dispatch(createUsersSuccess(json.data));
-        return json.data;
+        dispatch(createUsersSuccess(data));
+        return data;
       })
       .catch(error => dispatch(loadingUsersFailed(error)));
   };
@@ -120,11 +117,10 @@ export function getUsers(queryParams = DEFAULT_PAGINATION_QUERY) {
     dispatch(loadingUsersBegin());
     return fetchUsers(queryParams)
       .then(handleErrors)
-      .then(res => res.json())
-      .then(json => {
+      .then(({ data }) => {
         const usersPayload = {
-          ...omit(json.data, ['docs']),
-          users: json.data.docs
+          ...omit(data, ['docs']),
+          users: data.docs
         };
         dispatch(loadingUsersComplete());
         dispatch(getUsersSuccess(usersPayload));
@@ -136,7 +132,7 @@ export function getUsers(queryParams = DEFAULT_PAGINATION_QUERY) {
 
 // TODO move to service errors utility
 function handleErrors(response) {
-  if (!response.ok) {
+  if (response.statusText !== 'OK') {
     throw Error(response.statusText);
   }
   return response;
