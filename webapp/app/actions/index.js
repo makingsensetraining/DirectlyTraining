@@ -1,1 +1,5 @@
-export { setUsers, SET_USERS } from './setUsersActions';
+export {
+  getUsersSuccess,
+  loadingUsersBegin,
+  loadingUsersComplete
+} from './usersActions';

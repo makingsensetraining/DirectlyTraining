@@ -1,90 +1,79 @@
 import {
+  GET_USERS_SUCCESS,
   LOADING_USERS_BEGIN,
   LOADING_USERS_COMPLETE,
   LOADING_USERS_FAILED,
   CREATE_USERS_SUCCESS,
-  GET_USERS_SUCCESS,
   DELETE_USERS_SUCCESS,
   UPDATE_USERS_SUCCESS,
-  SELECT_USERS_SUCCESS,
+  SELECT_USERS_SUCCESS
 } from '../actions/actionTypes';
-import { getUserId } from '../utils/user';
+import { getUserId } from '../utils';
+import { createReducer } from '../utils';
+import initialState from './initialState';
 
-export const initialState = {
-  data: [],
-  selectedUser: {},
-  fetch: {
-    loading: false,
-    error: null
+export const users = createReducer(initialState.users, {
+  [GET_USERS_SUCCESS](state, { users }) {
+    return {
+      ...state,
+      data: users
+    };
+  },
+  [CREATE_USERS_SUCCESS](state, { user }) {
+    return {
+      ...state,
+      data: [
+        user,
+        ...state.data
+      ]
+    };
+  },
+  [DELETE_USERS_SUCCESS](state, { user }) {
+    return {
+      ...state,
+      data: state.data.filter(sourceUser => getUserId(user) !== getUserId(sourceUser))
+    };
+  },
+  [UPDATE_USERS_SUCCESS](state, { user }) {
+    return {
+      ...state,
+      data: [
+        user,
+        ...state.data.filter(sourceUser => getUserId(user) !== getUserId(sourceUser))
+      ]
+    };
+  },
+  [SELECT_USERS_SUCCESS](state, { user }) {
+    return {
+      ...state,
+      selectedUser: user
+    };
+  },
+  [LOADING_USERS_BEGIN](state) {
+    return {
+      ...state,
+      fetch: {
+        loading: true,
+        error: null
+      }
+    };
+  },
+  [LOADING_USERS_COMPLETE](state) {
+    return {
+      ...state,
+      fetch: {
+        loading: false,
+        error: null
+      }
+    };
+  },
+  [LOADING_USERS_FAILED](state, { error }) {
+    return {
+      ...state,
+      fetch: {
+        loading: false,
+        error: error
+      }
+    };
   }
-};
-
-export default function usersReducer(state = initialState, action) {
-  switch(action.type) {
-    case CREATE_USERS_SUCCESS:
-      return {
-        ...state,
-        data: [
-          action.payload,
-          ...state.data
-        ]
-      };
-
-    case DELETE_USERS_SUCCESS:
-      return {
-        ...state,
-        data: state.data.filter(user => getUserId(action.payload) !== getUserId(user))
-      };
-
-    case GET_USERS_SUCCESS:
-      return {
-        ...state,
-        data: action.payload.users
-      };
-
-    case SELECT_USERS_SUCCESS:
-      return {
-        ...state,
-        selectedUser: action.payload
-      };
-
-    case UPDATE_USERS_SUCCESS:
-      return {
-        ...state,
-        data: [
-          action.payload,
-          ...state.data.filter(user => getUserId(action.payload) !== getUserId(user))
-        ]
-      };
-
-    case LOADING_USERS_BEGIN:
-      return {
-        ...state,
-        fetch: {
-          loading: true,
-          error: null
-        }
-      };
-
-    case LOADING_USERS_COMPLETE:
-      return {
-        ...state,
-        fetch: {
-          loading: false,
-          error: null
-        }
-      };
-
-    case LOADING_USERS_FAILED:
-      return {
-        ...state,
-        fetch: {
-          loading: false,
-          error: action.payload.error
-        }
-      };
-
-    default:
-      return state;
-  }
-}
+});

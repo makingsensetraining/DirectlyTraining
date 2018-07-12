@@ -1,4 +1,4 @@
-import initSagas from './initSagas';
+import { initSagas } from './initSagas';
 
 describe('initSagas', () => {
   it('should be defined', () => {

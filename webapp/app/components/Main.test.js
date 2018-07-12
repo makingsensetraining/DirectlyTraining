@@ -14,7 +14,7 @@ describe('<Main /> component', () => {
     });
 
     expect(wrapper.find('Switch')).toHaveLength(1);
-    expect(wrapper.find('Route')).toHaveLength(3);
+    expect(wrapper.find('Route')).toHaveLength(2);
   });
 
   describe('mapDispatchToProps functions', () => {
@@ -30,18 +30,7 @@ describe('<Main /> component', () => {
       const expectedActions = [
         'loadingUsersBegin',
         'loadingUsersComplete',
-        'loadingUsersFailed',
-        'createUsersSuccess',
-        'selectUsersSuccess',
-        'getUsersSuccess',
-        'updateUsersSuccess',
-        'deleteUsersSuccess',
-        'selectUser',
-        'deleteUser',
-        'updateUser',
-        'createUser',
-        'getUsers'
-
+        'getUsersSuccess'
       ];
 
       const props = mapDispatchToProps(dispatch);

@@ -1,1 +1,1 @@
-export { getUsersSaga } from './fetchUsersSaga';
+export { getUsersSaga } from './getUsersSaga';

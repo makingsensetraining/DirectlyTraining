@@ -46,17 +46,7 @@ describe('<HomePage /> component', () => {
       const expectedActions = [
         'loadingUsersBegin',
         'loadingUsersComplete',
-        'loadingUsersFailed',
-        'createUsersSuccess',
-        'selectUsersSuccess',
-        'getUsersSuccess',
-        'updateUsersSuccess',
-        'deleteUsersSuccess',
-        'selectUser',
-        'deleteUser',
-        'updateUser',
-        'createUser',
-        'getUsers'
+        'getUsersSuccess'
       ];
 
       const props = mapDispatchToProps(dispatch);
