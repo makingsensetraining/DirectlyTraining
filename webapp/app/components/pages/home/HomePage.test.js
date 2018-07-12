@@ -1,8 +1,6 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import HomePage from './HomePage';
-import initialState from '../../../reducers/initialState';
-import {keys} from 'lodash/fp';
 
 describe('<HomePage /> component', () => {
   it('renders itself', () => {

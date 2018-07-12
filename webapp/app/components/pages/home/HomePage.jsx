@@ -9,13 +9,13 @@ import { get } from 'lodash';
 import './HomePage.css';
 
 class HomePage extends React.Component {
+
   constructor(props) {
     super(props);
 
     this.state = {
       selectedRow: [],
-      user: {},
-      users: get(props, 'context.users', [])
+      users: get(props.context, 'users', [])
     };
 
     this.setSelectedRow = this.setSelectedRow.bind(this);
@@ -23,29 +23,31 @@ class HomePage extends React.Component {
   }
 
   componentDidMount() {
-    this.props.usersActions.getUsers();
+    if (this.props.context && this.props.context.getUsers) {
+      this.props.context.getUsers();
+    }
   }
 
   setSelectedRow(user) {
     this.setState({
       selectedRow: [user.id]
     }, () => {
-      if (typeof this.props.usersActions.selectUser === 'function') {
-        this.props.usersActions.selectUser(user);
+      if (this.props.context && this.props.context.selectUser) {
+        this.props.context.selectUser(user);
       }
     });
   }
 
   handleUserActionType(type = 'add', user) {
-    const { usersActions } = this.props;
+    const context = this.props.context;
 
     switch(type) {
       case 'add':
-        return usersActions.createUser(user);
+        return context.createUser(user);
       case 'edit':
-        return usersActions.updateUser(user);
+        return context.updateUser(user);
       case 'delete':
-        return usersActions.deleteUser(user);
+        return context.deleteUser(user);
       default:
         throw new TypeError(`Unhandled User Action Type ${type}`);
     }
@@ -81,14 +83,14 @@ class HomePage extends React.Component {
             </Col>
             <Col md="4">
               <ActionButtons
-                user={this.state.user}
+                user={this.state.users.selectedUser}
                 onConfirm={this.handleUserActionType}
               />
             </Col>
           </Row>
           <BootstrapTable
             keyField='id'
-            data={ this.state.users }
+            data={ this.state.users.data }
             columns={ columns }
             selectRow={ selectRow }
             pagination={ paginationFactory() }
@@ -100,8 +102,7 @@ class HomePage extends React.Component {
 }
 
 HomePage.propTypes = {
-  context: PropTypes.object.isRequired,
-  usersActions: PropTypes.object.isRequired
+  context: PropTypes.object.isRequired
 };
 
 export default HomePage;

@@ -221,12 +221,4 @@ ActionButtons.propTypes = {
   onConfirm: PropTypes.func
 };
 
-/**
-export function mapStateToProps({ users }) {
-  return {
-    user: users.selectedUser
-  };
-}
-**/
-
 export default ActionButtons;

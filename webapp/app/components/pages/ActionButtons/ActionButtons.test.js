@@ -1,7 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import ActionButtons from './ActionButtons';
-import initialState from '../../../reducers/initialState';
 
 function setup(props) {
   return shallow(
