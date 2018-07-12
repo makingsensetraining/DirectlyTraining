@@ -31,7 +31,7 @@ class LoginForm extends React.Component {
     return (
       <div className="">
         <form className="form-signin" onSubmit={this.handleOnSubmit}>
-          <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>          
+          <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
           <FormInput
             inputId="inputEmail"
             label="Username or email address"

@@ -3,8 +3,31 @@ import { shallow } from 'enzyme';
 import HomePage from './HomePage';
 
 describe('<HomePage /> component', () => {
+  let mockContext;
+
+  beforeEach(() => {
+    mockContext = {
+      auth: {
+        authenticating: false,
+        isAuthenticated: false,
+        error: false,
+        errorMessage: null,
+        user: null
+      },
+      routing: null,
+      users: {
+        data: [],
+        selectedUser: {},
+        fetch: {
+          loading: false,
+          error: null
+        }
+      }
+    };
+  });
+  
   it('renders itself', () => {
-    const wrapper = shallow(<HomePage />);
+    const wrapper = shallow(<HomePage context={mockContext} />);
 
     expect(wrapper.find('Header')).toHaveLength(1);
     expect(wrapper.find('.container')).toHaveLength(1);

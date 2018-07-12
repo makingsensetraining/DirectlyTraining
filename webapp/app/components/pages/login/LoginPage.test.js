@@ -5,11 +5,33 @@ import LoginPage from './LoginPage';
 function setup(props) {
   return shallow(<LoginPage {...props} />);
 }
-
 describe('<LoginPage /> component', () => {
+  let mockContext;
+
+  beforeEach(() => {
+    mockContext = {
+      auth: {
+        authenticating: false,
+        isAuthenticated: false,
+        error: false,
+        errorMessage: null,
+        user: null
+      },
+      routing: null,
+      users: {
+        data: [],
+        selectedUser: {},
+        fetch: {
+          loading: false,
+          error: null
+        }
+      }
+    };
+  });
+
   it('renders itself', () => {
     const wrapper = setup({
-      actions: {}
+      context: mockContext
     });
 
     expect(wrapper.find('section')).toHaveLength(1);
