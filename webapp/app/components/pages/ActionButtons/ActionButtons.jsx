@@ -7,6 +7,7 @@ import has from 'lodash/has';
 import MsModal from '../../common/modal/MsModal';
 import UsersForm from '../UsersForm/UsersForm';
 import { EMAIL_REGEXP } from '../../../constants';
+import { selectedUserSelector } from '../../../selectors';
 
 const EMPTY_USER = {
   name: '',
@@ -222,9 +223,9 @@ ActionButtons.propTypes = {
   onConfirm: PropTypes.func
 };
 
-export function mapStateToProps({ users }) {
+export function mapStateToProps(state) {
   return {
-    user: users.selectedUser
+    user: selectedUserSelector(state)
   };
 }
 

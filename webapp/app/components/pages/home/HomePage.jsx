@@ -109,10 +109,9 @@ HomePage.propTypes = {
   usersActions: PropTypes.object.isRequired
 };
 
-export function mapStateToProps(state) {
-  const users = usersSelector(state);
+export function mapStateToProps(state) { 
   return {
-    users: users.data
+    users: usersSelector(state)
   };
 }
 
