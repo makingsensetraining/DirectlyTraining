@@ -80,5 +80,23 @@ describe('Get Users Saga', () => {
         put(loadingUsersComplete(LOADING_USERS_COMPLETE))
       );
     });
+
+    describe('when no query params are passed', () => {
+      beforeAll(() => {
+        getUsersGen = getUsersStart({ queryParams: undefined });
+      });
+
+      it('should start loading', () => {
+        expect(getUsersGen.next().value).toEqual(
+          put(loadingUsersBegin(LOADING_USERS_BEGIN))
+        );
+      });
+  
+      it('should fetch the users', () => {
+        expect(getUsersGen.next().value).toEqual(
+          call(fetchUsers, DEFAULT_PAGINATION_QUERY)
+        );
+      });
+    });
   });
 });
