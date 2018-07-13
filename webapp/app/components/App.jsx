@@ -1,7 +1,6 @@
 import React from 'react';
 // AppProvider context from app
-// AppConsumer get states from app
-import { AppProvider, AppConsumer } from '../context-api/context';
+import AppProvider from '../context-api/AppProvider';
 // Added browser router to manage urls
 import { BrowserRouter } from 'react-router-dom';
 import { browserHistory } from 'react-router';
@@ -12,9 +11,7 @@ class App extends React.Component {
     return (
       <AppProvider>
         <BrowserRouter history={browserHistory}>
-          <AppConsumer>
-            {context => <Main context={context} />}
-          </AppConsumer>
+          <Main />
         </BrowserRouter>
       </AppProvider>
     );

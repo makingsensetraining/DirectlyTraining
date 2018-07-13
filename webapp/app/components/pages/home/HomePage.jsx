@@ -15,7 +15,7 @@ class HomePage extends React.Component {
 
     this.state = {
       selectedRow: [],
-      users: get(props.context, 'users', [])
+      users: get(props.usersContext, 'data', [])
     };
 
     this.setSelectedRow = this.setSelectedRow.bind(this);
@@ -23,8 +23,8 @@ class HomePage extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.context && this.props.context.getUsers) {
-      this.props.context.getUsers();
+    if (this.props.usersContext && this.props.usersContext.getUsers) {
+      this.props.usersContext.getUsers();
     }
   }
 
@@ -32,22 +32,22 @@ class HomePage extends React.Component {
     this.setState({
       selectedRow: [user.id]
     }, () => {
-      if (this.props.context && this.props.context.selectUser) {
-        this.props.context.selectUser(user);
+      if (this.props.usersContext && this.props.usersContext.selectUser) {
+        this.props.usersContext.selectUser(user);
       }
     });
   }
 
   handleUserActionType(type = 'add', user) {
-    const context = this.props.context;
+    const usersContext = this.props.usersContext;
 
     switch(type) {
       case 'add':
-        return context.createUser(user);
+        return usersContext.createUser(user);
       case 'edit':
-        return context.updateUser(user);
+        return usersContext.updateUser(user);
       case 'delete':
-        return context.deleteUser(user);
+        return usersContext.deleteUser(user);
       default:
         throw new TypeError(`Unhandled User Action Type ${type}`);
     }
@@ -79,7 +79,7 @@ class HomePage extends React.Component {
   getBootstrapTableProps () {
     return {
       columns: this.getColumnsProp(),
-      data: this.state.users.data,
+      data: this.props.usersContext.data,
       keyField: 'id',
       selectRow: this.getSelectRowProp(),
       pagination: paginationFactory()
@@ -100,12 +100,12 @@ class HomePage extends React.Component {
             </Col>
             <Col md="4">
               <ActionButtons
-                user={this.state.users.selectedUser}
+                user={this.props.usersContext.selectedUser}
                 onConfirm={this.handleUserActionType}
               />
             </Col>
           </Row>
-          <BootstrapTable {...this.getBootstrapTableProps()}/>
+          <BootstrapTable {...this.getBootstrapTableProps()} />
         </div>
       </div>
     );
@@ -113,7 +113,7 @@ class HomePage extends React.Component {
 }
 
 HomePage.propTypes = {
-  context: PropTypes.object.isRequired
+  usersContext: PropTypes.object.isRequired
 };
 
 export default HomePage;

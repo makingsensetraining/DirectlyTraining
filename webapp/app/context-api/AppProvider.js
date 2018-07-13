@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { extend, omit } from 'lodash';
-
-const AppContext = React.createContext();
+import omit from 'lodash/omit';
+import { UsersContext, users } from './usersContext';
 
 import {
   DEFAULT_USER_VALID_ID_PATHS,
@@ -19,7 +18,7 @@ import {
 
 import { getUserId } from '../utils/user';
 
-export class AppProvider extends React.Component {
+class AppProvider extends React.Component {
   constructor(props) {
     super(props);
 
@@ -29,22 +28,10 @@ export class AppProvider extends React.Component {
     this.deleteUser = this.deleteUser.bind(this);
     this.selectUser = this.selectUser.bind(this);
 
+    // State also contains the updater function so it will
+    // be passed down withs the context provider
     this.state = {
-      auth: {
-        authenticating: false,
-        isAuthenticated: false,
-        error: false,
-        errorMessage: null,
-        user: null
-      },
-      users: {
-        data: [],
-        selectedUser: {},
-        fetch: {
-          loading: false,
-          error: null
-        }
-      },
+      ...users,
       getUsers: this.getUsers,
       createUser: this.createUser,
       updateUser: this.updateUser,
@@ -57,7 +44,8 @@ export class AppProvider extends React.Component {
     return fetchUsers(queryParams)
       .then(handleErrors)
       .then(({ data }) => {
-        let users = extend(this.state.users, {
+        this.setState({
+          ...this.state,
           data: data.docs,
           fetch: {
             error: null,
@@ -65,7 +53,7 @@ export class AppProvider extends React.Component {
           }
         });
 
-        this.setState({ users: users });
+        return data;
       });
   }
 
@@ -73,99 +61,70 @@ export class AppProvider extends React.Component {
     return createUsers(omit(userData, DEFAULT_USER_VALID_ID_PATHS))
       .then(handleErrors)
       .then(({ data }) => {
-        let users = this.getCreatedUsersData(data);
-
         this.setState({
-          users: users
+          data: [
+            ...this.state.data,
+            data
+          ]
         });
 
         return users;
       });
   }
 
-  getCreatedUsersData (user) {
-    let users = this.state.users;
-    users.data = [
-      ...users.data,
-      user
-    ];
-
-    return users;
-  }
-
   updateUser (updatedUser) {
     return updateUsers(getUserId(updatedUser), omit(updatedUser, DEFAULT_USER_VALID_ID_PATHS))
       .then(handleErrors)
       .then(() => {
-        let users = this.getUpdatedUsersData(updatedUser);
-
         this.setState({
-          users: users
+          data: [
+            updatedUser,
+            ...this.state.data.filter(
+              user => getUserId(updatedUser) !== getUserId(user)
+            )
+          ],
+          fetch: {
+            loading: false,
+            error: null
+          }
         }, function () {
           return users;
         });
       });
-  }
-
-  getUpdatedUsersData (updatedUser) {
-    let users = this.state.users;
-
-    return extend(users, {
-      data: [
-        updatedUser,
-        ...users.data.filter(
-          user => getUserId(updatedUser) !== getUserId(user)
-        )
-      ],
-      fetch: {
-        loading: false,
-        error: null
-      }
-    });
   }
 
   deleteUser (deletedUser) {
     return deleteUsers(getUserId(deletedUser))
       .then(handleErrors)
       .then(() => {
-        let users = this.getDeletedUsersData(deletedUser);
-
         this.setState({
-          users: users
+          ...this.state,
+          data: this.state.data.filter(
+            user => getUserId(deletedUser) !== getUserId(user)
+          ),
+          fetch: {
+            loading: false,
+            error: null
+          },
+          selectedUser: {}
         }, function () {
           return users;
         });
       });
   }
 
-  getDeletedUsersData (deletedUser) {
-    let users = this.state.users;
-
-    return extend(users, {
-      data: users.data.filter(
-        user => getUserId(deletedUser) !== getUserId(user)
-      ),
-      fetch: {
-        loading: false,
-        error: null
-      },
-      selectedUser: {}
-    });
-  }
-
-  selectUser (user) {
+  selectUser (selectedUser) {
     this.setState({
-      users: extend(this.state.users, {
-        selectedUser: user
-      })
+      ...this.state,
+      selectedUser
     });
   }
 
   render() {
     return (
-      <AppContext.Provider value={this.state}>
+      <UsersContext.Provider value={this.state}>
         {this.props.children}
-      </AppContext.Provider>
+      </UsersContext.Provider>
     );
   }
 }
@@ -174,4 +133,4 @@ AppProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export const AppConsumer = AppContext.Consumer;
+export default AppProvider;

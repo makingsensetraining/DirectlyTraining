@@ -25,7 +25,7 @@ class LoginPage extends React.Component {
 }
 
 LoginPage.propTypes = {
-  context: PropTypes.object.isRequired
+  context: PropTypes.object
 };
 
 export default LoginPage;
