@@ -1,8 +1,6 @@
-import initialState from './initialState';
-import PropTypes from 'prop-types';
 import React from 'react';
-import { extend } from 'lodash';
-import omit from 'lodash/omit';
+import PropTypes from 'prop-types';
+import { extend, omit } from 'lodash';
 
 const AppContext = React.createContext();
 
@@ -22,8 +20,8 @@ import {
 import { getUserId } from '../utils/user';
 
 export class AppProvider extends React.Component {
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
 
     this.getUsers = this.getUsers.bind(this);
     this.createUser = this.createUser.bind(this);
@@ -31,26 +29,42 @@ export class AppProvider extends React.Component {
     this.deleteUser = this.deleteUser.bind(this);
     this.selectUser = this.selectUser.bind(this);
 
-    this.state = extend(initialState, {
+    this.state = {
+      auth: {
+        authenticating: false,
+        isAuthenticated: false,
+        error: false,
+        errorMessage: null,
+        user: null
+      },
+      users: {
+        data: [],
+        selectedUser: {},
+        fetch: {
+          loading: false,
+          error: null
+        }
+      },
       getUsers: this.getUsers,
       createUser: this.createUser,
       updateUser: this.updateUser,
       deleteUser: this.deleteUser,
       selectUser: this.selectUser
-    });
+    };
   }
 
   getUsers (queryParams = DEFAULT_PAGINATION_QUERY) {
-    fetchUsers(queryParams)
+    return fetchUsers(queryParams)
       .then(handleErrors)
       .then(({ data }) => {
         let users = extend(this.state.users, {
+          data: data.docs,
           fetch: {
             error: null,
             loading: false
-          },
-          data: data.docs
+          }
         });
+
         this.setState({ users: users });
       });
   }
@@ -59,11 +73,7 @@ export class AppProvider extends React.Component {
     return createUsers(omit(userData, DEFAULT_USER_VALID_ID_PATHS))
       .then(handleErrors)
       .then(({ data }) => {
-        let users = this.state.users;
-        users.data = [
-          ...users.data,
-          data
-        ];
+        let users = this.getCreatedUsersData(data);
 
         this.setState({
           users: users
@@ -71,56 +81,76 @@ export class AppProvider extends React.Component {
 
         return users;
       });
+  }
+
+  getCreatedUsersData (user) {
+    let users = this.state.users;
+    users.data = [
+      ...users.data,
+      user
+    ];
+
+    return users;
   }
 
   updateUser (updatedUser) {
     return updateUsers(getUserId(updatedUser), omit(updatedUser, DEFAULT_USER_VALID_ID_PATHS))
       .then(handleErrors)
       .then(() => {
-        let users = this.state.users;
-        users = extend(users, {
-          data: [
-            updatedUser,
-            ...users.data.filter(
-              user => getUserId(updatedUser) !== getUserId(user)
-            )
-          ],
-          fetch: {
-            loading: false,
-            error: null
-          }
-        });
+        let users = this.getUpdatedUsersData(updatedUser);
 
         this.setState({
           users: users
+        }, function () {
+          return users;
         });
-
-        return users;
       });
+  }
+
+  getUpdatedUsersData (updatedUser) {
+    let users = this.state.users;
+
+    return extend(users, {
+      data: [
+        updatedUser,
+        ...users.data.filter(
+          user => getUserId(updatedUser) !== getUserId(user)
+        )
+      ],
+      fetch: {
+        loading: false,
+        error: null
+      }
+    });
   }
 
   deleteUser (deletedUser) {
     return deleteUsers(getUserId(deletedUser))
       .then(handleErrors)
       .then(() => {
-        let users = this.state.users;
-        users = extend(users, {
-          data: users.data.filter(
-            user => getUserId(deletedUser) !== getUserId(user)
-          ),
-          fetch: {
-            loading: false,
-            error: null
-          },
-          selectedUser: {}
-        });
+        let users = this.getDeletedUsersData(deletedUser);
 
         this.setState({
           users: users
+        }, function () {
+          return users;
         });
-
-        return users;
       });
+  }
+
+  getDeletedUsersData (deletedUser) {
+    let users = this.state.users;
+
+    return extend(users, {
+      data: users.data.filter(
+        user => getUserId(deletedUser) !== getUserId(user)
+      ),
+      fetch: {
+        loading: false,
+        error: null
+      },
+      selectedUser: {}
+    });
   }
 
   selectUser (user) {

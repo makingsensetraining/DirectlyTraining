@@ -6,7 +6,9 @@ import NotFoundPage from './pages/not_found/NotFoundPage';
 import { Switch, Route } from 'react-router-dom';
 
 class Main extends React.Component {
-
+  // Auth and Users share the same AppProvider we can combine the Providers?
+  // Nested Providers? We can use two differents Providers? One for users and
+  // other for auth?
   render() {
     return (
       <div>

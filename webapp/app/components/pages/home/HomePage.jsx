@@ -53,8 +53,8 @@ class HomePage extends React.Component {
     }
   }
 
-  render() {
-    const columns = [{
+  getColumnsProp() {
+    return [{
       dataField: 'name',
       text: 'Full Name'
     }, {
@@ -64,15 +64,32 @@ class HomePage extends React.Component {
       dataField: 'phone',
       text: 'Phone Number'
     }];
+  }
 
-    const selectRow = {
+  getSelectRowProp() {
+    return {
       mode: 'radio',
       clickToSelect: true,
-      bgColor: '#c8e6c9',
+      bgColor: '#C8E6C9',
       selected: this.state.selectedRow,
       onSelect: this.setSelectedRow
     };
+  }
 
+  getBootstrapTableProps () {
+    return {
+      columns: this.getColumnsProp(),
+      data: this.state.users.data,
+      keyField: 'id',
+      selectRow: this.getSelectRowProp(),
+      pagination: paginationFactory()
+    };
+  }
+
+  render() {
+    // I was trying to implement consumer here but we can have problems
+    // with the bind function handleUserActionType we need initialized context
+    // in the initial state
     return (
       <div>
         <Header />
@@ -88,13 +105,7 @@ class HomePage extends React.Component {
               />
             </Col>
           </Row>
-          <BootstrapTable
-            keyField='id'
-            data={ this.state.users.data }
-            columns={ columns }
-            selectRow={ selectRow }
-            pagination={ paginationFactory() }
-          />
+          <BootstrapTable {...this.getBootstrapTableProps()}/>
         </div>
       </div>
     );
