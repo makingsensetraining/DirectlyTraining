@@ -10,8 +10,8 @@ class LoginPage extends React.Component {
   }
 
   handleOnSubmit(username, password) {
-    if (this.props.context && this.props.context.login) {
-      this.props.context.login(username, password);
+    if (this.props.authContext && this.props.authContext.login) {
+      this.props.authContext.login(username, password);
     }
   }
 
@@ -25,7 +25,7 @@ class LoginPage extends React.Component {
 }
 
 LoginPage.propTypes = {
-  context: PropTypes.object
+  authContext: PropTypes.object.isRequired
 };
 
 export default LoginPage;
