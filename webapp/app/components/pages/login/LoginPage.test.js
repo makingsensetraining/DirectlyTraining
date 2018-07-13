@@ -6,8 +6,13 @@ function setup(props) {
   return shallow(<LoginPage {...props} />);
 }
 describe('<LoginPage /> component', () => {
+  const mockAuthContext = {
+    login: jest.fn
+  };
   it('renders itself', () => {
-    const wrapper = setup({});
+    const wrapper = setup({
+      authContext: mockAuthContext
+    });
 
     expect(wrapper.find('section')).toHaveLength(1);
     expect(wrapper.find('LoginForm')).toHaveLength(1);

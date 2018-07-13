@@ -9,16 +9,9 @@ import {
   DEFAULT_PAGINATION_QUERY
 } from '../constants';
 
-import {
-  createUsers,
-  deleteUsers,
-  fetchUsers,
-  updateUsers,
-  handleErrors
-} from '../services/userService';
-
+import * as userService from '../services/userService';
 import * as authService from '../services/authService';
-
+import { handleErrors } from '../services/errorService';
 
 import { getUserId } from '../utils/user';
 
@@ -54,7 +47,7 @@ class AppProvider extends React.Component {
   }
 
   getUsers (queryParams = DEFAULT_PAGINATION_QUERY) {
-    return fetchUsers(queryParams)
+    return userService.fetchUsers(queryParams)
       .then(handleErrors)
       .then(({ data }) => {
         this.setState({
@@ -73,7 +66,7 @@ class AppProvider extends React.Component {
   }
 
   createUser (userData) {
-    return createUsers(omit(userData, DEFAULT_USER_VALID_ID_PATHS))
+    return userService.createUsers(omit(userData, DEFAULT_USER_VALID_ID_PATHS))
       .then(handleErrors)
       .then(({ data }) => {
         this.setState({
@@ -91,7 +84,7 @@ class AppProvider extends React.Component {
   }
 
   updateUser (updatedUser) {
-    return updateUsers(getUserId(updatedUser), omit(updatedUser, DEFAULT_USER_VALID_ID_PATHS))
+    return userService.updateUsers(getUserId(updatedUser), omit(updatedUser, DEFAULT_USER_VALID_ID_PATHS))
       .then(handleErrors)
       .then(() => {
         this.setState({
@@ -115,8 +108,7 @@ class AppProvider extends React.Component {
   }
 
   deleteUser (deletedUser) {
-    return deleteUsers(getUserId(deletedUser))
-      .then(handleErrors)
+    return userService.deleteUsers(getUserId(deletedUser))
       .then(() => {
         this.setState({
           users: {
