@@ -4,7 +4,7 @@ import {
   takeLatest
 } from 'redux-saga/effects';
 import {
-  GET_USERS_SUCCESS,
+  GET_USERS_BEGIN,
   LOADING_USERS_BEGIN,
   LOADING_USERS_COMPLETE
 } from '../actions/actionTypes';
@@ -31,7 +31,7 @@ describe('Get Users Saga', () => {
     const gen = getUsersSaga();
 
     expect(gen.next().value).toEqual(
-      takeLatest(GET_USERS_SUCCESS, getUsersStart)
+      takeLatest(GET_USERS_BEGIN, getUsersStart)
     );
   });
 

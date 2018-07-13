@@ -2,7 +2,7 @@ import { takeLatest, put, call } from 'redux-saga/effects';
 import { DEFAULT_PAGINATION_QUERY } from '../constants';
 
 import {
-  GET_USERS_SUCCESS,
+  GET_USERS_BEGIN,
   LOADING_USERS_BEGIN,
   LOADING_USERS_COMPLETE
 } from '../actions/actionTypes';
@@ -23,5 +23,5 @@ export function* getUsersStart({ queryParams = DEFAULT_PAGINATION_QUERY }) {
 }
 
 export function* getUsersSaga() {
-  yield takeLatest(GET_USERS_SUCCESS, getUsersStart);
+  yield takeLatest(GET_USERS_BEGIN, getUsersStart);
 }

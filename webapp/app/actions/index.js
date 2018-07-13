@@ -1,4 +1,5 @@
 export {
+  getUsers,
   getUsersSuccess,
   loadingUsersBegin,
   loadingUsersComplete

@@ -5,9 +5,13 @@ import { bindActionCreators } from 'redux';
 import { Col, Row } from 'reactstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
-import * as usersActions from '../../../actions/usersActions';
 import Header from './../partials/header/Header';
 import ActionButtons from '../ActionButtons/ActionButtons';
+import * as usersActions from '../../../actions/usersActions';
+import {
+  usersSelector
+} from '../../../selectors';
+
 import './HomePage.css';
 
 export class HomePage extends React.Component {
@@ -106,8 +110,9 @@ HomePage.propTypes = {
 };
 
 export function mapStateToProps(state) {
+  const users = usersSelector(state);
   return {
-    users: state.users.data
+    users: users.data
   };
 }
 
