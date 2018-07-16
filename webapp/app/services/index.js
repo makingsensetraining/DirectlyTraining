@@ -1,1 +1,4 @@
-export { fetchUsers } from './userService';
+export {
+  fetchUsers,
+  deleteUsers
+} from './userService';

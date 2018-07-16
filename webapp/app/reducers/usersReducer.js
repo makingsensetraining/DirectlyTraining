@@ -1,12 +1,12 @@
 import {
+  DELETE_USERS_SUCCESS,
   GET_USERS_SUCCESS,
   LOADING_USERS_BEGIN,
   LOADING_USERS_COMPLETE,
   LOADING_USERS_FAILED,
   CREATE_USERS_SUCCESS,
-  DELETE_USERS_SUCCESS,
   UPDATE_USERS_SUCCESS,
-  SELECT_USERS_SUCCESS
+  SELECT_USER
 } from '../actions/actionTypes';
 import { getUserId } from '../utils';
 import { createReducer } from '../utils';
@@ -43,7 +43,7 @@ export const users = createReducer(initialState.users, {
       ]
     };
   },
-  [SELECT_USERS_SUCCESS](state, { user }) {
+  [SELECT_USER](state, { user }) {
     return {
       ...state,
       selectedUser: user

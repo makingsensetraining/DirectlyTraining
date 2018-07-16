@@ -47,7 +47,10 @@ describe('<HomePage /> component', () => {
         'loadingUsersBegin',
         'loadingUsersComplete',
         'getUsersSuccess',
-        'getUsers'
+        'getUsers',
+        'deleteUsersSuccess',
+        'deleteUsers',
+        'selectUser'
       ];
 
       const props = mapDispatchToProps(dispatch);
