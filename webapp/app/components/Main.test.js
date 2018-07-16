@@ -34,7 +34,8 @@ describe('<Main /> component', () => {
         'getUsers',
         'deleteUsersSuccess',
         'deleteUsers',
-        'selectUser'
+        'selectUser',
+        'selectUserSuccess'
       ];
 
       const props = mapDispatchToProps(dispatch);

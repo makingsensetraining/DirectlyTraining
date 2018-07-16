@@ -1,7 +1,7 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import { selectUsersSaga, selectUsersStart } from './selectUsersSaga';
-import { SELECT_USER } from '../actions/actionTypes';
-import { selectUser } from '../actions';
+import { SELECT_USER_BEGIN } from '../actions/actionTypes';
+import { selectUserSuccess } from '../actions';
 
 describe('Select Users Saga', () => {
   it('should be defined', () => {
@@ -13,7 +13,7 @@ describe('Select Users Saga', () => {
     const gen = selectUsersSaga();
 
     expect(gen.next().value).toEqual(
-      takeLatest(SELECT_USER, selectUsersStart)
+      takeLatest(SELECT_USER_BEGIN, selectUsersStart)
     );
   });
 
@@ -31,7 +31,7 @@ describe('Select Users Saga', () => {
 
     it('should put the selected user', () => {
       expect(selectUsersGen.next(user).value).toEqual(
-        put(selectUser(user))
+        put(selectUserSuccess(user))
       );
     });
   });

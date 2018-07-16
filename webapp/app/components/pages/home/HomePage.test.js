@@ -50,7 +50,8 @@ describe('<HomePage /> component', () => {
         'getUsers',
         'deleteUsersSuccess',
         'deleteUsers',
-        'selectUser'
+        'selectUser',
+        'selectUserSuccess'
       ];
 
       const props = mapDispatchToProps(dispatch);
@@ -69,9 +70,9 @@ describe('<HomePage /> component', () => {
         usersActions: {
           selectUser,
           getUsers: () => {},
-          createUser: () => {},
-          updateUser: () => {},
-          deleteUser: () => {}
+          createUsers: () => {},
+          updateUsers: () => {},
+          deleteUsers: () => {}
         },
       });
 
@@ -87,20 +88,20 @@ describe('<HomePage /> component', () => {
       const user = {
         id: 'id'
       };
-      const createUser = jest.fn();
+      const createUsers = jest.fn();
       const wrapper = setup({
         usersActions: {
           selectUser: () => {},
           getUsers: () => {},
-          createUser,
-          updateUser: () => {},
-          deleteUser: () => {}
+          createUsers,
+          updateUsers: () => {},
+          deleteUsers: () => {}
         },
       });
 
       wrapper.instance().handleUserActionType(type, user);
 
-      expect(createUser).toHaveBeenCalledTimes(1);
+      expect(createUsers).toHaveBeenCalledTimes(1);
     });
 
     it('should return Edit handler', () => {
@@ -108,20 +109,20 @@ describe('<HomePage /> component', () => {
       const user = {
         id: 'id'
       };
-      const updateUser = jest.fn();
+      const updateUsers = jest.fn();
       const wrapper = setup({
         usersActions: {
           selectUser: () => {},
           getUsers: () => {},
-          createUser: () => {},
-          updateUser,
-          deleteUser: () => {}
+          createUsers: () => {},
+          updateUsers,
+          deleteUsers: () => {}
         },
       });
 
       wrapper.instance().handleUserActionType(type, user);
 
-      expect(updateUser).toHaveBeenCalledTimes(1);
+      expect(updateUsers).toHaveBeenCalledTimes(1);
     });
 
     it('should return Delete handler', () => {
@@ -129,20 +130,20 @@ describe('<HomePage /> component', () => {
       const user = {
         id: 'id'
       };
-      const deleteUser = jest.fn();
+      const deleteUsers = jest.fn();
       const wrapper = setup({
         usersActions: {
           selectUser: () => {},
           getUsers: () => {},
-          createUser: () => {},
-          updateUser: () => {},
-          deleteUser
+          createUsers: () => {},
+          updateUsers: () => {},
+          deleteUsers
         },
       });
 
       wrapper.instance().handleUserActionType(type, user);
 
-      expect(deleteUser).toHaveBeenCalledTimes(1);
+      expect(deleteUsers).toHaveBeenCalledTimes(1);
     });
 
     it('should throw error on invalid type', () => {
@@ -157,9 +158,9 @@ describe('<HomePage /> component', () => {
         usersActions: {
           selectUser: () => {},
           getUsers: () => {},
-          createUser: () => {},
-          updateUser: () => {},
-          deleteUser: () => {}
+          createUsers: () => {},
+          updateUsers: () => {},
+          deleteUsers: () => {}
         },
       });
 
@@ -177,20 +178,20 @@ describe('<HomePage /> component', () => {
       const user = {
         id: 'id'
       };
-      const createUser = jest.fn();
+      const createUsers = jest.fn();
       const wrapper = setup({
         usersActions: {
           selectUser: () => {},
           getUsers: () => {},
-          createUser,
-          updateUser: () => {},
-          deleteUser: () => {}
+          createUsers,
+          updateUsers: () => {},
+          deleteUsers: () => {}
         },
       });
 
       wrapper.instance().handleUserActionType(type, user);
 
-      expect(createUser).toHaveBeenCalledTimes(1);
+      expect(createUsers).toHaveBeenCalledTimes(1);
     });
   });
 });

@@ -4,6 +4,7 @@ import {
   deleteUsers,
   deleteUsersSuccess,
   selectUser,
+  selectUserSuccess,
   loadingUsersBegin,
   loadingUsersComplete
 } from './usersActions';
@@ -14,7 +15,8 @@ import {
   GET_USERS_SUCCESS,
   DELETE_USERS_BEGIN,
   DELETE_USERS_SUCCESS,
-  SELECT_USER
+  SELECT_USER_BEGIN,
+  SELECT_USER_SUCCESS
 } from '../actions/actionTypes';
 
 describe('usersActions', () => {
@@ -60,9 +62,26 @@ describe('usersActions', () => {
       expect(selectUser).toEqual(expect.any(Function));
     });
 
-    it('should create an action `SELECT_USER`', () => {
+    it('should create an action `SELECT_USER_BEGIN`', () => {
       expect(selectUser('foo')).toEqual({ 
-        type: SELECT_USER,
+        type: SELECT_USER_BEGIN,
+        user: 'foo'            
+      });
+    });
+  });
+
+  describe('selectUserSuccess', () => {
+    it('should be defined', () => {
+      expect(selectUserSuccess).toBeDefined();
+    });
+
+    it('should be a function', () => {
+      expect(selectUserSuccess).toEqual(expect.any(Function));
+    });
+
+    it('should create an action `SELECT_USERS_SUCCESS`', () => {
+      expect(selectUserSuccess('foo')).toEqual({ 
+        type: SELECT_USER_SUCCESS,
         user: 'foo'            
       });
     });

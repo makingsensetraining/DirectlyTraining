@@ -6,7 +6,7 @@ import {
   LOADING_USERS_FAILED,
   CREATE_USERS_SUCCESS,
   UPDATE_USERS_SUCCESS,
-  SELECT_USER
+  SELECT_USER_SUCCESS
 } from '../actions/actionTypes';
 import { getUserId } from '../utils';
 import { createReducer } from '../utils';
@@ -43,7 +43,7 @@ export const users = createReducer(initialState.users, {
       ]
     };
   },
-  [SELECT_USER](state, { user }) {
+  [SELECT_USER_SUCCESS](state, { user }) {
     return {
       ...state,
       selectedUser: user
