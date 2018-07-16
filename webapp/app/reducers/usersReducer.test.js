@@ -8,7 +8,7 @@ import {
   GET_USERS_SUCCESS,
   DELETE_USERS_SUCCESS,
   UPDATE_USERS_SUCCESS,
-  SELECT_USERS_SUCCESS,
+  SELECT_USER,
 } from '../actions/actionTypes';
 
 describe('Users Reducer', () => {
@@ -89,7 +89,7 @@ describe('Users Reducer', () => {
 
   it('should set the selected user in the store', () => {
     const action = {
-      type: SELECT_USERS_SUCCESS,
+      type: SELECT_USER,
       user: {
         name: 'John Doe'
       }
