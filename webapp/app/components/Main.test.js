@@ -27,4 +27,20 @@ describe('<Main /> component', () => {
     expect(wrapper.find('Route')).toHaveLength(1);
     expect(wrapper.find('NotFoundPage')).toHaveLength(1);
   });
+
+  /**
+   * Today with consumer enzyme has a bug:
+   * Enzyme Internal Error: unknown node with tag 12
+   * Enzyme Internal Error: unknown node with tag 13
+   * Reference: https://github.com/Khan/wonder-blocks/pull/162
+   *
+   * it('should render home page component', () => {
+   *   const wrapper = setup(['/']);
+   *
+   *   expect(wrapper.find('Switch')).toHaveLength(1);
+   *   expect(wrapper.find('Route')).toHaveLength(1);
+   *   expect(wrapper.find('HomePage')).toHaveLength(1);
+   * });
+   *
+   */
 });
