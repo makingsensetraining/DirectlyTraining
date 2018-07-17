@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Col, Row } from 'reactstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import Header from './../partials/header/Header';
@@ -80,17 +79,17 @@ export class HomePage extends React.Component {
       <div>
         <Header />
         <div className="container">
-          <Row>
-            <Col md="8">
+          <div className="list-header">
+            <div className="title-holder">
               <h4>Users List</h4>
-            </Col>
-            <Col md="4">
+            </div>
+            <div className="user-list-action-holder">
               <ActionButtons
                 user={this.state.user}
                 onConfirm={this.handleUserActionType}
               />
-            </Col>
-          </Row>
+            </div>
+          </div>
           <BootstrapTable
             keyField="id"
             data={this.props.users}

@@ -4,6 +4,25 @@ table th {
   text-overflow: ellipsis;
 }
 
+.list-header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: no-wrap;
+  padding: 16px 0;
+  align-content: center;
+  align-items: center;
+}
+
+.title-holder {
+  display: flex;
+  flex-grow: 1;
+}
+
+.user-list-action-holder {
+  display: flex;
+  flex-grow: 0;
+}
+
 .user-list-action-buttons {
   display: flex;
   align-content: center;
