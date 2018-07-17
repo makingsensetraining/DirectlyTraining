@@ -1,4 +1,6 @@
 export {
+  createUsers,
+  createUsersSuccess,
   getUsers,
   getUsersSuccess,
   deleteUsers,
@@ -6,5 +8,7 @@ export {
   selectUser,
   selectUserSuccess,
   loadingUsersBegin,
-  loadingUsersComplete
+  loadingUsersComplete,
+  updateUsers,
+  updateUsersSuccess,
 } from './usersActions';

@@ -67,7 +67,6 @@ export class HomePage extends React.Component {
       dataField: 'phone',
       text: 'Phone Number'
     }];
-
     const selectRow = {
       mode: 'radio',
       clickToSelect: true,
@@ -75,6 +74,7 @@ export class HomePage extends React.Component {
       selected: this.state.selectedRow,
       onSelect: this.setSelectedRow
     };
+    const pagination = paginationFactory();
     
     return (
       <div>
@@ -92,11 +92,11 @@ export class HomePage extends React.Component {
             </Col>
           </Row>
           <BootstrapTable
-            keyField='id'
-            data={ this.props.users }
-            columns={ columns }
-            selectRow={ selectRow }
-            pagination={ paginationFactory() }
+            keyField="id"
+            data={this.props.users}
+            columns={columns}
+            selectRow={selectRow}
+            pagination={pagination}
           />
         </div>
       </div>

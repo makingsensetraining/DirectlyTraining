@@ -1,4 +1,6 @@
 export {
+  createUsers,
   fetchUsers,
-  deleteUsers
+  deleteUsers,
+  updateUsers
 } from './userService';

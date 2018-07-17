@@ -5,7 +5,7 @@ const Header = () => {
     <header>
       <div className="navbar bg-light box-shadow">
         <div className="container d-flex justify-content-between">
-          <a className="navbar-brand d-flex align-items-center text-dark" href="#">Directly starter app</a>
+          <a className="navbar-brand d-flex align-items-center text-dark" href="#">CRUD Starter</a>
         </div>
       </div>
     </header>

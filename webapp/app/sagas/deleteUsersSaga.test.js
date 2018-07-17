@@ -20,7 +20,7 @@ import {
   loadingUsersComplete
 } from '../actions';
 
-describe('Get Users Saga', () => {
+describe('Delete Users Saga', () => {
   it('should be defined', () => {
     expect(deleteUsersSaga).toBeDefined();
     expect(deleteUsersStart).toBeDefined();
