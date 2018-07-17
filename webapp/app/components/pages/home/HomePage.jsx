@@ -11,23 +11,21 @@ import ActionButtons from '../ActionButtons/ActionButtons';
 import './HomePage.css';
 
 export class HomePage extends React.Component {
-  constructor(props, context) {
-    super(props, context);
+  static propTypes = {
+    users: PropTypes.array,
+    usersActions: PropTypes.object.isRequired
+  };
 
-    this.state = {
-      selectedRow: [],
-      user: {}
-    };
-
-    this.setSelectedRow = this.setSelectedRow.bind(this);
-    this.handleUserActionType = this.handleUserActionType.bind(this);
-  }
+  state = {
+    selectedRow: [],
+    user: {}
+  };
 
   componentDidMount() {
     this.props.usersActions.getUsers();
   }
 
-  setSelectedRow(user) {
+  setSelectedRow = (user) => {
     this.setState({
       selectedRow: [user.id]
     }, () => {
@@ -35,9 +33,9 @@ export class HomePage extends React.Component {
         this.props.usersActions.selectUser(user);
       }
     });
-  }
+  };
 
-  handleUserActionType(type = 'add', user) {
+  handleUserActionType = (type = 'add', user) => {
     const { usersActions } = this.props;
     
     switch(type) {
@@ -50,7 +48,7 @@ export class HomePage extends React.Component {
       default:
         throw new TypeError(`Unhandled User Action Type ${type}`);
     }
-  }
+  };
 
   render() {
     const columns = [{
@@ -71,6 +69,8 @@ export class HomePage extends React.Component {
       selected: this.state.selectedRow,
       onSelect: this.setSelectedRow
     };
+
+    const pagination = paginationFactory();
     
     return (
       <div>
@@ -92,18 +92,13 @@ export class HomePage extends React.Component {
             data={ this.props.users }
             columns={ columns }
             selectRow={ selectRow }
-            pagination={ paginationFactory() }
+            pagination={ pagination }
           />
         </div>
       </div>
     );
   }
 }
-
-HomePage.propTypes = {
-  users: PropTypes.array,
-  usersActions: PropTypes.object.isRequired
-};
 
 export function mapStateToProps(state) {
   return {

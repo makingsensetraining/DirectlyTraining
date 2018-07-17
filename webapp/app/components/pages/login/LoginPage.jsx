@@ -6,15 +6,13 @@ import * as authActions from '../../../actions/authActions';
 import LoginForm from './LoginForm';
 
 export class LoginPage extends React.Component {
-  constructor(props, context) {
-    super(props, context);
+  static propTypes = {
+    actions: PropTypes.object.isRequired
+  };
 
-    this.handleOnSubmit = this.handleOnSubmit.bind(this);
-  }
-
-  handleOnSubmit(username, password) {
+  handleOnSubmit = (username, password) => {
     this.props.actions.login(username, password);
-  }
+  };
 
   render() {
     return (
@@ -25,9 +23,6 @@ export class LoginPage extends React.Component {
   }
 }
 
-LoginPage.propTypes = {
-  actions: PropTypes.object.isRequired
-};
 
 export function mapStateToProps(state) {
   return {

@@ -28,6 +28,11 @@ function isValidUser(user) {
 }
 
 export class ActionButtons extends React.Component {
+  static propTypes = {
+    user: PropTypes.object,
+    onConfirm: PropTypes.func
+  };
+
   constructor(props) {
     super(props);
     
@@ -40,16 +45,6 @@ export class ActionButtons extends React.Component {
       modalYesLabel: '',
       errors: {}
     };
-
-    this.toggle = this.toggle.bind(this);
-    this.toggleAddModal = this.toggleAddModal.bind(this);
-    this.toggleEditModal = this.toggleEditModal.bind(this);
-    this.toggleDeleteModal = this.toggleDeleteModal.bind(this);
-    this.updateUserState = this.updateUserState.bind(this);
-    this.saveUser = this.saveUser.bind(this);
-    this.cancel = this.cancel.bind(this);
-    this.validateForm = this.validateForm.bind(this);
-    this.renderUserModalBody = this.renderUserModalBody.bind(this);
   }
 
   componentWillReceiveProps({ user: newUser }) {
@@ -64,41 +59,41 @@ export class ActionButtons extends React.Component {
     }
   }
 
-  toggle() {
+  toggle = () => {
     this.setState({
       isUserModalOpen: !this.state.isUserModalOpen
     });
-  }
+  };
 
-  toggleAddModal() {
+  toggleAddModal = () => {
     this.setState({
       actionType: 'add',
       user: { ...EMPTY_USER }
     }, this.toggle);
-  }
+  };
 
-  toggleEditModal() {
+  toggleEditModal = () => {
     this.setState({
       actionType: 'edit'
     }, this.toggle);
-  }
+  };
 
-  toggleDeleteModal() {
+  toggleDeleteModal = () => {
     this.setState({
       actionType: 'delete'
     }, this.toggle);
-  }
+  };
 
-  updateUserState(event) {
+  updateUserState = (event) => {
     this.setState({
       user: {
         ...this.state.user,
         [event.target.name]: event.target.value
       }
     });
-  }
+  };
 
-  validateForm() {
+  validateForm = () => {
     const { user } = this.state;
     const isValidUsername = !isEmpty(user.name);
     const isValidEmail = EMAIL_REGEXP.test(user.email);
@@ -115,13 +110,13 @@ export class ActionButtons extends React.Component {
     this.setState({ errors });
 
     return errors;
-  }
+  };
 
-  canSubmitForm() {
+  canSubmitForm = () => {
     return isEmpty(this.validateForm());
-  }
+  };
 
-  saveUser() {
+  saveUser = () => {
     if (!this.canSubmitForm()) {
       return;
     }    
@@ -132,9 +127,9 @@ export class ActionButtons extends React.Component {
           this.toggle();
         });
     }
-  }
+  };
 
-  cancel() {
+  cancel = () => {
     let user = EMPTY_USER;
 
     if (isValidUser(this.props.user) === true) {
@@ -145,9 +140,9 @@ export class ActionButtons extends React.Component {
       user: { ...user },
       errors: {}
     }, this.toggle);
-  }
+  };
 
-  renderUserModalBody() {
+  getModalBody = () => {
     const {
       user,
       errors
@@ -166,9 +161,9 @@ export class ActionButtons extends React.Component {
         errors={errors}
       />
     );
-  }
+  };
 
-  getModalLabels(actionType = 'add') {
+  getModalLabels  = (actionType = 'add') => {
     if (actionType === 'delete') {
       return {
         ...DEFAULT_USER_MODAL_LABELS,
@@ -180,7 +175,7 @@ export class ActionButtons extends React.Component {
   }
 
   render() {
-    const modalBody = this.renderUserModalBody();
+    const modalBody = this.getModalBody();
     const isUserEditDisabled = isValidUser(this.state.user) === false;
     const modalInfo = {
       ...this.getModalLabels(this.state.actionType),
@@ -216,11 +211,6 @@ export class ActionButtons extends React.Component {
     );
   }
 }
-
-ActionButtons.propTypes = {
-  user: PropTypes.object,
-  onConfirm: PropTypes.func
-};
 
 export function mapStateToProps({ users }) {
   return {

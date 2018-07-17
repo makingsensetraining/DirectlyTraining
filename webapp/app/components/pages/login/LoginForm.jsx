@@ -4,25 +4,22 @@ import FormInput from '../../common/form/FormInput';
 import './LoginForm.css';
 
 class LoginForm extends React.Component {
-  constructor(props, context) {
-    super(props, context);
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired
+  };
 
-    this.state = {
-      username: '',
-      password: ''
-    };
+  state = {
+    username: '',
+    password: ''
+  };
 
-    this.handleOnChange = this.handleOnChange.bind(this);
-    this.handleOnSubmit = this.handleOnSubmit.bind(this);
-  }
-
-  handleOnChange(e) {
+  handleOnChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value
     });
   }
 
-  handleOnSubmit(e) {
+  handleOnSubmit = (e) => {
     e.preventDefault();
     this.props.onSubmit(this.state.username, this.state.password);
   }
@@ -54,9 +51,5 @@ class LoginForm extends React.Component {
     );
   }
 }
-
-LoginForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired
-};
 
 export default LoginForm;
