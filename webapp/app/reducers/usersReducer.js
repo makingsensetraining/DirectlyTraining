@@ -16,7 +16,8 @@ export const users = createReducer(initialState.users, {
   [GET_USERS_SUCCESS](state, { users }) {
     return {
       ...state,
-      data: users
+      data: users,
+      selectedUser: {}
     };
   },
   [CREATE_USERS_SUCCESS](state, { user }) {
@@ -31,7 +32,8 @@ export const users = createReducer(initialState.users, {
   [DELETE_USERS_SUCCESS](state, { user }) {
     return {
       ...state,
-      data: state.data.filter(sourceUser => getUserId(user) !== getUserId(sourceUser))
+      data: state.data.filter(sourceUser => getUserId(user) !== getUserId(sourceUser)),
+      selectedUser: {}
     };
   },
   [UPDATE_USERS_SUCCESS](state, { user }) {
@@ -40,7 +42,8 @@ export const users = createReducer(initialState.users, {
       data: [
         user,
         ...state.data.filter(sourceUser => getUserId(user) !== getUserId(sourceUser))
-      ]
+      ],
+      selectedUser: {}
     };
   },
   [SELECT_USER_SUCCESS](state, { user }) {
