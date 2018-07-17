@@ -128,10 +128,12 @@ export class ActionButtons extends React.Component {
     }    
 
     if (typeof this.props.onConfirm === 'function') {
-      this.props.onConfirm(this.state.actionType, this.state.user)
-        .then(() => {
-          this.toggle();
-        });
+      this.props.onConfirm(this.state.actionType, this.state.user);
+      
+      // FIXME add async/await support to sagas, to await for all YIELDS completion
+      // with promises we use promise.resolve ONlY when service responded, with sagas and generators
+      // it resolves in the initial FORK i.e. not the 3rd yield as required
+      this.toggle();
     }
   }
 

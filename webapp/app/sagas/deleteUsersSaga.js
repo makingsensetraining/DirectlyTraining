@@ -12,7 +12,9 @@ import {
 import { deleteUsers } from '../services/userService';
 import { getUserId } from '../utils';
 
-// TODO implement failure
+// FIXME add async/await support to sagas, to await for all YIELDS completion
+// with promises we use promise.resolve ONlY when service responded, with sagas and generators
+// it resolves in the initial FORK i.e. not the 3rd yield as required
 export function* deleteUsersStart({ user }) {
   yield put(loadingUsersBegin(LOADING_USERS_BEGIN));
   
