@@ -6,7 +6,7 @@ import { Switch, Route } from 'react-router-dom';
 import { UsersContext } from '../context-api/usersContext';
 import { AuthContext } from '../context-api/authContext';
 
-class Main extends React.Component {
+export default class Main extends React.Component {
   // Context from users, keep data from select users, all users and methods
   // to be called by the child components
   renderHomePage() {
@@ -45,5 +45,3 @@ class Main extends React.Component {
     );
   }
 }
-
-export default Main;
