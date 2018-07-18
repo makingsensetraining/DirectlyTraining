@@ -1,9 +1,5 @@
 import authReducer from './authReducer';
-import {
-  AUTH_LOGIN_BEGIN,
-  AUTH_LOGIN_SUCCESS,
-  AUTH_LOGIN_FAILED
-} from '../actions/actionTypes';
+import { AUTH } from '../actions/actionTypes';
 
 describe('authReducer', () => {
   it('should return the initial state', () => {
@@ -20,7 +16,7 @@ describe('authReducer', () => {
 
   it('should handle a login request', () => {
     const result = authReducer([], {
-      type: AUTH_LOGIN_BEGIN
+      type: AUTH.LOGIN_BEGIN
     });
 
     expect(result).toEqual({
@@ -34,7 +30,7 @@ describe('authReducer', () => {
 
   it('should handle a successfully login', () => {
     const result = authReducer([], {
-      type: AUTH_LOGIN_SUCCESS,
+      type: AUTH.LOGIN_SUCCESS,
       user: {
         name: 'John'
       }
@@ -53,7 +49,7 @@ describe('authReducer', () => {
 
   it('should handle a failed login', () => {
     const result = authReducer([], {
-      type: AUTH_LOGIN_FAILED,
+      type: AUTH.LOGIN_FAILED,
       message: 'Unexpected error.'
     });
 

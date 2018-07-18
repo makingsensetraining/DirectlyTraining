@@ -1,14 +1,5 @@
 import usersReducer, { initialState } from './usersReducer';
-import {
-  LOADING_USERS_BEGIN,
-  LOADING_USERS_COMPLETE,
-  LOADING_USERS_FAILED,
-  CREATE_USERS_SUCCESS,
-  GET_USERS_SUCCESS,
-  DELETE_USERS_SUCCESS,
-  UPDATE_USERS_SUCCESS,
-  SELECT_USERS_SUCCESS,
-} from '../actions/actionTypes';
+import { USERS } from '../actions/actionTypes';
 
 describe('usersReducer', () => {
   it('should be defined', () => {
@@ -25,7 +16,7 @@ describe('usersReducer', () => {
 
   it('should set loading users to `true` ', () => {
     const action = {
-      type: LOADING_USERS_BEGIN
+      type: USERS.LOADING_BEGIN
     };
     const expectedState = {
       ...initialState,
@@ -40,7 +31,7 @@ describe('usersReducer', () => {
 
   it('should set loading users to `false`', () => {
     const action = {
-      type: LOADING_USERS_COMPLETE
+      type: USERS.LOADING_COMPLETE
     };
     const expected = {
       ...initialState,
@@ -55,7 +46,7 @@ describe('usersReducer', () => {
 
   it('should set loading users to `false` and set the error', () => {
     const action = {
-      type: LOADING_USERS_FAILED,
+      type: USERS.LOADING_FAILED,
       payload: {
         error: 'foo'
       }
@@ -73,7 +64,7 @@ describe('usersReducer', () => {
 
   it('should load the fetched users into the store', () => {
     const action = {
-      type: GET_USERS_SUCCESS,
+      type: USERS.GET_ALL_SUCCESS,
       payload: {
         users: [{
           name: 'John Doe'
@@ -92,7 +83,7 @@ describe('usersReducer', () => {
 
   it('should set the selected user in the store', () => {
     const action = {
-      type: SELECT_USERS_SUCCESS,
+      type: USERS.SELECT_SUCCESS,
       payload: {
         name: 'John Doe'
       }
@@ -109,7 +100,7 @@ describe('usersReducer', () => {
 
   it('should delete the given user from the store', () => {
     const action = {
-      type: DELETE_USERS_SUCCESS,
+      type: USERS.DELETE_SUCCESS,
       payload: {
         _id: 'fake.id.joe',
         name: 'John Doe' 
@@ -145,7 +136,7 @@ describe('usersReducer', () => {
 
   it('should add the created user into the store', () => {
     const action = {
-      type: CREATE_USERS_SUCCESS,
+      type: USERS.CREATE_SUCCESS,
       payload: {
         name: 'John Doe' 
       }
@@ -179,7 +170,7 @@ describe('usersReducer', () => {
 
   it('should update the modified user in the store', () => {
     const action = {
-      type: UPDATE_USERS_SUCCESS,
+      type: USERS.UPDATE_SUCCESS,
       payload: {
         _id: 'fake.id.john',
         name: 'John Doe Jr.'

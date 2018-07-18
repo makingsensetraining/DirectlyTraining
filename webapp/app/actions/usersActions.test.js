@@ -9,15 +9,7 @@ import {
   deleteUser
 } from './usersActions';
 import * as userService from '../services/userService';
-import {
-  LOADING_USERS_BEGIN,
-  LOADING_USERS_COMPLETE,
-  CREATE_USERS_SUCCESS,
-  GET_USERS_SUCCESS,
-  DELETE_USERS_SUCCESS,
-  UPDATE_USERS_SUCCESS,
-  SELECT_USERS_SUCCESS,
-} from '../actions/actionTypes';
+import { USERS } from '../actions/actionTypes';
 
 describe('usersActions', () => {
   const middlewares = [
@@ -93,10 +85,10 @@ describe('usersActions', () => {
     describe('when the service call is successful', () => {
       it('should create an action to get users', async () => {
         const expectedActions = [
-          { type: LOADING_USERS_BEGIN },
-          { type: LOADING_USERS_COMPLETE },
+          { type: USERS.LOADING_BEGIN },
+          { type: USERS.LOADING_COMPLETE },
           { 
-            type: GET_USERS_SUCCESS,
+            type: USERS.GET_ALL_SUCCESS,
             payload: {
               count: 1,
               page: 0,
@@ -134,7 +126,7 @@ describe('usersActions', () => {
               _id: 'fake.id.john',
               name: 'John Doe'
             },
-            type: SELECT_USERS_SUCCESS
+            type: USERS.SELECT_SUCCESS
           }]);
         });
       });
@@ -157,10 +149,10 @@ describe('usersActions', () => {
     describe('when the service call is successful', () => {
       it('should create an action to create a user', async () => {
         const expectedActions = [
-          { type: LOADING_USERS_BEGIN },
-          { type: LOADING_USERS_COMPLETE },
+          { type: USERS.LOADING_BEGIN },
+          { type: USERS.LOADING_COMPLETE },
           { 
-            type: CREATE_USERS_SUCCESS,
+            type: USERS.CREATE_SUCCESS,
             payload: {
               name: 'John Doe'
             }
@@ -192,10 +184,10 @@ describe('usersActions', () => {
     describe('when the service call is successful', () => {
       it('should create an action to update a user', async () => {
         const expectedActions = [
-          { type: LOADING_USERS_BEGIN },
-          { type: LOADING_USERS_COMPLETE },
+          { type: USERS.LOADING_BEGIN },
+          { type: USERS.LOADING_COMPLETE },
           { 
-            type: UPDATE_USERS_SUCCESS,
+            type: USERS.UPDATE_SUCCESS,
             payload: {
               _id: 'fake.id.john',
               name: 'John Doe Jr.'
@@ -227,10 +219,10 @@ describe('usersActions', () => {
     describe('when the service call is successful', () => {
       it('should create an action to delete a user', async () => {
         const expectedActions = [
-          { type: LOADING_USERS_BEGIN },
-          { type: LOADING_USERS_COMPLETE },
+          { type: USERS.LOADING_BEGIN },
+          { type: USERS.LOADING_COMPLETE },
           { 
-            type: DELETE_USERS_SUCCESS,
+            type: USERS.DELETE_SUCCESS,
             payload: {
               _id: 'fake.id.john',
               name: 'John Doe'

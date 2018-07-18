@@ -1,14 +1,5 @@
 import omit from 'lodash/omit';
-import {
-  LOADING_USERS_BEGIN,
-  LOADING_USERS_COMPLETE,
-  LOADING_USERS_FAILED,
-  CREATE_USERS_SUCCESS,
-  GET_USERS_SUCCESS,
-  DELETE_USERS_SUCCESS,
-  UPDATE_USERS_SUCCESS,
-  SELECT_USERS_SUCCESS,
-} from '../actions/actionTypes';
+import { USERS } from '../actions/actionTypes';
 import {
   createUsers,
   deleteUsers,
@@ -23,41 +14,41 @@ import { getUserId } from '../utils/user';
 
 export const loadingUsersBegin = () => {
   return ({
-    type: LOADING_USERS_BEGIN
+    type: USERS.LOADING_BEGIN
   });
 };
 
 export const loadingUsersComplete = () => ({
-  type: LOADING_USERS_COMPLETE
+  type: USERS.LOADING_COMPLETE
 });
 
 export const loadingUsersFailed = error => ({
-  type: LOADING_USERS_FAILED,
+  type: USERS.LOADING_FAILED,
   payload: { error }
 });
 
 export const createUsersSuccess = user => ({
-  type: CREATE_USERS_SUCCESS,
+  type: USERS.CREATE_SUCCESS,
   payload: user
 });
 
 export const selectUsersSuccess = user => ({
-  type: SELECT_USERS_SUCCESS,
+  type: USERS.SELECT_SUCCESS,
   payload: user
 });
 
 export const getUsersSuccess = (usersData) => ({
-  type: GET_USERS_SUCCESS,
+  type: USERS.GET_ALL_SUCCESS,
   payload: { ...usersData }
 });
 
 export const updateUsersSuccess = user => ({
-  type: UPDATE_USERS_SUCCESS,
+  type: USERS.UPDATE_SUCCESS,
   payload: user
 });
 
 export const deleteUsersSuccess = user => ({
-  type: DELETE_USERS_SUCCESS,
+  type: USERS.DELETE_SUCCESS,
   payload: user
 });
 
