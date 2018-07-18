@@ -19,14 +19,6 @@ const DEFAULT_USER_MODAL_LABELS = {
   confirmButtonText: 'Save'
 };
 
-function isUserMatchById(sourceUser = {}, targetUser = {}) {
-  return sourceUser['id'] === targetUser['id']; 
-}
-
-function isValidUser(user) {
-  return has(user, 'id') && isEmpty(user, 'id') === false;
-}
-
 export class ActionButtons extends React.Component {
   static propTypes = {
     user: PropTypes.object,
@@ -50,13 +42,21 @@ export class ActionButtons extends React.Component {
   componentWillReceiveProps({ user: newUser }) {
     const { user: currentSelectedUser } = this.props;
 
-    if (!isUserMatchById(currentSelectedUser, newUser)) {
+    if (!this.isUserMatchById(currentSelectedUser, newUser)) {
       this.setState({
         user: {
           ...newUser
         }
       });
     }
+  }
+
+  isUserMatchById = (sourceUser = {}, targetUser = {}) => {
+    return sourceUser['id'] === targetUser['id'];
+  }
+
+  isValidUser = (user) => {
+    return has(user, 'id') && isEmpty(user, 'id') === false;
   }
 
   toggle = () => {
@@ -132,7 +132,7 @@ export class ActionButtons extends React.Component {
   cancel = () => {
     let user = EMPTY_USER;
 
-    if (isValidUser(this.props.user) === true) {
+    if (this.isValidUser(this.props.user) === true) {
       user = this.props.user;
     }
 
@@ -176,7 +176,7 @@ export class ActionButtons extends React.Component {
 
   render() {
     const modalBody = this.getModalBody();
-    const isUserEditDisabled = isValidUser(this.state.user) === false;
+    const isUserEditDisabled = this.isValidUser(this.state.user) === false;
     const modalInfo = {
       ...this.getModalLabels(this.state.actionType),
       title: `${this.state.actionType} User`

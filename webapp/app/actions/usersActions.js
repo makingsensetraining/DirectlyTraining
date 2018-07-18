@@ -1,4 +1,4 @@
-import omit from 'lodash/omit';
+import { omit }from '../utils/functions';
 import { USERS } from '../actions/actionTypes';
 import {
   createUsers,

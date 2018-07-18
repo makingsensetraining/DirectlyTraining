@@ -55,7 +55,7 @@ describe('authActions', () => {
       auth: {}
     });
 
-    return store.dispatch(authActions.login(username, password)).then(() => {
+    return store.dispatch(authActions.login({username, password})).then(() => {
       const actions = store.getActions();
       expect(actions[0]).toEqual({ type: AUTH.LOGIN_BEGIN });
       expect(actions[1]).toEqual({ type: AUTH.LOGIN_SUCCESS, user });

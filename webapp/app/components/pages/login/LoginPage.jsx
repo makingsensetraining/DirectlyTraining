@@ -11,7 +11,7 @@ export class LoginPage extends React.Component {
   };
 
   handleOnSubmit = (username, password) => {
-    this.props.actions.login(username, password);
+    this.props.actions.login({username, password});
   };
 
   render() {

@@ -23,10 +23,10 @@ export function loginFailed(error) {
   };
 }
 
-export function login(username, password) {
+export function login(payload) {
   return function (dispatch) {
     dispatch(loginRequest());
-    return authService.login(username, password)
+    return authService.login(payload)
       .then(
         response => {
           dispatch(loginSuccess(response));

@@ -1,6 +1,6 @@
 import configureStore from 'redux-mock-store';
 import thunkMiddleware from 'redux-thunk';
-import omit from 'lodash/omit';
+import { omit } from '../utils/functions';
 import {
   createUser,
   getUsers,
@@ -33,9 +33,7 @@ describe('usersActions', () => {
   function createResponse(response) {
     return {
       ...omit(response, ['data']),
-      json: () => ({
-        data: { ...response.data }
-      })
+      data: { ...response.data }
     };
   }
 
