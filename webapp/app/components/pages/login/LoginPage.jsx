@@ -1,6 +1,7 @@
 import React from 'react';
 import LoginNavigation from '../navbar/LoginNavigation';
 import LoginFormMain from './LoginFormMain';
+import { APP } from '../../../constants';
 
 import './LoginPage.css';
 
@@ -8,14 +9,14 @@ export default class LoginPage extends React.Component {
 
   render() {
     return (
-      <section>
+      <section className="login-page">
         <LoginNavigation />
-        <div className="container">
-          <div className="card card-container">
+        <div className="container login-page-container">
+          <div className="login-page-container-card-container">
             <img
-              id="profile-img"
-              className="profile-img-card"
-              src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+              className="login-page-container-card-container-img"
+              src={APP.USER.DEFAULT_IMG}
+            />
             <LoginFormMain />
           </div>
         </div>

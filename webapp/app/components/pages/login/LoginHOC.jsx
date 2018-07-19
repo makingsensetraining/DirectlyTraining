@@ -42,14 +42,12 @@ const LoginHOC = (LoginChild) => {
     render() {
       const { username, password } = this.state;
       return (
-        <div>
-          <LoginChild
-            username={username}
-            password={password}
-            handleOnChange={this.handleOnChange}
-            handleOnSubmit={this.handleOnSubmit}
-          />
-        </div>
+        <LoginChild
+          username={username}
+          password={password}
+          handleOnChange={this.handleOnChange}
+          handleOnSubmit={this.handleOnSubmit}
+        />
       );
     }
   }

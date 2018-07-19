@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import LoginHOC from './LoginHOC';
+import { Button, FormGroup, Input, Label } from 'reactstrap';
 
 class LoginFormMain extends React.Component {
   static propTypes = {
@@ -13,10 +14,10 @@ class LoginFormMain extends React.Component {
   render() {
     return (
       <div className="login-form">
-        <form onSubmit={this.props.handleOnSubmit} autoComplete="off">
-          <div className="form-group">
-            <label>Username</label>
-            <input
+        <form onSubmit={this.props.handleOnSubmit}>
+          <FormGroup>
+            <Label>Username</Label>
+            <Input
               autoComplete="off"
               className="form-control"
               type="text"
@@ -24,11 +25,12 @@ class LoginFormMain extends React.Component {
               id="username"
               value={this.props.username}
               placeholder="Username"
-              onChange={this.props.handleOnChange} />
-          </div>
-          <div className="form-group">
-            <label>Password</label>
-            <input
+              onChange={this.props.handleOnChange}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label>Password</Label>
+            <Input
               autoComplete="off"
               className="form-control"
               type="password"
@@ -36,14 +38,14 @@ class LoginFormMain extends React.Component {
               id="password"
               value={this.props.password}
               placeholder="Password"
-              onChange={this.props.handleOnChange} />
-          </div>
-          <div className="form-action">
-            <input
-              className="btn btn-outline-info"
-              type="submit"
-              value="Login"
+              onChange={this.props.handleOnChange}
+              required
             />
+          </FormGroup>
+          <div className="form-action">
+            <Button
+              className="btn btn-outline-info"
+              type="submit">Login</Button>
           </div>
         </form>
       </div>
