@@ -1,39 +1,25 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as authActions from '../../../actions/authActions';
-import LoginForm from './LoginForm';
+import LoginNavigation from '../navbar/LoginNavigation';
+import LoginFormMain from './LoginFormMain';
 
-export class LoginPage extends React.Component {
-  static propTypes = {
-    actions: PropTypes.object.isRequired
-  };
+import './LoginPage.css';
 
-  handleOnSubmit = (username, password) => {
-    this.props.actions.login({username, password});
-  };
+export default class LoginPage extends React.Component {
 
   render() {
     return (
       <section>
-        <LoginForm onSubmit={this.handleOnSubmit} />
+        <LoginNavigation />
+        <div className="container">
+          <div className="card card-container">
+            <img
+              id="profile-img"
+              className="profile-img-card"
+              src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+            <LoginFormMain />
+          </div>
+        </div>
       </section>
     );
   }
 }
-
-
-export function mapStateToProps(state) {
-  return {
-    ...state.auth
-  };
-}
-
-export function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(authActions, dispatch)
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
