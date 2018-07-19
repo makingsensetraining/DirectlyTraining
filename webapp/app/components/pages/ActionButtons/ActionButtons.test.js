@@ -13,13 +13,28 @@ function setup(props) {
 }
 
 describe('<ActionButtons />', () => {
-  it('renders itself', () => {
+  describe('Render', () => {
     const wrapper = setup({
       user: {}
     });
 
-    expect(wrapper.find('Button')).toHaveLength(3);
-    expect(wrapper.find('MsModal')).toHaveLength(1);
+    it('should have 3 <Buttons>', () => {
+      expect(wrapper.find('Button').length).toBe(3);
+    });
+
+    it('should have one <MsModal>', () => {
+      expect(wrapper.find('MsModal').length).toBe(1);
+    });
+
+    it('should set the default modal info', () => {
+      const wrapper = setup({
+        user: {}
+      });
+
+      const modal = wrapper.find('MsModal');
+
+      expect(modal.prop('okButtonLabel')).toBe('save');
+    });
   });
 
   describe('mapStateToProps function', () => {
@@ -93,7 +108,7 @@ describe('<ActionButtons />', () => {
 
   describe('toggleModal Functions', () => {
     const state = {
-      actionType: '',
+      actionType: undefined,
       errors: {},
       isUserModalOpen: true,
       modalBody: {},

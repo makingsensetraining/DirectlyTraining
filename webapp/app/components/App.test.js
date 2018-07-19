@@ -8,7 +8,6 @@ function setup(props) {
 
 describe('<App /> component', () => {
   it('renders itself', () => {
-    // Arrange Act
     const wrapper = setup({
       store: {
         subscribe: function () { },
@@ -18,7 +17,6 @@ describe('<App /> component', () => {
       history: {}
     });
 
-    // Assert
     expect(wrapper.find('Provider')).toHaveLength(1);
     expect(wrapper.find('ConnectedRouter')).toHaveLength(1);
   });

@@ -8,7 +8,6 @@ function setup(props) {
 
 describe('<MsModal /> component', () => {
   it('renders itself', () => {
-    // Arrange
     const componentSetup = {
       okButtonLabel: 'Ok',
       cancelButtonLabel: 'cancel',
@@ -19,10 +18,8 @@ describe('<MsModal /> component', () => {
       cancelCallback: () => {}
     };
 
-    // Act
     const wrapper = setup(componentSetup);
 
-    // Assert
     expect(wrapper.find('Modal')).toHaveLength(1);
   });
 });

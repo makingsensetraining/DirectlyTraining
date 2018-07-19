@@ -17,7 +17,7 @@ const EMPTY_USER = {
 };
 
 const DEFAULT_USER_MODAL_LABELS = {
-  confirmButtonText: 'Save'
+  confirmButtonText: 'save'
 };
 
 function isUserMatchById(sourceUser = {}, targetUser = {}) {
@@ -33,7 +33,7 @@ export class ActionButtons extends React.Component {
     super(props);
     
     this.state = {
-      actionType: null,
+      actionType: undefined,
       user: {...EMPTY_USER, ...props.user},
       isUserModalOpen: false,
       modalTitle: '',
@@ -175,7 +175,7 @@ export class ActionButtons extends React.Component {
     if (actionType === 'delete') {
       return {
         ...DEFAULT_USER_MODAL_LABELS,
-        confirmButtonText: 'Delete'
+        confirmButtonText: 'delete'
       };
     }
 

@@ -34,9 +34,7 @@ export class HomePage extends React.Component {
     this.setState({
       selectedRow: [user.id]
     }, () => {
-      if (typeof this.props.usersActions.selectUser === 'function') {
-        this.props.usersActions.selectUser(user);
-      }
+      this.props.usersActions.selectUser(user);
     });
   }
 
