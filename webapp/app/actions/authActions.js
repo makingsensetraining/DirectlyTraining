@@ -1,36 +1,32 @@
 import { push } from 'react-router-redux';
 import * as authService from '../services/authService';
 
-import {
-  AUTH_LOGIN_BEGIN,
-  AUTH_LOGIN_SUCCESS,
-  AUTH_LOGIN_FAILED
-} from '../actions/actionTypes';
+import { AUTH } from '../actions/actionTypes';
 
 export function loginRequest() {
   return {
-    type: AUTH_LOGIN_BEGIN
+    type: AUTH.LOGIN_BEGIN
   };
 }
 
 export function loginSuccess(user) {
   return {
-    type: AUTH_LOGIN_SUCCESS,
+    type: AUTH.LOGIN_SUCCESS,
     user
   };
 }
 
 export function loginFailed(error) {
   return {
-    type: AUTH_LOGIN_FAILED,
+    type: AUTH.LOGIN_FAILED,
     message: error
   };
 }
 
-export function login(username, password) {
+export function login(payload) {
   return function (dispatch) {
     dispatch(loginRequest());
-    return authService.login(username, password)
+    return authService.login(payload)
       .then(
         response => {
           dispatch(loginSuccess(response));

@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { keys } from 'lodash/fp'; // Undecorated version.
 import initialState from '../../../reducers/initialState';
 import { LoginPage, mapDispatchToProps, mapStateToProps } from './LoginPage';
 
@@ -42,7 +41,7 @@ describe('<LoginPage /> component', () => {
         user: null
       };
 
-      const props = mapStateToProps(initialState);
+      const props = mapStateToProps(Object.assign({}, initialState));
 
       expect(props).toEqual(expectedProps);
     });
@@ -70,7 +69,7 @@ describe('<LoginPage /> component', () => {
 
       const props = mapDispatchToProps(dispatch);
 
-      expect(keys(props.actions)).toEqual(expectedActions);
+      expect(Object.keys(props.actions)).toEqual(expectedActions);
     });
   });
 });

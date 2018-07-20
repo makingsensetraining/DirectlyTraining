@@ -10,6 +10,16 @@ import NotFoundPage from './pages/not_found/NotFoundPage';
 import HomePage from './pages/home/HomePage';
 
 export class Main extends React.Component {
+  static propTyoes = {
+    actions: PropTypes.object.isRequired,
+    isAuthenticated: PropTypes.bool,
+    usersActions: PropTypes.object.isRequired
+  };
+
+  static defaultProps = {
+    isAuthenticated: false
+  };
+
   render() {
     return (
       <div>        
@@ -22,12 +32,6 @@ export class Main extends React.Component {
     );
   }
 }
-
-Main.propTypes = {
-  actions: PropTypes.object.isRequired,
-  isAuthenticated: PropTypes.bool,
-  usersActions: PropTypes.object.isRequired
-};
 
 export function mapStateToProps(state) {
   return {

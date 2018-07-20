@@ -1,11 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import * as authActions from './authActions';
-import {
-  AUTH_LOGIN_BEGIN,
-  AUTH_LOGIN_SUCCESS,
-  AUTH_LOGIN_FAILED
-} from '../actions/actionTypes';
+import { AUTH } from '../actions/actionTypes';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -13,7 +9,7 @@ const mockStore = configureMockStore(middlewares);
 describe('authActions', () => {
   it('should create an action to start a login request', () => {
     const expectedAction = {
-      type: AUTH_LOGIN_BEGIN
+      type: AUTH.LOGIN_BEGIN
     };
 
     const result = authActions.loginRequest();
@@ -27,7 +23,7 @@ describe('authActions', () => {
     };
 
     const expectedAction = {
-      type: AUTH_LOGIN_SUCCESS,
+      type: AUTH.LOGIN_SUCCESS,
       user
     };
 
@@ -39,7 +35,7 @@ describe('authActions', () => {
   it('should create an action to handle a failed login', () => {
     const message = 'Testing an error.';
     const expectedAction = {
-      type: AUTH_LOGIN_FAILED,
+      type: AUTH.LOGIN_FAILED,
       message
     };
 
@@ -59,10 +55,10 @@ describe('authActions', () => {
       auth: {}
     });
 
-    return store.dispatch(authActions.login(username, password)).then(() => {
+    return store.dispatch(authActions.login({username, password})).then(() => {
       const actions = store.getActions();
-      expect(actions[0]).toEqual({ type: AUTH_LOGIN_BEGIN });
-      expect(actions[1]).toEqual({ type: AUTH_LOGIN_SUCCESS, user });
+      expect(actions[0]).toEqual({ type: AUTH.LOGIN_BEGIN });
+      expect(actions[1]).toEqual({ type: AUTH.LOGIN_SUCCESS, user });
     });
   });
 
@@ -76,8 +72,8 @@ describe('authActions', () => {
 
     return store.dispatch(authActions.login(username, password)).then(() => {
       const actions = store.getActions();
-      expect(actions[0]).toEqual({ type: AUTH_LOGIN_BEGIN });
-      expect(actions[1]).toEqual({ type: AUTH_LOGIN_FAILED, message });
+      expect(actions[0]).toEqual({ type: AUTH.LOGIN_BEGIN });
+      expect(actions[1]).toEqual({ type: AUTH.LOGIN_FAILED, message });
     });
   });
 });

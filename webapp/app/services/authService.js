@@ -1,4 +1,4 @@
-export function login(username, password) {
+export function login({ username = '', password = ''}) {
   if (username === 'username' && password === 'password') {
     const user = {
       name: 'John'

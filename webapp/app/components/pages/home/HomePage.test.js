@@ -2,7 +2,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { HomePage, mapDispatchToProps, mapStateToProps } from './HomePage';
 import initialState from '../../../reducers/initialState';
-import {keys} from 'lodash/fp';
 
 function setup(props) {
   return shallow(<HomePage {...props} />);
@@ -27,7 +26,7 @@ describe('<HomePage /> component', () => {
         users: []
       };
 
-      const props = mapStateToProps(initialState);
+      const props = mapStateToProps(Object.assign({}, initialState));
 
       expect(props).toEqual(expectedProps);
     });
@@ -61,7 +60,7 @@ describe('<HomePage /> component', () => {
 
       const props = mapDispatchToProps(dispatch);
 
-      expect(keys(props.usersActions)).toEqual(expectedActions);
+      expect(Object.keys(props.usersActions)).toEqual(expectedActions);
     });
   });
 
@@ -151,31 +150,25 @@ describe('<HomePage /> component', () => {
       expect(deleteUser).toHaveBeenCalledTimes(1);
     });
 
-    it('should throw error on invalid type', () => {
+    it('should return add Handler when type is other than add, edit, delete', () => {
       const type = 'other';
       const user = {
         id: 'id'
       };
-      const expectedError = new TypeError(`Unhandled User Action Type ${type}`);
-      let receivedError;
-
+      const createUser = jest.fn();
       const wrapper = setup({
         usersActions: {
           selectUser: () => {},
           getUsers: () => {},
-          createUser: () => {},
+          createUser,
           updateUser: () => {},
           deleteUser: () => {}
         },
       });
 
-      try {
-        wrapper.instance().handleUserActionType(type, user);
-      } catch (error) {
-        receivedError = error;
-      }
+      wrapper.instance().handleUserActionType(type, user);
 
-      expect(receivedError).toEqual(expectedError);
+      expect(createUser).toHaveBeenCalledTimes(1);
     });
 
     it('should return Add as default handler when no type is passed', () => {

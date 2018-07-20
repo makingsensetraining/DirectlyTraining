@@ -1,13 +1,4 @@
-import {
-  LOADING_USERS_BEGIN,
-  LOADING_USERS_COMPLETE,
-  LOADING_USERS_FAILED,
-  CREATE_USERS_SUCCESS,
-  GET_USERS_SUCCESS,
-  DELETE_USERS_SUCCESS,
-  UPDATE_USERS_SUCCESS,
-  SELECT_USERS_SUCCESS,
-} from '../actions/actionTypes';
+import { USERS } from '../actions/actionTypes';
 import { getUserId } from '../utils/user';
 
 export const initialState = {
@@ -21,7 +12,7 @@ export const initialState = {
 
 export default function usersReducer(state = initialState, action) {
   switch(action.type) {
-    case CREATE_USERS_SUCCESS:
+    case USERS.CREATE_SUCCESS:
       return {
         ...state,
         data: [
@@ -30,25 +21,25 @@ export default function usersReducer(state = initialState, action) {
         ]
       };
 
-    case DELETE_USERS_SUCCESS:
+    case USERS.DELETE_SUCCESS:
       return {
         ...state,
         data: state.data.filter(user => getUserId(action.payload) !== getUserId(user))
       };
 
-    case GET_USERS_SUCCESS:
+    case USERS.GET_ALL_SUCCESS:
       return {
         ...state,
         data: action.payload.users
       };
 
-    case SELECT_USERS_SUCCESS:
+    case USERS.SELECT_SUCCESS:
       return {
         ...state,
         selectedUser: action.payload
       };
 
-    case UPDATE_USERS_SUCCESS:
+    case USERS.UPDATE_SUCCESS:
       return {
         ...state,
         data: [
@@ -57,7 +48,7 @@ export default function usersReducer(state = initialState, action) {
         ]
       };
 
-    case LOADING_USERS_BEGIN:
+    case USERS.LOADING_BEGIN:
       return {
         ...state,
         fetch: {
@@ -66,7 +57,7 @@ export default function usersReducer(state = initialState, action) {
         }
       };
 
-    case LOADING_USERS_COMPLETE:
+    case USERS.LOADING_COMPLETE:
       return {
         ...state,
         fetch: {
@@ -75,7 +66,7 @@ export default function usersReducer(state = initialState, action) {
         }
       };
 
-    case LOADING_USERS_FAILED:
+    case USERS.LOADING_FAILED:
       return {
         ...state,
         fetch: {

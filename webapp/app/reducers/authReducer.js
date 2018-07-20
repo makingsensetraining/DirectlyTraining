@@ -1,8 +1,4 @@
-import {
-  AUTH_LOGIN_BEGIN,
-  AUTH_LOGIN_SUCCESS,
-  AUTH_LOGIN_FAILED
-} from '../actions/actionTypes';
+import { AUTH } from '../actions/actionTypes';
 
 export const initialState = {
   authenticating: false,
@@ -14,14 +10,14 @@ export const initialState = {
 
 export default function authReducer(state = initialState, action) {
   switch (action.type) {
-    case AUTH_LOGIN_BEGIN:
+    case AUTH.LOGIN_BEGIN:
       return {
         ...state,
         ...initialState,
         authenticating: true
       };
 
-    case AUTH_LOGIN_SUCCESS:
+    case AUTH.LOGIN_SUCCESS:
       return {
         ...state,
         ...initialState,
@@ -29,7 +25,7 @@ export default function authReducer(state = initialState, action) {
         user: action.user
       };
 
-    case AUTH_LOGIN_FAILED:
+    case AUTH.LOGIN_FAILED:
       return {
         ...state,
         ...initialState,

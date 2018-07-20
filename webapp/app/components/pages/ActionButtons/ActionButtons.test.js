@@ -28,7 +28,7 @@ describe('<ActionButtons />', () => {
         user: {}
       };
 
-      const props = mapStateToProps(initialState);
+      const props = mapStateToProps(Object.assign({}, initialState));
 
       expect(props).toEqual(expectedProps);
     });

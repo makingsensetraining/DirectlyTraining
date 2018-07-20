@@ -1,18 +1,15 @@
+import { initialState as users } from './usersReducer';
+import { initialState as auth } from './authReducer';
+
 export default {
   auth: {
-    authenticating: false,
-    isAuthenticated: false,
-    error: false,
-    errorMessage: null,
-    user: null
+    ...auth
   },
   routing: null,
   users: {
-    data: [],
-    selectedUser: {},
-    fetch: {  
-      loading: false,
-      error: null
+    ...users,
+    fetch: {
+      ...users.fetch
     }
   }
 };

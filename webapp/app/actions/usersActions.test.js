@@ -1,6 +1,6 @@
 import configureStore from 'redux-mock-store';
 import thunkMiddleware from 'redux-thunk';
-import omit from 'lodash/omit';
+import { omit } from '../utils/functions';
 import {
   createUser,
   getUsers,
@@ -9,15 +9,7 @@ import {
   deleteUser
 } from './usersActions';
 import * as userService from '../services/userService';
-import {
-  LOADING_USERS_BEGIN,
-  LOADING_USERS_COMPLETE,
-  CREATE_USERS_SUCCESS,
-  GET_USERS_SUCCESS,
-  DELETE_USERS_SUCCESS,
-  UPDATE_USERS_SUCCESS,
-  SELECT_USERS_SUCCESS,
-} from '../actions/actionTypes';
+import { USERS } from '../actions/actionTypes';
 
 describe('usersActions', () => {
   const middlewares = [
@@ -41,9 +33,7 @@ describe('usersActions', () => {
   function createResponse(response) {
     return {
       ...omit(response, ['data']),
-      json: () => ({
-        data: { ...response.data }
-      })
+      data: { ...response.data }
     };
   }
 
@@ -93,10 +83,10 @@ describe('usersActions', () => {
     describe('when the service call is successful', () => {
       it('should create an action to get users', async () => {
         const expectedActions = [
-          { type: LOADING_USERS_BEGIN },
-          { type: LOADING_USERS_COMPLETE },
+          { type: USERS.LOADING_BEGIN },
+          { type: USERS.LOADING_COMPLETE },
           { 
-            type: GET_USERS_SUCCESS,
+            type: USERS.GET_ALL_SUCCESS,
             payload: {
               count: 1,
               page: 0,
@@ -123,20 +113,23 @@ describe('usersActions', () => {
   describe('selectUser', () => {
     describe('when the service call is successful', () => {
       it('should create an action to select a user', async () => {
-        const selectUsersActionResult = await selectUser({
+        // Arrange
+        const expectedActions = [{
+          payload: {
+            _id: 'fake.id.john',
+            name: 'John Doe'
+          },
+          type: USERS.SELECT_SUCCESS
+        }];
+
+        // Act
+        await store.dispatch(selectUser({
           _id: 'fake.id.john',
           name: 'John Doe'
-        }); 
+        }));
 
-        store.dispatch(selectUsersActionResult).then(() => {
-          expect(store.getActions()).toEqual([{
-            payload: {
-              _id: 'fake.id.john',
-              name: 'John Doe'
-            },
-            type: SELECT_USERS_SUCCESS
-          }]);
-        });
+        // Assert
+        expect(store.getActions()).toEqual(expectedActions);
       });
     });
 
@@ -156,22 +149,22 @@ describe('usersActions', () => {
     
     describe('when the service call is successful', () => {
       it('should create an action to create a user', async () => {
+        // Arrange
         const expectedActions = [
-          { type: LOADING_USERS_BEGIN },
-          { type: LOADING_USERS_COMPLETE },
+          { type: USERS.LOADING_BEGIN },
+          { type: USERS.LOADING_COMPLETE },
           { 
-            type: CREATE_USERS_SUCCESS,
+            type: USERS.CREATE_SUCCESS,
             payload: {
               name: 'John Doe'
             }
           }
         ];
+        // Act
+        await store.dispatch(createUser({ name: 'John Doe' }));
   
-        const createUsersActionResult = await createUser({ name: 'John Doe' }); 
-  
-        store.dispatch(createUsersActionResult).then(() => {
-          expect(store.getActions()).toEqual(expectedActions);
-        });
+        // Assert
+        expect(store.getActions()).toEqual(expectedActions);
       });
     });
 
@@ -191,11 +184,12 @@ describe('usersActions', () => {
 
     describe('when the service call is successful', () => {
       it('should create an action to update a user', async () => {
+        // Arrange
         const expectedActions = [
-          { type: LOADING_USERS_BEGIN },
-          { type: LOADING_USERS_COMPLETE },
+          { type: USERS.LOADING_BEGIN },
+          { type: USERS.LOADING_COMPLETE },
           { 
-            type: UPDATE_USERS_SUCCESS,
+            type: USERS.UPDATE_SUCCESS,
             payload: {
               _id: 'fake.id.john',
               name: 'John Doe Jr.'
@@ -203,14 +197,14 @@ describe('usersActions', () => {
           }
         ];
 
-        const createUsersActionResult = await updateUser({
+        // Act
+        await store.dispatch(updateUser({
           _id: 'fake.id.john',
           name: 'John Doe Jr.'
-        }); 
+        }));
 
-        store.dispatch(createUsersActionResult).then(() => {
-          expect(store.getActions()).toEqual(expectedActions);
-        });
+        // Assert
+        expect(store.getActions()).toEqual(expectedActions);
       });
     });
   });
@@ -226,11 +220,12 @@ describe('usersActions', () => {
 
     describe('when the service call is successful', () => {
       it('should create an action to delete a user', async () => {
+        // Arrange
         const expectedActions = [
-          { type: LOADING_USERS_BEGIN },
-          { type: LOADING_USERS_COMPLETE },
+          { type: USERS.LOADING_BEGIN },
+          { type: USERS.LOADING_COMPLETE },
           { 
-            type: DELETE_USERS_SUCCESS,
+            type: USERS.DELETE_SUCCESS,
             payload: {
               _id: 'fake.id.john',
               name: 'John Doe'
@@ -238,14 +233,14 @@ describe('usersActions', () => {
           }
         ];
 
-        const createUsersActionResult = await deleteUser({
+        // Act
+        await store.dispatch(deleteUser({
           _id: 'fake.id.john',
           name: 'John Doe'
-        });
+        }));
 
-        store.dispatch(createUsersActionResult).then(() => {
-          expect(store.getActions()).toEqual(expectedActions);
-        });
+        // Assert
+        expect(store.getActions()).toEqual(expectedActions);
       });
     });
   });

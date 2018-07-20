@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { keys } from 'lodash/fp';
 import { Main, mapDispatchToProps, mapStateToProps } from './Main'; // Undecorated version.
 import initialState from '../reducers/initialState';
 
@@ -24,7 +23,7 @@ describe('<Main /> component', () => {
   describe('mapStateToProps functions', () => {
     it('should return the initial state of auth module', () => {
       // Act
-      const props = mapStateToProps(initialState);
+      const props = mapStateToProps(Object.assign({}, initialState));
 
       // Assert
       expect(props.isAuthenticated).toBe(false);
@@ -56,7 +55,7 @@ describe('<Main /> component', () => {
       const props = mapDispatchToProps(dispatch);
 
       // Assert
-      expect(keys(props.actions)).toEqual(expectedActions);
+      expect(Object.keys(props.actions)).toEqual(expectedActions);
     });
   });
 });
