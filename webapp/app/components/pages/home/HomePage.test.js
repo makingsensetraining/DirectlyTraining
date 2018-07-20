@@ -2,7 +2,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { HomePage, mapDispatchToProps, mapStateToProps } from './HomePage';
 import initialState from '../../../reducers/initialState';
-import {keys} from 'lodash/fp';
 
 function setup(props) {
   return shallow(<HomePage {...props} />);
@@ -60,7 +59,7 @@ describe('<HomePage /> component', () => {
 
       const props = mapDispatchToProps(dispatch);
 
-      expect(keys(props.usersActions)).toEqual(expectedActions);
+      expect(Object.keys(props.usersActions)).toEqual(expectedActions);
     });
   });
 

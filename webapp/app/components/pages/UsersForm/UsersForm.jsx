@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import isEmpty from 'lodash/isEmpty';
+import { isEmpty } from '../../../utils';
 import { Row } from 'reactstrap';
 import FormInput from '../../common/form/FormInput';
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import keys from 'lodash/keys';
 import { Main, mapDispatchToProps } from './Main';
 
 function setup(props) {
@@ -44,7 +43,7 @@ describe('<Main /> component', () => {
 
       const props = mapDispatchToProps(dispatch);
 
-      expect(keys(props.usersActions)).toEqual(expectedActions);
+      expect(Object.keys(props.usersActions)).toEqual(expectedActions);
     });
   });
 });
