@@ -1,9 +1,5 @@
 import { takeLatest, put, call } from 'redux-saga/effects';
-import {
-  DELETE_USERS_BEGIN,
-  LOADING_USERS_BEGIN,
-  LOADING_USERS_COMPLETE
-} from '../actions/actionTypes';
+import { USERS } from '../actions/actionTypes';
 import {
   deleteUsersSuccess,
   loadingUsersBegin,
@@ -16,15 +12,15 @@ import { getUserId } from '../utils';
 // with promises we use promise.resolve ONlY when service responded, with sagas and generators
 // it resolves in the initial FORK i.e. not the 3rd yield as required
 export function* deleteUsersStart({ user }) {
-  yield put(loadingUsersBegin(LOADING_USERS_BEGIN));
+  yield put(loadingUsersBegin(USERS.LOADING_BEGIN));
   
   // TODO implement error handling
   yield call(deleteUsers, getUserId(user));
   
   yield put(deleteUsersSuccess(user));
-  yield put(loadingUsersComplete(LOADING_USERS_COMPLETE));
+  yield put(loadingUsersComplete(USERS.LOADING_COMPLETE));
 }
 
 export function* deleteUsersSaga() {
-  yield takeLatest(DELETE_USERS_BEGIN, deleteUsersStart);
+  yield takeLatest(USERS.DELETE_BEGIN, deleteUsersStart);
 }

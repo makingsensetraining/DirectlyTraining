@@ -8,16 +8,6 @@ import {
   loadingUsersBegin,
   loadingUsersComplete
 } from './usersActions';
-import {
-  LOADING_USERS_BEGIN,
-  LOADING_USERS_COMPLETE,
-  GET_USERS_BEGIN,
-  GET_USERS_SUCCESS,
-  DELETE_USERS_BEGIN,
-  DELETE_USERS_SUCCESS,
-  SELECT_USER_BEGIN,
-  SELECT_USER_SUCCESS
-} from '../actions/actionTypes';
 
 describe('usersActions', () => {
   describe('getUsers', () => {
@@ -29,9 +19,9 @@ describe('usersActions', () => {
       expect(getUsers).toEqual(expect.any(Function));
     });
 
-    it('should create an action `GET_USERS_BEGIN`', () => {
+    it('should create an action `[users] Get begin`', () => {
       expect(getUsers()).toEqual({ 
-        type: GET_USERS_BEGIN       
+        type: '[users] Get begin'
       });
     });
   });
@@ -45,9 +35,9 @@ describe('usersActions', () => {
       expect(getUsersSuccess).toEqual(expect.any(Function));
     });
 
-    it('should create an action `GET_USERS_SUCCESS`', () => {
+    it('should create an action `[users] Get success`', () => {
       expect(getUsersSuccess()).toEqual({ 
-        type: GET_USERS_SUCCESS,
+        type: '[users] Get success',
         users: undefined            
       });
     });
@@ -62,9 +52,9 @@ describe('usersActions', () => {
       expect(selectUser).toEqual(expect.any(Function));
     });
 
-    it('should create an action `SELECT_USER_BEGIN`', () => {
+    it('should create an action `[users] Select begin`', () => {
       expect(selectUser('foo')).toEqual({ 
-        type: SELECT_USER_BEGIN,
+        type: '[users] Select begin',
         user: 'foo'            
       });
     });
@@ -79,9 +69,9 @@ describe('usersActions', () => {
       expect(selectUserSuccess).toEqual(expect.any(Function));
     });
 
-    it('should create an action `SELECT_USERS_SUCCESS`', () => {
+    it('should create an action `[users] Select success`', () => {
       expect(selectUserSuccess('foo')).toEqual({ 
-        type: SELECT_USER_SUCCESS,
+        type: '[users] Select success',
         user: 'foo'            
       });
     });
@@ -96,9 +86,9 @@ describe('usersActions', () => {
       expect(deleteUsers).toEqual(expect.any(Function));
     });
 
-    it('should create an action `DELETE_USERS_BEGIN`', () => {
+    it('should create an action `[users] Delete begin`', () => {
       expect(deleteUsers('foo')).toEqual({ 
-        type: DELETE_USERS_BEGIN,
+        type: '[users] Delete begin',
         user: 'foo'            
       });
     });
@@ -113,9 +103,9 @@ describe('usersActions', () => {
       expect(deleteUsersSuccess).toEqual(expect.any(Function));
     });
 
-    it('should create an action `DELETE_USERS_SUCCESS`', () => {
+    it('should create an action `[users] Delete success`', () => {
       expect(deleteUsersSuccess('foo')).toEqual({ 
-        type: DELETE_USERS_SUCCESS,
+        type: '[users] Delete success',
         user: 'foo'            
       });
     });
@@ -130,9 +120,9 @@ describe('usersActions', () => {
       expect(loadingUsersBegin).toEqual(expect.any(Function));
     });
 
-    it('should create an action `LOADING_USERS_BEGIN`', () => {
+    it('should create an action `[users] Loading begin`', () => {
       expect(loadingUsersBegin()).toEqual({ 
-        type: LOADING_USERS_BEGIN   
+        type: '[users] Loading begin'
       });
     });
   });
@@ -146,9 +136,9 @@ describe('usersActions', () => {
       expect(loadingUsersComplete).toEqual(expect.any(Function));
     });
 
-    it('should create an action `LOADING_USERS_COMPLETE`', () => {
+    it('should create an action `[users] Loading complete`', () => {
       expect(loadingUsersComplete()).toEqual({ 
-        type: LOADING_USERS_COMPLETE  
+        type: '[users] Loading complete'  
       });
     });
   });

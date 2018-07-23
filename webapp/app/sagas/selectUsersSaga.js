@@ -1,5 +1,5 @@
 import { takeLatest, put } from 'redux-saga/effects';
-import { SELECT_USER_BEGIN } from '../actions/actionTypes';
+import { USERS } from '../actions/actionTypes';
 import { selectUserSuccess } from '../actions';
 
 export function* selectUsersStart({ user }) {
@@ -7,5 +7,5 @@ export function* selectUsersStart({ user }) {
 }
 
 export function* selectUsersSaga() {
-  yield takeLatest(SELECT_USER_BEGIN, selectUsersStart);
+  yield takeLatest(USERS.SELECT_BEGIN, selectUsersStart);
 }

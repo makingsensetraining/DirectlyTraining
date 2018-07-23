@@ -1,26 +1,17 @@
-import {
-  DELETE_USERS_SUCCESS,
-  GET_USERS_SUCCESS,
-  LOADING_USERS_BEGIN,
-  LOADING_USERS_COMPLETE,
-  LOADING_USERS_FAILED,
-  CREATE_USERS_SUCCESS,
-  UPDATE_USERS_SUCCESS,
-  SELECT_USER_SUCCESS
-} from '../actions/actionTypes';
+import { USERS } from '../actions/actionTypes';
 import { getUserId } from '../utils';
 import { createReducer } from '../utils';
 import initialState from './initialState';
 
 export const users = createReducer(initialState.users, {
-  [GET_USERS_SUCCESS](state, { users }) {
+  [USERS.GET_SUCCESS](state, { users }) {
     return {
       ...state,
       data: users,
       selectedUser: {}
     };
   },
-  [CREATE_USERS_SUCCESS](state, { user }) {
+  [USERS.CREATE_SUCCESS](state, { user }) {
     return {
       ...state,
       data: [
@@ -29,14 +20,14 @@ export const users = createReducer(initialState.users, {
       ]
     };
   },
-  [DELETE_USERS_SUCCESS](state, { user }) {
+  [USERS.DELETE_SUCCESS](state, { user }) {
     return {
       ...state,
       data: state.data.filter(sourceUser => getUserId(user) !== getUserId(sourceUser)),
       selectedUser: {}
     };
   },
-  [UPDATE_USERS_SUCCESS](state, { user }) {
+  [USERS.UPDATE_SUCCESS](state, { user }) {
     return {
       ...state,
       data: [
@@ -46,13 +37,13 @@ export const users = createReducer(initialState.users, {
       selectedUser: {}
     };
   },
-  [SELECT_USER_SUCCESS](state, { user }) {
+  [USERS.SELECT_SUCCESS](state, { user }) {
     return {
       ...state,
       selectedUser: user
     };
   },
-  [LOADING_USERS_BEGIN](state) {
+  [USERS.LOADING_BEGIN](state) {
     return {
       ...state,
       fetch: {
@@ -61,7 +52,7 @@ export const users = createReducer(initialState.users, {
       }
     };
   },
-  [LOADING_USERS_COMPLETE](state) {
+  [USERS.LOADING_COMPLETE](state) {
     return {
       ...state,
       fetch: {
@@ -70,7 +61,7 @@ export const users = createReducer(initialState.users, {
       }
     };
   },
-  [LOADING_USERS_FAILED](state, { error }) {
+  [USERS.LOADING_FAILED](state, { error }) {
     return {
       ...state,
       fetch: {

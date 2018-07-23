@@ -4,11 +4,6 @@ import {
   takeLatest
 } from 'redux-saga/effects';
 import {
-  CREATE_USERS_BEGIN,
-  LOADING_USERS_BEGIN,
-  LOADING_USERS_COMPLETE
-} from '../actions/actionTypes';
-import {
   createUsersSaga,
   createUsersStart
 } from './createUsersSaga';
@@ -29,7 +24,7 @@ describe('Create Users Saga', () => {
     const gen = createUsersSaga();
 
     expect(gen.next().value).toEqual(
-      takeLatest(CREATE_USERS_BEGIN, createUsersStart)
+      takeLatest('[users] Create begin', createUsersStart)
     );
   });
 
@@ -69,7 +64,7 @@ describe('Create Users Saga', () => {
 
     it('should start loading', () => {
       expect(createUsersGen.next().value).toEqual(
-        put(loadingUsersBegin(LOADING_USERS_BEGIN))
+        put(loadingUsersBegin('[users] Loading begin'))
       );
     });
 
@@ -89,7 +84,7 @@ describe('Create Users Saga', () => {
 
     it('should complete loading', () => {
       expect(createUsersGen.next().value).toEqual(
-        put(loadingUsersComplete(LOADING_USERS_COMPLETE))
+        put(loadingUsersComplete('[users] Loading complete'))
       );
     });
   });

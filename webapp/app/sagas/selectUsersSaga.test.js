@@ -1,6 +1,5 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import { selectUsersSaga, selectUsersStart } from './selectUsersSaga';
-import { SELECT_USER_BEGIN } from '../actions/actionTypes';
 import { selectUserSuccess } from '../actions';
 
 describe('Select Users Saga', () => {
@@ -13,7 +12,7 @@ describe('Select Users Saga', () => {
     const gen = selectUsersSaga();
 
     expect(gen.next().value).toEqual(
-      takeLatest(SELECT_USER_BEGIN, selectUsersStart)
+      takeLatest('[users] Select begin', selectUsersStart)
     );
   });
 

@@ -4,11 +4,6 @@ import {
   takeLatest
 } from 'redux-saga/effects';
 import {
-  DELETE_USERS_BEGIN,
-  LOADING_USERS_BEGIN,
-  LOADING_USERS_COMPLETE
-} from '../actions/actionTypes';
-import {
   deleteUsersSaga,
   deleteUsersStart
 } from './deleteUsersSaga';
@@ -30,7 +25,7 @@ describe('Delete Users Saga', () => {
     const gen = deleteUsersSaga();
 
     expect(gen.next().value).toEqual(
-      takeLatest(DELETE_USERS_BEGIN, deleteUsersStart)
+      takeLatest('[users] Delete begin', deleteUsersStart)
     );
   });
 
@@ -48,7 +43,7 @@ describe('Delete Users Saga', () => {
 
     it('should start loading', () => {
       expect(deleteUsersGen.next().value).toEqual(
-        put(loadingUsersBegin(LOADING_USERS_BEGIN))
+        put(loadingUsersBegin('[users] Loading begin'))
       );
     });
 
@@ -66,7 +61,7 @@ describe('Delete Users Saga', () => {
 
     it('should complete loading', () => {
       expect(deleteUsersGen.next().value).toEqual(
-        put(loadingUsersComplete(LOADING_USERS_COMPLETE))
+        put(loadingUsersComplete('[users] Loading complete'))
       );
     });
   });

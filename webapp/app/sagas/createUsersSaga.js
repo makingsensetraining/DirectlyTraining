@@ -1,9 +1,5 @@
 import { takeLatest, put, call } from 'redux-saga/effects';
-import {
-  CREATE_USERS_BEGIN,
-  LOADING_USERS_BEGIN,
-  LOADING_USERS_COMPLETE
-} from '../actions/actionTypes';
+import { USERS } from '../actions/actionTypes';
 import {
   createUsersSuccess,
   loadingUsersBegin,
@@ -15,15 +11,15 @@ import { createUsers } from '../services/userService';
 // with promises we use promise.resolve ONlY when service responded, with sagas and generators
 // it resolves in the initial FORK i.e. not the 3rd yield as required
 export function* createUsersStart({ user }) {
-  yield put(loadingUsersBegin(LOADING_USERS_BEGIN));
+  yield put(loadingUsersBegin(USERS.LOADING_BEGIN));
   
   // TODO implement error handling
   const response = yield call(createUsers, user);
   
   yield put(createUsersSuccess(response.data));
-  yield put(loadingUsersComplete(LOADING_USERS_COMPLETE));
+  yield put(loadingUsersComplete(USERS.LOADING_COMPLETE));
 }
 
 export function* createUsersSaga() {
-  yield takeLatest(CREATE_USERS_BEGIN, createUsersStart);
+  yield takeLatest(USERS.CREATE_BEGIN, createUsersStart);
 }
