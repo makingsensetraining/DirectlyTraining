@@ -7,9 +7,10 @@ function setup(props) {
 }
 
 describe('<MsModal /> component', () => {
-  it('renders itself', () => {
-    // Arrange
-    const componentSetup = {
+  let defaultProps;
+
+  beforeEach(() => {
+    defaultProps = {
       okButtonLabel: 'Ok',
       cancelButtonLabel: 'cancel',
       body: {},
@@ -18,11 +19,24 @@ describe('<MsModal /> component', () => {
       okCallback: () => {},
       cancelCallback: () => {}
     };
+  });
 
+  it('renders itself', () => {
     // Act
-    const wrapper = setup(componentSetup);
+    const wrapper = setup(defaultProps);
 
     // Assert
     expect(wrapper.find('Modal')).toHaveLength(1);
+    expect(wrapper.find('ModalFooter')).toHaveLength(1);
+  });
+
+  it('renders modal without footer', () => {
+    // Act
+    defaultProps.showFooter = false;
+    const wrapper = setup(defaultProps);
+
+    // Assert
+    expect(wrapper.find('Modal')).toHaveLength(1);
+    expect(wrapper.find('ModalFooter')).toHaveLength(0);
   });
 });

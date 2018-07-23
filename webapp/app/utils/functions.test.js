@@ -1,4 +1,4 @@
-import { completeAssign, omit } from './functions';
+import { completeAssign } from './functions';
 
 describe('functions file with utilities', () => {
 

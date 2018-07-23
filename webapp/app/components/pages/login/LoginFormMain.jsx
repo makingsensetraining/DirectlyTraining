@@ -7,9 +7,37 @@ class LoginFormMain extends React.Component {
   static propTypes = {
     username: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,
-    handleOnChange: PropTypes.func.isRequired,
-    handleOnSubmit: PropTypes.func.isRequired
+    auth: PropTypes.shape({
+      error: PropTypes.bool,
+      errorMessage: PropTypes.string
+    }).isRequired,
+    handleOnChange: PropTypes.func,
+    handleOnSubmit: PropTypes.func
   };
+
+  static defaultProps = {
+    auth: {
+      error: false,
+      errorMessage: null
+    },
+    handleOnChange: () => {},
+    handleOnSubmit: () => {}
+  };
+
+  renderErrorMessage() {
+    const { error, errorMessage } = this.props.auth;
+    let dataToRender = null;
+
+    if (error) {
+      dataToRender = (
+        <div className="alert alert-danger" role="alert">
+          <span className="sr-only">Error:</span>{errorMessage}
+        </div>
+      );
+    }
+
+    return dataToRender;
+  }
 
   render() {
     return (
@@ -42,6 +70,9 @@ class LoginFormMain extends React.Component {
               required
             />
           </FormGroup>
+          <div className="form-message">
+            {this.renderErrorMessage()}
+          </div>
           <div className="form-action">
             <Button
               className="btn btn-outline-info"
