@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { Button } from 'reactstrap';
 import { connect } from 'react-redux';
 import MsModal from '../../common/modal/MsModal';
 import UsersForm from '../UsersForm/UsersForm';
 import { EMAIL_REGEXP } from '../../../constants';
+
+import './ActionButtons.scss';
 
 const EMPTY_USER = {
   name: '',
@@ -19,13 +22,14 @@ const DEFAULT_USER_MODAL_LABELS = {
 
 export class ActionButtons extends React.Component {
   static propTypes = {
+    className: PropTypes.string,
     user: PropTypes.object,
     onConfirm: PropTypes.func
   };
 
   constructor(props) {
     super(props);
-    
+
     this.state = {
       actionType: null,
       user: {...EMPTY_USER, ...props.user},
@@ -118,7 +122,7 @@ export class ActionButtons extends React.Component {
   saveUser = () => {
     if (!this.canSubmitForm()) {
       return;
-    }    
+    }
 
     if (typeof this.props.onConfirm === 'function') {
       this.props.onConfirm(this.state.actionType, this.state.user)
@@ -173,6 +177,10 @@ export class ActionButtons extends React.Component {
     return DEFAULT_USER_MODAL_LABELS;
   }
 
+  getClass() {
+    return classNames('action-buttons', this.props.className);
+  }
+
   render() {
     const modalBody = this.getModalBody();
     const isUserEditDisabled = this.isValidUser(this.state.user) === false;
@@ -182,7 +190,7 @@ export class ActionButtons extends React.Component {
     };
 
     return (
-      <div className="user-list-action-buttons">
+      <div className={this.getClass()}>
         <Button
           color="primary"
           onClick={this.toggleAddModal}

@@ -5,7 +5,7 @@ import UsersForm from '../UsersForm/UsersForm';
 class MsModal extends React.PureComponent {
   static propTypes= {
     onChange: PropTypes.func.isRequired,
-    actionType: strin
+    actionType: PropTypes.string.isRequired
   };
 
   render() {
