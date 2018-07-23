@@ -1,7 +1,11 @@
 export { createReducer } from './createReducer';
 export { makeActionCreator } from './makeActionCreator';
 export { getQuery } from './url';
-export { getUserId } from './user';
+export {
+  getUserId,
+  isValidUser,
+  isUserMatchById
+} from './user';
 export {
   has,
   get,

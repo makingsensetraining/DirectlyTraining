@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -7,7 +7,11 @@ import * as usersActions from '../actions/usersActions';
 import NotFoundPage from './pages/not_found/NotFoundPage';
 import HomePage from './pages/home/HomePage';
 
-export class Main extends React.Component {
+export class Main extends Component {
+  static propTypes = {
+    usersActions: PropTypes.object.isRequired
+  };
+
   render() {
     return (
       <div>        
@@ -19,10 +23,6 @@ export class Main extends React.Component {
     );
   }
 }
-
-Main.propTypes = {
-  usersActions: PropTypes.object.isRequired
-};
 
 export function mapDispatchToProps(dispatch) {
   return {

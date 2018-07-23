@@ -1,4 +1,4 @@
-import { get } from './helpers';
+import { get, isEmpty } from './helpers';
 
 export function getUserId(user = {}) {
   let userId = get(user, '_id');
@@ -8,4 +8,12 @@ export function getUserId(user = {}) {
   }
 
   return userId;
+}
+
+export function isUserMatchById(sourceUser = {}, targetUser = {}) {
+  return getUserId(sourceUser) === getUserId(targetUser); 
+}
+
+export function isValidUser(user) {
+  return isEmpty(getUserId(user)) === false;
 }

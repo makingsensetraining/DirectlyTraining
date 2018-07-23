@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -7,30 +7,26 @@ import paginationFactory from 'react-bootstrap-table2-paginator';
 import Header from './../partials/header/Header';
 import ActionButtons from '../ActionButtons/ActionButtons';
 import * as usersActions from '../../../actions/usersActions';
-import {
-  usersSelector
-} from '../../../selectors';
+import { usersSelector } from '../../../selectors';
 
 import './HomePage.css';
 
-export class HomePage extends React.Component {
-  constructor(props, context) {
-    super(props, context);
+export class HomePage extends Component {
+  static propTypes = {
+    users: PropTypes.array,
+    usersActions: PropTypes.object.isRequired
+  };
 
-    this.state = {
-      selectedRow: [],
-      user: {}
-    };
-
-    this.setSelectedRow = this.setSelectedRow.bind(this);
-    this.handleUserActionType = this.handleUserActionType.bind(this);
-  }
+  state = {
+    selectedRow: [],
+    user: {}
+  };
 
   componentDidMount() {
     this.props.usersActions.getUsers();
   }
 
-  setSelectedRow(user) {
+  setSelectedRow = user => {
     this.setState({
       selectedRow: [user.id]
     }, () => {
@@ -38,7 +34,7 @@ export class HomePage extends React.Component {
     });
   }
 
-  handleUserActionType(type = 'add', user) {
+  handleUserActionType = (type = 'add', user) => {
     const { usersActions } = this.props;
     
     switch(type) {
@@ -100,11 +96,6 @@ export class HomePage extends React.Component {
     );
   }
 }
-
-HomePage.propTypes = {
-  users: PropTypes.array,
-  usersActions: PropTypes.object.isRequired
-};
 
 export function mapStateToProps(state) { 
   return {

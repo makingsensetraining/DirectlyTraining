@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'reactstrap';
 import { connect } from 'react-redux';
-import { has, isEmpty } from '../../../utils';
-import MsModal from '../../common/modal/MsModal';
-import UsersForm from '../UsersForm/UsersForm';
+import {
+  isEmpty,
+  isValidUser,
+  isUserMatchById
+} from '../../../utils';
 import { EMAIL_REGEXP } from '../../../constants';
 import { selectedUserSelector } from '../../../selectors';
+import MsModal from '../../common/modal/MsModal';
+import UsersForm from '../UsersForm/UsersForm';
 
 const EMPTY_USER = {
   name: '',
@@ -19,17 +23,14 @@ const DEFAULT_USER_MODAL_LABELS = {
   confirmButtonText: 'save'
 };
 
-function isUserMatchById(sourceUser = {}, targetUser = {}) {
-  return sourceUser['id'] === targetUser['id']; 
-}
+export class ActionButtons extends Component {
+  static propTypes = {
+    user: PropTypes.object,
+    onConfirm: PropTypes.func
+  };
 
-function isValidUser(user) {
-  return has(user, 'id') && isEmpty(user, 'id') === false;
-}
-
-export class ActionButtons extends React.Component {
   constructor(props) {
-    super(props);
+    super();
     
     this.state = {
       actionType: undefined,
@@ -40,56 +41,44 @@ export class ActionButtons extends React.Component {
       modalYesLabel: '',
       errors: {}
     };
-
-    this.toggle = this.toggle.bind(this);
-    this.toggleAddModal = this.toggleAddModal.bind(this);
-    this.toggleEditModal = this.toggleEditModal.bind(this);
-    this.toggleDeleteModal = this.toggleDeleteModal.bind(this);
-    this.updateUserState = this.updateUserState.bind(this);
-    this.saveUser = this.saveUser.bind(this);
-    this.cancel = this.cancel.bind(this);
-    this.validateForm = this.validateForm.bind(this);
-    this.renderUserModalBody = this.renderUserModalBody.bind(this);
   }
 
-  componentWillReceiveProps({ user: newUser }) {
-    const { user: currentSelectedUser } = this.props;
-
-    if (!isUserMatchById(currentSelectedUser, newUser)) {
+  componentWillReceiveProps(nextProps) {
+    if (!isUserMatchById(this.props.user, nextProps.user)) {
       this.setState({
         user: {
-          ...newUser
+          ...nextProps.user
         }
       });
     }
   }
 
-  toggle() {
+  toggle = () => {
     this.setState({
       isUserModalOpen: !this.state.isUserModalOpen
     });
   }
 
-  toggleAddModal() {
+  toggleAddModal = () => {
     this.setState({
       actionType: 'add',
       user: { ...EMPTY_USER }
     }, this.toggle);
   }
 
-  toggleEditModal() {
+  toggleEditModal = () => {
     this.setState({
       actionType: 'edit'
     }, this.toggle);
   }
 
-  toggleDeleteModal() {
+  toggleDeleteModal = () => {
     this.setState({
       actionType: 'delete'
     }, this.toggle);
   }
 
-  updateUserState(event) {
+  updateUserState = event => {
     this.setState({
       user: {
         ...this.state.user,
@@ -98,7 +87,7 @@ export class ActionButtons extends React.Component {
     });
   }
 
-  validateForm() {
+  validateForm = () => {
     const { user } = this.state;
     const isValidUsername = !isEmpty(user.name);
     const isValidEmail = EMAIL_REGEXP.test(user.email);
@@ -121,7 +110,7 @@ export class ActionButtons extends React.Component {
     return isEmpty(this.validateForm());
   }
 
-  saveUser() {
+  saveUser = () => {
     if (!this.canSubmitForm()) {
       return;
     }    
@@ -136,7 +125,7 @@ export class ActionButtons extends React.Component {
     }
   }
 
-  cancel() {
+  cancel = () => {
     let user = EMPTY_USER;
 
     if (isValidUser(this.props.user) === true) {
@@ -149,7 +138,7 @@ export class ActionButtons extends React.Component {
     }, this.toggle);
   }
 
-  renderUserModalBody() {
+  renderUserModalBody = () => {
     const {
       user,
       errors
@@ -218,11 +207,6 @@ export class ActionButtons extends React.Component {
     );
   }
 }
-
-ActionButtons.propTypes = {
-  user: PropTypes.object,
-  onConfirm: PropTypes.func
-};
 
 export function mapStateToProps(state) {
   return {
