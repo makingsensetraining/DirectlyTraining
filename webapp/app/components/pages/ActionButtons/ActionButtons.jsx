@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'reactstrap';
 import { connect } from 'react-redux';
-import isEmpty from 'lodash/isEmpty';
-import has from 'lodash/has';
 import MsModal from '../../common/modal/MsModal';
 import UsersForm from '../UsersForm/UsersForm';
 import { EMAIL_REGEXP } from '../../../constants';
@@ -27,7 +25,7 @@ export class ActionButtons extends React.Component {
 
   constructor(props) {
     super(props);
-    
+
     this.state = {
       actionType: null,
       user: {...EMPTY_USER, ...props.user},
@@ -53,11 +51,11 @@ export class ActionButtons extends React.Component {
 
   isUserMatchById = (sourceUser = {}, targetUser = {}) => {
     return sourceUser['id'] === targetUser['id'];
-  }
+  };
 
   isValidUser = (user) => {
-    return has(user, 'id') && isEmpty(user, 'id') === false;
-  }
+    return user.hasOwnProperty('id') && user.id !== '';
+  };
 
   toggle = () => {
     this.setState({
@@ -95,7 +93,7 @@ export class ActionButtons extends React.Component {
 
   validateForm = () => {
     const { user } = this.state;
-    const isValidUsername = !isEmpty(user.name);
+    const isValidUsername = user.name !== '';
     const isValidEmail = EMAIL_REGEXP.test(user.email);
     const errors = {};
 
@@ -113,13 +111,14 @@ export class ActionButtons extends React.Component {
   };
 
   canSubmitForm = () => {
-    return isEmpty(this.validateForm());
+    const errors = this.validateForm();
+    return (Object.keys(errors).length === 0 && errors.constructor === Object);
   };
 
   saveUser = () => {
     if (!this.canSubmitForm()) {
       return;
-    }    
+    }
 
     if (typeof this.props.onConfirm === 'function') {
       this.props.onConfirm(this.state.actionType, this.state.user)

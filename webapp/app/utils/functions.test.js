@@ -94,10 +94,16 @@ describe('functions file with utilities', () => {
       };
 
       // Act
-      const result = completeAssign(source1, source2);
+      const result = completeAssign({}, source1, source2);
 
       // Assert
       expect(result).toEqual(expected);
+    });
+  });
+
+  describe('omit', () => {
+    it('should remove an object property', () =>{
+
     });
   });
 });

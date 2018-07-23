@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import isEmpty from 'lodash/isEmpty';
 import { Row } from 'reactstrap';
 import FormInput from '../../common/form/FormInput';
 
@@ -24,8 +23,8 @@ class UsersForm extends React.PureComponent {
 
   render() {
     const {user, onChange, errors} = this.props;
-    const isNameInvalid = !isEmpty(errors.name);
-    const isEmailInvalid =  !isEmpty(errors.email);
+    const isNameInvalid = errors.name === '';
+    const isEmailInvalid =  errors.email === '';
     const emailFeedback = errors.email || '';
     return (
       <div>

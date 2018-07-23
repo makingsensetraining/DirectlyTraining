@@ -3,13 +3,13 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import PropTypes from 'prop-types';
 
 class MsModal extends React.PureComponent {
-  static propTypes= {
+  static propTypes = {
     okButtonLabel: PropTypes.string,
     cancelButtonLabel: PropTypes.string,
     body: PropTypes.any.isRequired,
     isOpen: PropTypes.bool.isRequired,
     okCallback: PropTypes.func,
-    cancelCallback: PropTypes.func,
+    cancelCallback: PropTypes.func.isRequired,
     modalTitle: PropTypes.string.isRequired,
     showFooter: PropTypes.bool
   };
@@ -18,29 +18,11 @@ class MsModal extends React.PureComponent {
     showFooter: true
   };
 
-  render() {
-    const {isOpen, cancelCallback, modalTitle, body } = this.props;
-    return (
-      <Modal isOpen={isOpen} toggle={cancelCallback}>
-        <ModalHeader toggle={cancelCallback}>{modalTitle}</ModalHeader>
-        <ModalBody>
-          {body}
-        </ModalBody>
-        {this.renderFooter()}
-      </Modal>
-    );
-  }
-
   renderFooter() {
-    const {
-      cancelCallback,
-      cancelButtonLabel,
-      okCallback,
-      okButtonLabel
-    } = this.props;
+    const { cancelCallback, cancelButtonLabel, okCallback, okButtonLabel, showFooter } = this.props;
     let dataToRender = null;
 
-    if (this.props.showFooter) {
+    if (showFooter) {
       dataToRender = (
         <ModalFooter>
           <Button color="primary" onClick={okCallback}>{okButtonLabel}</Button>{' '}
@@ -50,6 +32,19 @@ class MsModal extends React.PureComponent {
     }
 
     return dataToRender;
+  }
+
+  render() {
+    const { isOpen, cancelCallback, modalTitle, body } = this.props;
+    return (
+      <Modal isOpen={isOpen} toggle={cancelCallback}>
+        <ModalHeader toggle={cancelCallback}>{modalTitle}</ModalHeader>
+        <ModalBody>
+          {body}
+        </ModalBody>
+        {this.renderFooter()}
+      </Modal>
+    );
   }
 }
 

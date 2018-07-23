@@ -46,7 +46,9 @@ export class HomePage extends React.Component {
       case 'delete':
         return usersActions.deleteUser(user);
       default:
-        throw new TypeError(`Unhandled User Action Type ${type}`);
+        // TODO define e common logging mechanism
+        // throw new TypeError(`Unhandled User Action Type ${type}`);
+        usersActions.createUser(user);
     }
   };
 
