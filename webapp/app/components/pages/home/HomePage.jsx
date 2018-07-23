@@ -78,20 +78,20 @@ export class HomePage extends React.Component {
     return (
       <div className="home-page">
         <Header className="home-page--header" />
-        <div className="home-page--container container">
+        <div className="container">
           <Row>
             <Col md="8">
               <h4>Users List</h4>
             </Col>
             <Col md="4">
               <ActionButtons
-                className="home-page--container-action-buttons"
+                className="home-page--action-buttons"
                 user={this.state.user}
                 onConfirm={this.handleUserActionType}
               />
             </Col>
           </Row>
-          <div className="home-page--container-table">
+          <div className="home-page--table">
             <BootstrapTable
               keyField='id'
               data={ this.props.users }

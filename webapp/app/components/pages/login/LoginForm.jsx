@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import FormInput from '../../common/form/FormInput';
-import './LoginForm.css';
+
+import './LoginForm.scss';
 
 class LoginForm extends React.Component {
   static propTypes = {
+    className: PropTypes.string,
     onSubmit: PropTypes.func.isRequired
   };
 
@@ -24,30 +27,32 @@ class LoginForm extends React.Component {
     this.props.onSubmit(this.state.username, this.state.password);
   }
 
+  getClass() {
+    return classNames('login-form', this.props.className);
+  }
+
   render() {
     return (
-      <div className="">
-        <form className="form-signin" onSubmit={this.handleOnSubmit}>
-          <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>          
-          <FormInput
-            inputId="inputEmail"
-            label="Username or email address"
-            onChange={this.handleOnChange}
-            name="username"
-            placeholder="Username or email address"
-            value={this.state.username} />
-          <FormInput
-            inputId="inputPassword"
-            label="Password"
-            onChange={this.handleOnChange}
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={this.state.password} />
-          <span>Hint: <i>username/password</i></span>
-          <button className="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-        </form>
-      </div>
+      <form className={this.getClass()} onSubmit={this.handleOnSubmit}>
+        <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <FormInput
+          inputId="inputEmail"
+          label="Username or email address"
+          onChange={this.handleOnChange}
+          name="username"
+          placeholder="Username or email address"
+          value={this.state.username} />
+        <FormInput
+          inputId="inputPassword"
+          label="Password"
+          onChange={this.handleOnChange}
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={this.state.password} />
+        <span>Hint: <i>username/password</i></span>
+        <button className="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      </form>
     );
   }
 }
