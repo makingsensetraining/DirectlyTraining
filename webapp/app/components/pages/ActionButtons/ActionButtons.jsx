@@ -30,11 +30,11 @@ export class ActionButtons extends Component {
   };
 
   constructor(props) {
-    super();
+    super(props);
     
     this.state = {
       actionType: undefined,
-      user: {...EMPTY_USER, ...props.user},
+      user: { ...EMPTY_USER, ...props.user },
       isUserModalOpen: false,
       modalTitle: '',
       modalBody: {},
@@ -79,11 +79,13 @@ export class ActionButtons extends Component {
   }
 
   updateUserState = event => {
-    this.setState({
-      user: {
-        ...this.state.user,
-        [event.target.name]: event.target.value
-      }
+    this.setState(prevState => {
+      return {
+        user: {
+          ...prevState.user,
+          [event.target.name]: event.target.value
+        }
+      };
     });
   }
 
