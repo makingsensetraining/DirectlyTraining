@@ -29,19 +29,18 @@ export class ActionButtons extends Component {
     onConfirm: PropTypes.func
   };
 
-  constructor(props) {
-    super(props);
-    
-    this.state = {
-      actionType: undefined,
-      user: { ...EMPTY_USER, ...props.user },
-      isUserModalOpen: false,
-      modalTitle: '',
-      modalBody: {},
-      modalYesLabel: '',
-      errors: {}
-    };
-  }
+  state = {
+    actionType: undefined,
+    isUserModalOpen: false,
+    modalTitle: '',
+    modalBody: {},
+    modalYesLabel: '',
+    errors: {},
+    user: {
+      ...EMPTY_USER,
+      ...this.props.user
+    }
+  };
 
   componentWillReceiveProps(nextProps) {
     if (!isUserMatchById(this.props.user, nextProps.user)) {
@@ -78,14 +77,14 @@ export class ActionButtons extends Component {
     }, this.toggle);
   }
 
-  updateUserState = event => {
-    this.setState(prevState => {
-      return {
-        user: {
-          ...prevState.user,
-          [event.target.name]: event.target.value
-        }
-      };
+  updateUserState = ({ target }) => {
+    const { user } = this.state;
+
+    this.setState({
+      user: {
+        ...user,
+        [target.name]: target.value
+      }
     });
   }
 
@@ -140,13 +139,8 @@ export class ActionButtons extends Component {
     }, this.toggle);
   }
 
-  renderUserModalBody = () => {
-    const {
-      user,
-      errors
-    } = this.state;
-
-    if (this.state.actionType === 'delete') {
+  getModalBody({ user, errors, actionType , onChange }) {
+    if (actionType === 'delete') {
       return (
         <p>{`Are you sure to delete User ${user.name}`}</p>
       );
@@ -154,7 +148,7 @@ export class ActionButtons extends Component {
 
     return (
       <UsersForm
-        onChange={this.updateUserState}
+        onChange={onChange}
         user={user}
         errors={errors}
       />
@@ -173,7 +167,12 @@ export class ActionButtons extends Component {
   }
 
   render() {
-    const modalBody = this.renderUserModalBody();
+    const modalBody = this.getModalBody({
+      actionType: this.state.actionType,
+      user: this.state.user,
+      errors: this.state.errors,
+      onChange: this.updateUserState
+    });
     const isUserEditDisabled = isValidUser(this.state.user) === false;
     const modalInfo = {
       ...this.getModalLabels(this.state.actionType),
