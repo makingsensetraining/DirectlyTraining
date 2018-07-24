@@ -10,7 +10,7 @@ module.exports = {
     '**/app/**/*.{js,jsx}',
     '!**/node_modules/**',
     '!**/vendor/**',
-    '!**/app/index.jsx'
+    '!**/app/index.js'
   ],
   coverageDirectory: `${buildLogFolder}/coverage`,
   reporters: [
