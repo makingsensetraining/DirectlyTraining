@@ -1,13 +1,13 @@
 .home-page {
 
-  &--header {
-    margin-bottom: 15px;
-  }
-
   &--action-buttons {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+  }
+
+  &--header {
+    margin-bottom: 15px;
   }
 
   &--table {

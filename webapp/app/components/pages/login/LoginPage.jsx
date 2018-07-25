@@ -19,9 +19,9 @@ export class LoginPage extends React.Component {
   render() {
     return (
       <section className="login-page">
-        <LoginForm
-          className="login-page--login-form"
-          onSubmit={this.handleOnSubmit} />
+        <div className="login-page--form">
+          <LoginForm onSubmit={this.handleOnSubmit} />
+        </div>
       </section>
     );
   }

@@ -1,13 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import FormInput from '../../common/form/FormInput';
 
 import './LoginForm.scss';
 
 class LoginForm extends React.Component {
   static propTypes = {
-    className: PropTypes.string,
     onSubmit: PropTypes.func.isRequired
   };
 
@@ -27,13 +25,9 @@ class LoginForm extends React.Component {
     this.props.onSubmit(this.state.username, this.state.password);
   }
 
-  getClass() {
-    return classNames('login-form', this.props.className);
-  }
-
   render() {
     return (
-      <form className={this.getClass()} onSubmit={this.handleOnSubmit}>
+      <form className="login-form" onSubmit={this.handleOnSubmit}>
         <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
         <FormInput
           inputId="inputEmail"

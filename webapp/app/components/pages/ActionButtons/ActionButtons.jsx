@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { Button } from 'reactstrap';
 import { connect } from 'react-redux';
 import MsModal from '../../common/modal/MsModal';
@@ -22,7 +21,6 @@ const DEFAULT_USER_MODAL_LABELS = {
 
 export class ActionButtons extends React.Component {
   static propTypes = {
-    className: PropTypes.string,
     user: PropTypes.object,
     onConfirm: PropTypes.func
   };
@@ -177,10 +175,6 @@ export class ActionButtons extends React.Component {
     return DEFAULT_USER_MODAL_LABELS;
   }
 
-  getClass() {
-    return classNames('action-buttons', this.props.className);
-  }
-
   render() {
     const modalBody = this.getModalBody();
     const isUserEditDisabled = this.isValidUser(this.state.user) === false;
@@ -190,7 +184,7 @@ export class ActionButtons extends React.Component {
     };
 
     return (
-      <div className={this.getClass()}>
+      <div className="action-buttons">
         <Button
           color="primary"
           onClick={this.toggleAddModal}

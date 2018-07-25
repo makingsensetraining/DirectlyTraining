@@ -84,11 +84,12 @@ export class HomePage extends React.Component {
               <h4>Users List</h4>
             </Col>
             <Col md="4">
-              <ActionButtons
-                className="home-page--action-buttons"
-                user={this.state.user}
-                onConfirm={this.handleUserActionType}
-              />
+              <div className="home-page--action-buttons">
+                <ActionButtons
+                  user={this.state.user}
+                  onConfirm={this.handleUserActionType}
+                />
+              </div>
             </Col>
           </Row>
           <div className="home-page--table">
