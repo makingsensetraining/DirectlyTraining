@@ -77,7 +77,9 @@ export class HomePage extends React.Component {
 
     return (
       <div className="home-page">
-        <Header className="home-page--header" />
+        <div className="home-page--header">
+          <Header />
+        </div>
         <div className="container">
           <Row>
             <Col md="8">
