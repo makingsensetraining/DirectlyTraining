@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FormInput from '../../common/form/FormInput';
+import formValidator from '../../../validators/formValidator';
+import { formRules } from '../../../validators/formRules';
+import { get } from 'lodash';
 
 import './LoginForm.scss';
 
@@ -11,8 +14,15 @@ class LoginForm extends React.Component {
 
   state = {
     username: '',
-    password: ''
+    password: '',
+    validation: {}
   };
+
+  constructor() {
+    super();
+    // validations rules specific set from form, type array
+    this.validator = new formValidator(formRules.login);
+  }
 
   handleOnChange = (e) => {
     this.setState({
@@ -22,22 +32,43 @@ class LoginForm extends React.Component {
 
   handleOnSubmit = (e) => {
     e.preventDefault();
-    this.props.onSubmit(this.state.username, this.state.password);
+    let validation = this.validator.validate(this.state);
+
+    this.setState({
+      validation
+    }, function () {
+      if (validation.isValid) {
+        this.props.onSubmit(
+          this.state.username,
+          this.state.password
+        );
+      }
+    });
   }
 
   render() {
+    const { validation } = this.state;
+    const invalidUsername = validation.username &&
+      !get(validation, 'username.isValid');
+    const invalidPassword = validation.password &&
+      !get(validation, 'password.isValid');
+
     return (
       <form className="login-form" onSubmit={this.handleOnSubmit}>
         <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
         <FormInput
+          invalid={invalidUsername}
           inputId="inputEmail"
+          feedback={get(validation, 'username.message')}
           label="Username or email address"
           onChange={this.handleOnChange}
           name="username"
           placeholder="Username or email address"
           value={this.state.username} />
         <FormInput
+          invalid={invalidPassword}
           inputId="inputPassword"
+          feedback={get(validation, 'password.message')}
           label="Password"
           onChange={this.handleOnChange}
           type="password"

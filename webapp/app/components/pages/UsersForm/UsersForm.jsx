@@ -1,31 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Row } from 'reactstrap';
 import FormInput from '../../common/form/FormInput';
-
+import { Row } from 'reactstrap';
+import { get } from 'lodash';
 
 class UsersForm extends React.PureComponent {
   static propTypes = {
     onChange: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired,
-    errors: PropTypes.shape({
-      name: PropTypes.string,
-      email: PropTypes.string
-    })
-  };
-
-  static defaultProps = {
-    errors: {
-      name: '',
-      email: ''
-    }
+    validation: PropTypes.shape({
+      isValid: PropTypes.bool,
+      message: PropTypes.string
+    }).isRequired
   };
 
   render() {
-    const {user, onChange, errors} = this.props;
-    const isNameInvalid = errors.name === '';
-    const isEmailInvalid =  errors.email === '';
-    const emailFeedback = errors.email || '';
+    const { user, onChange, validation } = this.props;
+    const invalidName = validation.name &&
+      !get(validation, 'name.isValid');
+    const invalidEmail = validation.email &&
+      !get(validation, 'email.isValid');
+    const invalidPhone = validation.phone &&
+      !get(validation, 'phone.isValid');
+    const invalidSkypeId = validation.skypeId &&
+      !get(validation, 'skypeId.isValid');
+
     return (
       <div>
         <div className="container">
@@ -40,8 +39,8 @@ class UsersForm extends React.PureComponent {
                   name="name"
                   placeholder="Full Name"
                   required={true}
-                  invalid={isNameInvalid}
-                  feedback={errors.name}
+                  invalid={invalidName}
+                  feedback={get(validation, 'name.message')}
                 />
                 <FormInput
                   inputId="email"
@@ -51,8 +50,8 @@ class UsersForm extends React.PureComponent {
                   name="email"
                   placeholder="Email"
                   required={true}
-                  invalid={isEmailInvalid}
-                  feedback={emailFeedback}
+                  invalid={invalidEmail}
+                  feedback={get(validation, 'email.message')}
                 />
                 <FormInput
                   inputId="skypeId"
@@ -61,6 +60,9 @@ class UsersForm extends React.PureComponent {
                   value={user.skypeId}
                   name="skypeId"
                   placeholder="skype Id"
+                  required={true}
+                  invalid={invalidSkypeId}
+                  feedback={get(validation, 'skypeId.message')}
                 />
                 <FormInput
                   inputId="phone"
@@ -69,6 +71,9 @@ class UsersForm extends React.PureComponent {
                   value={user.phone}
                   name="phone"
                   placeholder="Phone Number"
+                  required={true}
+                  invalid={invalidPhone}
+                  feedback={get(validation, 'phone.message')}
                 />
               </form>
             </section>

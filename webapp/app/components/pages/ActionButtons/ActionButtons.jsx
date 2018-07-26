@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'reactstrap';
-import { connect } from 'react-redux';
 import MsModal from '../../common/modal/MsModal';
 import UsersForm from '../UsersForm/UsersForm';
-import { EMAIL_REGEXP } from '../../../constants';
+import formValidator from '../../../validators/formValidator';
+import { formRules } from '../../../validators/formRules';
+import { Button } from 'reactstrap';
+import { connect } from 'react-redux';
 
 import './ActionButtons.scss';
 
@@ -28,6 +29,9 @@ export class ActionButtons extends React.Component {
   constructor(props) {
     super(props);
 
+    // validations rules specific set from form, type array
+    this.validator = new formValidator(formRules.user);
+
     this.state = {
       actionType: null,
       user: {...EMPTY_USER, ...props.user},
@@ -35,7 +39,7 @@ export class ActionButtons extends React.Component {
       modalTitle: '',
       modalBody: {},
       modalYesLabel: '',
-      errors: {}
+      validation: {}
     };
   }
 
@@ -93,41 +97,21 @@ export class ActionButtons extends React.Component {
     });
   };
 
-  validateForm = () => {
-    const { user } = this.state;
-    const isValidUsername = user.name !== '';
-    const isValidEmail = EMAIL_REGEXP.test(user.email);
-    const errors = {};
-
-    if (!isValidUsername) {
-      errors.name = 'User name is required';
-    }
-
-    if (!isValidEmail) {
-      errors.email = 'Email is invalid';
-    }
-
-    this.setState({ errors });
-
-    return errors;
-  };
-
-  canSubmitForm = () => {
-    const errors = this.validateForm();
-    return (Object.keys(errors).length === 0 && errors.constructor === Object);
-  };
-
   saveUser = () => {
-    if (!this.canSubmitForm()) {
-      return;
-    }
+    let validation = this.validator.validate(this.state.user);
 
-    if (typeof this.props.onConfirm === 'function') {
-      this.props.onConfirm(this.state.actionType, this.state.user)
-        .then(() => {
-          this.toggle();
-        });
-    }
+    this.setState({
+      validation
+    }, function () {
+      if (validation.isValid) {
+        if (typeof this.props.onConfirm === 'function') {
+          this.props.onConfirm(this.state.actionType, this.state.user)
+            .then(() => {
+              this.toggle();
+            });
+        }
+      }
+    });
   };
 
   cancel = () => {
@@ -138,16 +122,12 @@ export class ActionButtons extends React.Component {
     }
 
     this.setState({
-      user: { ...user },
-      errors: {}
+      user: { ...user }
     }, this.toggle);
   };
 
   getModalBody = () => {
-    const {
-      user,
-      errors
-    } = this.state;
+    const { user } = this.state;
 
     if (this.state.actionType === 'delete') {
       return (
@@ -159,7 +139,7 @@ export class ActionButtons extends React.Component {
       <UsersForm
         onChange={this.updateUserState}
         user={user}
-        errors={errors}
+        validation={this.state.validation}
       />
     );
   };
