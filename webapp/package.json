@@ -22,7 +22,7 @@
     "prestart": "npm run validate",
     "start": "webpack-dev-server --open --config webpack.dev.js",
     "lint": "eslint --ext .js --ext .jsx --fix ./app --o buildlog/linter.html -f html",
-    "sass-lint": "sass-lint --config .sasslintrc.json 'app/**/*.scss' --verbose --no-exit",
+    "sass-lint": "sass-lint --config .sasslintrc.json \"app/**/*.scss\" --verbose --no-exit",
     "test": "jest --coverage",
     "test:dev": "jest --watch",
     "prevalidate": "rimraf buildlog",
