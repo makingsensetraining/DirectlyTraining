@@ -23,8 +23,8 @@ class UsersForm extends React.PureComponent {
 
   render() {
     const {user, onChange, errors} = this.props;
-    const isNameInvalid = errors.name === '';
-    const isEmailInvalid =  errors.email === '';
+    const isNameInvalid = (errors.name && errors.name !== '');
+    const isEmailInvalid = (errors.email && errors.email !== '');
     const emailFeedback = errors.email || '';
     return (
       <div>

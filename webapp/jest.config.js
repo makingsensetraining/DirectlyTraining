@@ -4,7 +4,7 @@ module.exports = {
     './enzyme.js'
   ],
   moduleNameMapper: {
-    '\\.(css|less)$': '<rootDir>/__mocks__/style-mock.js'
+    '\\.(css|less|scss)$': '<rootDir>/__mocks__/style-mock.js'
   },
   collectCoverageFrom: [
     '**/app/**/*.{js,jsx}',

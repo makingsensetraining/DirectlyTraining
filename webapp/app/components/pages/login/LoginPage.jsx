@@ -5,6 +5,8 @@ import { bindActionCreators } from 'redux';
 import * as authActions from '../../../actions/authActions';
 import LoginForm from './LoginForm';
 
+import './LoginPage.scss';
+
 export class LoginPage extends React.Component {
   static propTypes = {
     actions: PropTypes.object.isRequired
@@ -16,8 +18,10 @@ export class LoginPage extends React.Component {
 
   render() {
     return (
-      <section>
-        <LoginForm onSubmit={this.handleOnSubmit} />
+      <section className="login-page">
+        <div className="login-page--form">
+          <LoginForm onSubmit={this.handleOnSubmit} />
+        </div>
       </section>
     );
   }

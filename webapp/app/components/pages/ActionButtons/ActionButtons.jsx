@@ -6,6 +6,8 @@ import MsModal from '../../common/modal/MsModal';
 import UsersForm from '../UsersForm/UsersForm';
 import { EMAIL_REGEXP } from '../../../constants';
 
+import './ActionButtons.scss';
+
 const EMPTY_USER = {
   name: '',
   email: '',
@@ -25,7 +27,7 @@ export class ActionButtons extends React.Component {
 
   constructor(props) {
     super(props);
-    
+
     this.state = {
       actionType: null,
       user: {...EMPTY_USER, ...props.user},
@@ -118,7 +120,7 @@ export class ActionButtons extends React.Component {
   saveUser = () => {
     if (!this.canSubmitForm()) {
       return;
-    }    
+    }
 
     if (typeof this.props.onConfirm === 'function') {
       this.props.onConfirm(this.state.actionType, this.state.user)
@@ -182,7 +184,7 @@ export class ActionButtons extends React.Component {
     };
 
     return (
-      <div className="user-list-action-buttons">
+      <div className="action-buttons">
         <Button
           color="primary"
           onClick={this.toggleAddModal}

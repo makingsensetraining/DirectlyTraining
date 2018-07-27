@@ -8,7 +8,8 @@ import paginationFactory from 'react-bootstrap-table2-paginator';
 import * as usersActions from '../../../actions/usersActions';
 import Header from './../partials/header/Header';
 import ActionButtons from '../ActionButtons/ActionButtons';
-import './HomePage.css';
+
+import './HomePage.scss';
 
 export class HomePage extends React.Component {
   static propTypes = {
@@ -37,9 +38,9 @@ export class HomePage extends React.Component {
 
   handleUserActionType = (type = 'add', user) => {
     const { usersActions } = this.props;
-    
+
     switch(type) {
-      case 'add': 
+      case 'add':
         return usersActions.createUser(user);
       case 'edit':
         return usersActions.updateUser(user);
@@ -73,29 +74,35 @@ export class HomePage extends React.Component {
     };
 
     const pagination = paginationFactory();
-    
+
     return (
-      <div>
-        <Header />
+      <div className="home-page">
+        <div className="home-page--header">
+          <Header />
+        </div>
         <div className="container">
           <Row>
             <Col md="8">
               <h4>Users List</h4>
             </Col>
             <Col md="4">
-              <ActionButtons
-                user={this.state.user}
-                onConfirm={this.handleUserActionType}
-              />
+              <div className="home-page--action-buttons">
+                <ActionButtons
+                  user={this.state.user}
+                  onConfirm={this.handleUserActionType}
+                />
+              </div>
             </Col>
           </Row>
-          <BootstrapTable
-            keyField='id'
-            data={ this.props.users }
-            columns={ columns }
-            selectRow={ selectRow }
-            pagination={ pagination }
-          />
+          <div className="home-page--table">
+            <BootstrapTable
+              keyField='id'
+              data={ this.props.users }
+              columns={ columns }
+              selectRow={ selectRow }
+              pagination={ pagination }
+            />
+          </div>
         </div>
       </div>
     );

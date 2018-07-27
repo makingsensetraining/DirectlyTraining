@@ -11,7 +11,8 @@ describe('<UsersForm /> component', () => {
     // Arrange Act
     const wrapper = setup({
       onChange: () => {},
-      user: {}
+      user: {},
+      errors: {}
     });
 
     // Assert
