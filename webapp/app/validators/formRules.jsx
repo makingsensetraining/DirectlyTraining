@@ -2,13 +2,13 @@ import { validationSettings } from './validationSettings';
 
 export const formRules = {
   login: [
-    ...validationSettings.username,
-    ...validationSettings.password
+    ...validationSettings.username.rules,
+    ...validationSettings.password.rules
   ],
   user: [
-    ...validationSettings.name,
-    ...validationSettings.email,
-    ...validationSettings.skypeId,
-    ...validationSettings.phone
+    ...validationSettings.name.rules,
+    ...validationSettings.email.rules,
+    ...validationSettings.skypeId.rules,
+    ...validationSettings.phone.rules
   ]
 };

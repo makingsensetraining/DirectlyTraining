@@ -29,7 +29,6 @@ export class ActionButtons extends React.Component {
   constructor(props) {
     super(props);
 
-    // validations rules specific set from form, type array
     this.validator = new formValidator(formRules.user);
 
     this.state = {
@@ -72,19 +71,22 @@ export class ActionButtons extends React.Component {
   toggleAddModal = () => {
     this.setState({
       actionType: 'add',
-      user: { ...EMPTY_USER }
+      user: { ...EMPTY_USER },
+      validation: {}
     }, this.toggle);
   };
 
   toggleEditModal = () => {
     this.setState({
-      actionType: 'edit'
+      actionType: 'edit',
+      validation: {}
     }, this.toggle);
   };
 
   toggleDeleteModal = () => {
     this.setState({
-      actionType: 'delete'
+      actionType: 'delete',
+      validation: {}
     }, this.toggle);
   };
 

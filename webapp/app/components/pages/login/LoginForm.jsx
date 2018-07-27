@@ -20,7 +20,7 @@ class LoginForm extends React.Component {
 
   constructor() {
     super();
-    // validations rules specific set from form, type array
+
     this.validator = new formValidator(formRules.login);
   }
 
@@ -32,7 +32,8 @@ class LoginForm extends React.Component {
 
   handleOnSubmit = (e) => {
     e.preventDefault();
-    let validation = this.validator.validate(this.state);
+
+    const validation = this.validator.validate(this.state);
 
     this.setState({
       validation

@@ -1,11 +1,12 @@
-import { some } from 'lodash';
 import validator from 'validator';
+import { cloneDeep, extend, some } from 'lodash';
+import { validationSettings } from './validationSettings';
 
 export default class FormValidator {
 
   constructor(validations) {
-    // validations rules specific to a form, type array
     this.validations = validations;
+    this.validationSettings = cloneDeep(validationSettings);
   }
 
   getValidation = (state) => {
@@ -23,27 +24,50 @@ export default class FormValidator {
     return { isValid: true, ...validation };
   }
 
-  validate = (state) => {
+  shouldValidateField = (state, field) => {
+    return (
+      this.validationSettings[field].required ||
+      state[field] !== ''
+    );
+  }
+
+  extendValidations = (options) => {
+    Object.keys(options).map(function (objectKey) {
+      this.validationSettings[objectKey] = extend(
+        this.validationSettings[objectKey],
+        options[objectKey]
+      );
+    }, this);
+  }
+
+  validate = (state, options) => {
     let validation = this.getValidation(state);
+
+    if (options) {
+      this.extendValidations(options);
+    }
 
     this.validations.forEach(rule => {
       if (state.hasOwnProperty(rule.field)) {
-        const fieldValue = state[rule.field].toString();
-        const args = rule.args || [];
-        const validationMethod = (typeof rule.method === 'string') ?
-          validator[rule.method] : rule.method;
+        if (this.shouldValidateField(state, rule.field)) {
+          const fieldValue = state[rule.field].toString();
+          const args = rule.args || [];
+          const validationMethod = (typeof rule.method === 'string') ?
+            validator[rule.method] : rule.method;
 
-        if (validationMethod(fieldValue, ...args, state) !== rule.validWhen) {
-          validation[rule.field] = {
-            isValid: false,
-            message: rule.message
-          };
+          if (validationMethod(fieldValue, ...args, state) !== rule.validWhen) {
+            validation[rule.field] = {
+              isValid: false,
+              message: rule.message
+            };
+          }
         }
       }
     });
 
-    validation.isValid = (!some(validation, { isValid: false }));
-
-    return validation;
+    return {
+      ...validation,
+      isValid:  (!some(validation, { isValid: false }))
+    };
   }
 }

@@ -54,17 +54,6 @@ class UsersForm extends React.PureComponent {
                   feedback={get(validation, 'email.message')}
                 />
                 <FormInput
-                  inputId="skypeId"
-                  label="Skype Id"
-                  onChange={onChange}
-                  value={user.skypeId}
-                  name="skypeId"
-                  placeholder="skype Id"
-                  required={true}
-                  invalid={invalidSkypeId}
-                  feedback={get(validation, 'skypeId.message')}
-                />
-                <FormInput
                   inputId="phone"
                   label="Phone Number"
                   onChange={onChange}
@@ -74,6 +63,17 @@ class UsersForm extends React.PureComponent {
                   required={true}
                   invalid={invalidPhone}
                   feedback={get(validation, 'phone.message')}
+                />
+                <FormInput
+                  inputId="skypeId"
+                  label="Skype Id"
+                  onChange={onChange}
+                  value={user.skypeId}
+                  name="skypeId"
+                  placeholder="skype Id"
+                  required={true}
+                  invalid={invalidSkypeId}
+                  feedback={get(validation, 'skypeId.message')}
                 />
               </form>
             </section>
