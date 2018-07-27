@@ -24,7 +24,7 @@ export const loadingUsersComplete = () => ({
 
 export const loadingUsersFailed = error => ({
   type: USERS.LOADING_FAILED,
-  payload: { error }
+  payload: error
 });
 
 export const createUsersSuccess = user => ({
@@ -118,6 +118,5 @@ export function getUsers(queryParams = DEFAULT_PAGINATION_QUERY) {
 }
 
 function handleErrors(error, dispatch) {
-  errorService.logErrors('action failed', 'userActions.js');
   dispatch(loadingUsersFailed(error));
 }

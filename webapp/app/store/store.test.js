@@ -1,5 +1,5 @@
 import store, { history } from './store';
-import initialState from './reducers/initialState';
+import initialState from '../reducers/initialState';
 
 describe('Store', () => {
   it('should be defined', () => {

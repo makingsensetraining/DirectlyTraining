@@ -8,7 +8,8 @@ if(process.env.NODE_ENV === 'production') {
 // Log unhandled errors
 window.onerror = logErrors;
 
-export function logErrors(message, file, line = 'N/A', col = 'N/A') {
-  Logger.error(`An Error Occurred!!: message[${message}], file[${file}], line[${line}], col[${col}]`);
+export function logErrors(error) {
+  // Logger.error(`An Error Occurred!!: message[${message}], file[${file}], line[${line}], col[${col}]`);
+  Logger.error(error);
   return false;
 }
