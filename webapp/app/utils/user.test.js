@@ -44,6 +44,14 @@ describe('User Util', () => {
         // Assert
         expect(result).toBe(undefined);
       });
+
+      it('should user default parameter', () => {
+        // Act
+        const result = getUserId();
+
+        // Assert
+        expect(result).toBe(undefined);
+      });
     });
   });
 });

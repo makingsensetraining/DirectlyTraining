@@ -47,5 +47,8 @@
       "error",
       "always"
     ]
+  },
+  "globals": {
+    "errorService": true
   }
 }

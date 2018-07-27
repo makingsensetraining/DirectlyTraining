@@ -173,7 +173,7 @@ export class ActionButtons extends React.Component {
     }
 
     return DEFAULT_USER_MODAL_LABELS;
-  }
+  };
 
   render() {
     const modalBody = this.getModalBody();

@@ -93,6 +93,9 @@ describe('functions file with utilities', () => {
         b: 2
       };
 
+      const symb2 = Symbol('b');
+      Object.defineProperty(source2, symb2, { value: 'not enumerabnle', writable: false, enumerable: false });
+
       // Act
       const result = completeAssign({}, source1, source2);
 

@@ -1,5 +1,6 @@
 const buildLogFolder = 'buildlog';
 module.exports = {
+  testURL: 'http://localhost/',
   setupFiles: [
     './enzyme.js'
   ],
