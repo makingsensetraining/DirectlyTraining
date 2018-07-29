@@ -19,7 +19,7 @@ export const validationSettings = {
           max: maxLength
         }],
         field: 'name',
-        message: `Name must be between ${minLength} and ${maxLength} characters`,
+        message: `Name must be between ${minLength} and ${maxLength} characters.`,
         method: isLength,
         validWhen: true
       },
@@ -40,7 +40,7 @@ export const validationSettings = {
           max: maxLength
         }],
         field: 'skypeId',
-        message: `Skype ID must be between ${minLength} and ${maxLength} characters`,
+        message: `Skype ID must be between ${minLength} and ${maxLength} characters.`,
         method: isLength,
         validWhen: true
       },
@@ -61,7 +61,7 @@ export const validationSettings = {
           max: maxLength
         }],
         field: 'email',
-        message: `Email must be between ${minLength} and ${maxLength} characters`,
+        message: `Email must be between ${minLength} and ${maxLength} characters.`,
         method: isLength,
         validWhen: true
       },
@@ -88,7 +88,7 @@ export const validationSettings = {
           max: maxPhoneLength
         }],
         field: 'phone',
-        message: `Phone must be between ${minLength} and ${maxLength} characters`,
+        message: `Phone must be between ${minLength} and ${maxLength} characters.`,
         method: isLength,
         validWhen: true
       },
@@ -115,7 +115,7 @@ export const validationSettings = {
           max: maxLength
         }],
         field: 'username',
-        message: `Username must be between ${minLength} and ${maxLength} characters`,
+        message: `Username must be between ${minLength} and ${maxLength} characters.`,
         method: isLength,
         validWhen: true
       },
@@ -136,7 +136,7 @@ export const validationSettings = {
           max: maxLength
         }],
         field: 'password',
-        message: `Password must be between ${minLength} and ${maxLength} characters`,
+        message: `Password must be between ${minLength} and ${maxLength} characters.`,
         method: isLength,
         validWhen: true
       },

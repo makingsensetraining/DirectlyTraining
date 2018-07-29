@@ -41,7 +41,7 @@ export default class FormValidator {
         this.validationSettings[objectKey],
         options[objectKey]
       );
-    });
+    }, this);
   }
 
   validate = (state, options) => {
