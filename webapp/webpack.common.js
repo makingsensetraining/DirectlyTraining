@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -8,14 +9,20 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(['dist']),
-    new HtmlWebpackPlugin({ template: './app/index.html' })
+    new HtmlWebpackPlugin({ template: './app/index.html' }),
+    new webpack.ProvidePlugin({
+      'errorService': 'errorService'
+    })
   ],
   output: {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist')
   },
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx'],
+    alias: {
+      'errorService': path.resolve(__dirname, './app/utils/errorService')
+    },
   },
   module: {
     rules: [

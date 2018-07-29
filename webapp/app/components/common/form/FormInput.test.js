@@ -1,9 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import InputForm from './FormInput';
+import FormInput from './FormInput';
 
 function setup(props) {
-  return shallow(<InputForm {...props} />);
+  return shallow(<FormInput {...props} />);
 }
 
 describe('<InputForm /> component', () => {
@@ -31,7 +31,7 @@ describe('<InputForm /> component', () => {
 
     // Act
     const wrapper = setup({
-      name: name
+      name
     });
 
     // Assert
@@ -44,10 +44,23 @@ describe('<InputForm /> component', () => {
 
     // Act
     const wrapper = setup({
-      placeholder: placeholder
+      placeholder
     });
   
     // Assert
     expect(wrapper.find('Input').prop('placeholder')).toEqual(placeholder);
+  });
+
+  it('uses "required" attribute', () => {
+    // Arrange
+    const required = true;
+
+    // Act
+    const wrapper = setup({
+      required
+    });
+
+    // Assert
+    expect(wrapper.instance().props.required).toEqual(required);
   });
 });

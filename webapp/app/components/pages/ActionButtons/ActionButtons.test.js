@@ -220,6 +220,7 @@ describe('<ActionButtons />', () => {
 
   describe('cancel modal editions', () => {
     it('should reset selected user to state', () => {
+      // Arrange
       const expectedUserState = {
         id: '1',
         email: 'john@doe.com',
@@ -231,12 +232,15 @@ describe('<ActionButtons />', () => {
         user: expectedUserState
       });
 
+      // Act
       wrapper.instance().cancel();
 
+      // Assert
       expect(wrapper.state().user).toEqual(expectedUserState);
     });
 
     it('should reset state to empty user', () => {
+      // Arrange
       const expectedUserState = {
         email: '',
         name: '',
@@ -247,9 +251,25 @@ describe('<ActionButtons />', () => {
         user: {}
       });
 
+      // Act
       wrapper.instance().cancel();
 
+      // Assert
       expect(wrapper.state().user).toEqual(expectedUserState);
+    });
+  });
+
+  describe('getModalLabels', () => {
+    it('should use default parameter', () => {
+      // Arrange
+      const expected = {confirmButtonText: 'Save'};
+      const wrapper = setup({});
+
+      // Act
+      const label = wrapper.instance().getModalLabels();
+
+      // Assert
+      expect(label).toEqual(expected);
     });
   });
 });

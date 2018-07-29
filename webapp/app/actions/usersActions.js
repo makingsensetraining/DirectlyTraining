@@ -65,13 +65,12 @@ export function deleteUser(user) {
   return dispatch => {
     dispatch(loadingUsersBegin());
     return deleteUsers(getUserId(user))
-      .then(handleErrors)
       .then(() => {
         dispatch(loadingUsersComplete());
         dispatch(deleteUsersSuccess(user));
         return user;
       })
-      .catch(error => dispatch(loadingUsersFailed(error)));
+      .catch((error) => handleErrors(error, dispatch));
   };
 }
 
@@ -79,13 +78,12 @@ export function updateUser(user) {
   return dispatch => {
     dispatch(loadingUsersBegin());
     return updateUsers(getUserId(user), omit(user, DEFAULT_USER_VALID_ID_PATHS))
-      .then(handleErrors)
       .then(({ data }) => {
         dispatch(loadingUsersComplete());
         dispatch(updateUsersSuccess(data));
         return data;
       })
-      .catch(error => dispatch(loadingUsersFailed(error)));
+      .catch((error) => handleErrors(error, dispatch));
   };
 }
 
@@ -93,13 +91,12 @@ export function createUser(userData) {
   return dispatch => {
     dispatch(loadingUsersBegin());
     return createUsers(omit(userData, DEFAULT_USER_VALID_ID_PATHS))
-      .then(handleErrors)
       .then(({ data }) => {
         dispatch(loadingUsersComplete());
         dispatch(createUsersSuccess(data));
         return data;
       })
-      .catch(error => dispatch(loadingUsersFailed(error)));
+      .catch((error) => handleErrors(error, dispatch));
   };
 }
 
@@ -107,7 +104,6 @@ export function getUsers(queryParams = DEFAULT_PAGINATION_QUERY) {
   return dispatch => {
     dispatch(loadingUsersBegin());
     return fetchUsers(queryParams)
-      .then(handleErrors)
       .then(({ data }) => {
         const usersPayload = {
           ...omit(data, ['docs']),
@@ -117,14 +113,11 @@ export function getUsers(queryParams = DEFAULT_PAGINATION_QUERY) {
         dispatch(getUsersSuccess(usersPayload));
         return usersPayload;
       })
-      .catch(error => dispatch(loadingUsersFailed(error)));
+      .catch((error) => handleErrors(error, dispatch));
   };
 }
 
-// TODO move to service errors utility
-function handleErrors(response) {
-  if (response.statusText !== 'OK') {
-    throw Error(response.statusText);
-  }
-  return response;
+function handleErrors(error, dispatch) {
+  errorService.logErrors('action failed', 'userActions.js');
+  dispatch(loadingUsersFailed(error));
 }
