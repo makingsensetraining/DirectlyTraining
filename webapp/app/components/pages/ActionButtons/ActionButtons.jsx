@@ -100,7 +100,7 @@ export class ActionButtons extends React.Component {
   };
 
   saveUser = () => {
-    let validation = this.validator.validate(this.state.user);
+    const validation = this.validator.validate(this.state.user);
 
     this.setState({
       validation

@@ -1,11 +1,12 @@
 import validator from 'validator';
-import { cloneDeep, extend, some } from 'lodash';
+import some from 'lodash.some';
+import { cloneDeep, extend } from 'lodash';
 import { validationSettings } from './validationSettings';
 
 export default class FormValidator {
 
   constructor(validations) {
-    this.validations = validations;
+    this.validations = cloneDeep(validations);
     this.validationSettings = cloneDeep(validationSettings);
   }
 
@@ -21,7 +22,10 @@ export default class FormValidator {
       }
     });
 
-    return { isValid: true, ...validation };
+    return {
+      isValid: true,
+      ...validation
+    };
   }
 
   shouldValidateField = (state, field) => {
@@ -37,7 +41,7 @@ export default class FormValidator {
         this.validationSettings[objectKey],
         options[objectKey]
       );
-    }, this);
+    });
   }
 
   validate = (state, options) => {

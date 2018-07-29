@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import FormInput from '../../common/form/FormInput';
 import formValidator from '../../../validators/formValidator';
+import get from 'lodash.get';
 import { formRules } from '../../../validators/formRules';
-import { get } from 'lodash';
 
 import './LoginForm.scss';
 
