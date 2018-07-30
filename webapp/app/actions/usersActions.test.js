@@ -263,9 +263,7 @@ describe('usersActions', () => {
           { type: USERS.LOADING_BEGIN },
           {
             type: USERS.LOADING_FAILED,
-            payload: {
-              error: 'Test Error'
-            }
+            payload: 'Test Error'
           }
         ];
 
@@ -285,9 +283,7 @@ describe('usersActions', () => {
           { type: USERS.LOADING_BEGIN },
           {
             type: USERS.LOADING_FAILED,
-            payload: {
-              error: 'Test Error'
-            }
+            payload: 'Test Error'
           }
         ];
 
@@ -306,9 +302,7 @@ describe('usersActions', () => {
           { type: USERS.LOADING_BEGIN },
           {
             type: USERS.LOADING_FAILED,
-            payload: {
-              error: 'Test Error'
-            }
+            payload: 'Test Error'
           }
         ];
 
@@ -330,9 +324,7 @@ describe('usersActions', () => {
           { type: USERS.LOADING_BEGIN },
           {
             type: USERS.LOADING_FAILED,
-            payload: {
-              error: 'Test Error'
-            }
+            payload: 'Test Error'
           }
         ];
 
