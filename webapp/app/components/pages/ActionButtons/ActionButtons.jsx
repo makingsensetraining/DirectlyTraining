@@ -101,20 +101,20 @@ export class ActionButtons extends React.Component {
 
   saveUser = () => {
     const validation = this.validator.validate(this.state.user);
-    
+
     this.setState({
       validation
-    }, function () {
-      if (validation.isValid) {
-        if (typeof this.props.onConfirm === 'function') {
-          this.props.onConfirm(this.state.actionType, this.state.user)
-            .then(() => {
-              this.toggle();
-            });
-        }
-      }
-    });
+    }, this.confirm(validation.isValid));
   };
+
+  confirm = (valid) => {
+    if (valid && typeof this.props.onConfirm === 'function') {
+      this.props.onConfirm(this.state.actionType, this.state.user)
+        .then(() => {
+          this.toggle();
+        });
+    }
+  }
 
   cancel = () => {
     let user = EMPTY_USER;
