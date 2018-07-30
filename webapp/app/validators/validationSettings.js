@@ -4,9 +4,9 @@ import {
   isNumeric,
   isLength
 } from 'validator';
-const minLength = 4;
+const minLength = 2;
 const maxLength = 35;
-const minPhoneLength = 5;
+const minPhoneLength = 4;
 const maxPhoneLength = 8;
 
 export const validationSettings = {

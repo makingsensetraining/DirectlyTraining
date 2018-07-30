@@ -66,11 +66,11 @@ describe('Form validator class', () => {
       isValid: false,
       password: {
         isValid: false,
-        message: 'Password must be between 4 and 35 characters.'
+        message: 'Password must be between 2 and 35 characters.'
       },
       username: {
         isValid: false,
-        message: 'Username must be between 4 and 35 characters.'
+        message: 'Username must be between 2 and 35 characters.'
       }
     });
   });
@@ -164,15 +164,15 @@ describe('Form validator class', () => {
       },
       name: {
         isValid: false,
-        message: 'Name must be between 4 and 35 characters.'
+        message: 'Name must be between 2 and 35 characters.'
       },
       phone: {
         isValid: false,
-        message: 'Phone must be between 4 and 35 characters.'
+        message: 'Phone must be between 2 and 35 characters.'
       },
       skypeId: {
         isValid: false,
-        message: 'Skype ID must be between 4 and 35 characters.'
+        message: 'Skype ID must be between 2 and 35 characters.'
       }
     });
   });
