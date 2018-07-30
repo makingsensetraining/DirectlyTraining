@@ -14,28 +14,32 @@ function setup(props) {
 
 describe('<ActionButtons />', () => {
   it('renders itself', () => {
+    // Arrange
     const wrapper = setup({
       user: {}
     });
 
+    // Assert
     expect(wrapper.find('Button')).toHaveLength(3);
     expect(wrapper.find('MsModal')).toHaveLength(1);
   });
 
   describe('mapStateToProps function', () => {
     it('should return the initial state', () => {
+      // Arrange
       const expectedProps = {
         user: {}
       };
-
       const props = mapStateToProps(Object.assign({}, initialState));
 
+      // Assert
       expect(props).toEqual(expectedProps);
     });
   });
 
   describe('componentWillReceiveProps function', () => {
     it('should set the new selected user', () => {
+      // Arrange
       const expectedState = {
         user: {
           id: 'id'
@@ -51,10 +55,12 @@ describe('<ActionButtons />', () => {
 
       wrapper.setProps({user});
 
+      // Assert
       expect(wrapper.state().user).toEqual(expectedState.user);
     });
 
     it('should skip setting selected user when it is the same', () => {
+      // Arrange
       const user = {
         id: 'id'
       };
@@ -71,10 +77,12 @@ describe('<ActionButtons />', () => {
 
       wrapper.setProps({user});
 
+      // Assert
       expect(wrapper.state().user).toEqual(expectedState);
     });
 
     it('should use default parameters when users are undefined', () => {
+      // Arrange
       const expectedState = {
         email: '',
         name: '',
@@ -87,6 +95,7 @@ describe('<ActionButtons />', () => {
 
       wrapper.setProps({user: undefined});
 
+      // Assert
       expect(wrapper.state().user).toEqual(expectedState);
     });
   });
@@ -108,6 +117,7 @@ describe('<ActionButtons />', () => {
     };
 
     it('should toggle Add Modal', () => {
+      // Arrange
       const wrapper = setup({
         user: {}
       });
@@ -116,12 +126,15 @@ describe('<ActionButtons />', () => {
         actionType: 'add',
       };
 
+      // Act
       wrapper.find('Button[color="primary"]').simulate('click');
 
+      // Assert
       expect(wrapper.state()).toEqual(expectedState);
     });
 
     it('should toggle Edit Modal', () => {
+      // Arrange
       const wrapper = setup({
         user: {}
       });
@@ -130,12 +143,15 @@ describe('<ActionButtons />', () => {
         actionType: 'edit',
       };
 
+      // Act
       wrapper.find('Button[color="info"]').simulate('click');
 
+      // Assert
       expect(wrapper.state()).toEqual(expectedState);
     });
 
     it('should toggle Delete Modal', () => {
+      // Arrange
       const wrapper = setup({
         user: {}
       });
@@ -144,61 +160,80 @@ describe('<ActionButtons />', () => {
         actionType: 'delete',
       };
 
+      // Act
       wrapper.find('Button[color="danger"]').simulate('click');
 
+      // Assert
       expect(wrapper.state()).toEqual(expectedState);
     });
   });
 
   describe('saveUser handler', () => {
-    /**
     it('should not saveUser', () => {
+      // Arrange
       const onConfirm = jest.fn();
       const wrapper = setup({
-        user: {},
+        user: {
+          name: 'j',
+          email: 'johndoe',
+          phone: '1234',
+          skypeId: ''
+        },
         onConfirm
       });
 
+      // Act
       wrapper.instance().saveUser();
 
+      // Assert
       expect(onConfirm).toHaveBeenCalledTimes(0);
     });
 
     it('should saveUser', () => {
+      // Arrange
       const onConfirm = jest.fn().mockReturnValue(Promise.resolve());
       const wrapper = setup({
         user: {
-          name: 'John Doe',
-          email: 'john@doe.com'
+          name: 'John',
+          email: 'johndoe@gmail.com',
+          phone: '12345',
+          skypeId: ''
         },
         onConfirm
       });
 
+      // Act
       wrapper.instance().saveUser();
 
+      // Assert
       expect(onConfirm).toHaveBeenCalledTimes(1);
     });
-    **/
 
     it('should not call onConfirm when it\'s not a function', () => {
+      // Arrange
       const onConfirm = undefined;
       const wrapper = setup({
         user: {
-          name: 'John Doe',
-          email: 'john@doe.com'
+          name: 'John',
+          email: 'johndoe@gmail.com',
+          phone: '12345',
+          skypeId: ''
         },
         onConfirm
       });
-      wrapper.instance().toggle = jest.fn();
 
+      // Act
+      wrapper.instance().toggle = jest.fn();
       wrapper.instance().saveUser();
 
+      // Assert
       expect(wrapper.instance().toggle).toHaveBeenCalledTimes(0);
     });
   });
 
   describe('update user state on users form change', () => {
     it('should set new state', () => {
+      // Arrange
       const event = {
         target: {
           name: 'name',
@@ -212,8 +247,10 @@ describe('<ActionButtons />', () => {
         skypeId: ''};
       const wrapper = setup({});
 
+      // Act
       wrapper.instance().updateUserState(event);
 
+      // Assert
       expect(wrapper.state().user).toEqual(expectedUserState);
     });
   });

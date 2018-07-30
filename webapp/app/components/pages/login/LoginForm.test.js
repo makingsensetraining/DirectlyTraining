@@ -65,13 +65,17 @@ describe('<LoginForm /> component', () => {
     // Assert
     expect(wrapper.state()).toEqual(expectedState);
   });
-  /**
-  it('should handle form submit', () => {
+
+  it('should handle form submit when form is valid', () => {
     // Arrange
     const props = {
       onSubmit: jest.fn()
     };
     const wrapper = setup(props);
+    wrapper.setState({
+      username: 'John',
+      password: 'JohnDoe'
+    });
 
     const event = {
       preventDefault: jest.fn()
@@ -84,5 +88,27 @@ describe('<LoginForm /> component', () => {
     expect(event.preventDefault.mock.calls.length).toBe(1);
     expect(props.onSubmit.mock.calls.length).toBe(1);
   });
-  **/
+
+  it('should not call form submit when form is invalid', () => {
+    // Arrange
+    const props = {
+      onSubmit: jest.fn()
+    };
+    const wrapper = setup(props);
+    wrapper.setState({
+      username: 'J',
+      password: 'D'
+    });
+
+    const event = {
+      preventDefault: jest.fn()
+    };
+
+    // Act
+    wrapper.find('form').simulate('submit', event);
+
+    // Assert
+    expect(event.preventDefault.mock.calls.length).toBe(1);
+    expect(props.onSubmit.mock.calls.length).toBe(0);
+  });
 });
