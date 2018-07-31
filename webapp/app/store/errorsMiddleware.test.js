@@ -1,5 +1,4 @@
 import errorsMiddleware from './errorsMiddleware';
-import { logErrors } from './../utils/errorService';
 
 describe('errors middleware for redux', () => {
   const store = {};
@@ -15,7 +14,7 @@ describe('errors middleware for redux', () => {
 
   afterEach(() => {
     errorService.logErrors.mockClear();
-  })
+  });
 
   describe('failed actions', () => {
     // Arrange
