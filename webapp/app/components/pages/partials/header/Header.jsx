@@ -9,7 +9,7 @@ export default class Header extends React.Component {
           <div className="container d-flex justify-content-between">
             <a
               className="navbar-brand d-flex align-items-center text-dark"
-              href="#">Directly starter app
+              href="#">{i18nService.translate('TEXT.HEADER')}
             </a>
           </div>
         </div>

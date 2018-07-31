@@ -260,7 +260,7 @@ describe('<ActionButtons />', () => {
   describe('getModalLabels', () => {
     it('should use default parameter', () => {
       // Arrange
-      const expected = {confirmButtonText: 'Save'};
+      const expected = {confirmButtonText: 'BUTTON.SAVE'};
       const wrapper = setup({});
 
       // Act

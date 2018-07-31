@@ -28,24 +28,28 @@ class LoginForm extends React.Component {
   render() {
     return (
       <form className="login-form" onSubmit={this.handleOnSubmit}>
-        <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <h1 className="h3 mb-3 font-weight-normal">
+          {i18nService.translate('TEXT.PLEASE_SIGN_IN')}
+        </h1>
         <FormInput
           inputId="inputEmail"
-          label="Username or email address"
+          label={i18nService.translate('TEXT.USERNAME_OR_EMAIL')}
           onChange={this.handleOnChange}
           name="username"
-          placeholder="Username or email address"
+          placeholder={i18nService.translate('TEXT.USERNAME_OR_EMAIL')}
           value={this.state.username} />
         <FormInput
           inputId="inputPassword"
-          label="Password"
+          label={i18nService.translate('TEXT.PASSWORD')}
           onChange={this.handleOnChange}
           type="password"
           name="password"
-          placeholder="Password"
+          placeholder={i18nService.translate('TEXT.PASSWORD')}
           value={this.state.password} />
-        <span>Hint: <i>username/password</i></span>
-        <button className="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <span>{i18nService.translate('TEXT.HINT')} <i>{i18nService.translate('TEXT.HINT_USERNAME_PASSWORD')}</i></span>
+        <button className="btn btn-lg btn-primary btn-block" type="submit">
+          {i18nService.translate('BUTTON.SIGN_IN')}
+        </button>
       </form>
     );
   }

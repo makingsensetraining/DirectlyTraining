@@ -11,7 +11,8 @@ module.exports = {
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({ template: './app/index.html' }),
     new webpack.ProvidePlugin({
-      'errorService': 'errorService'
+      'errorService': 'errorService',
+      'i18nService': 'i18nService'
     })
   ],
   output: {
@@ -21,7 +22,8 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
     alias: {
-      'errorService': path.resolve(__dirname, './app/utils/errorService')
+      'errorService': path.resolve(__dirname, './app/utils/errorService'),
+      'i18nService': path.resolve(__dirname, './app/lang/i18nService')
     },
   },
   module: {

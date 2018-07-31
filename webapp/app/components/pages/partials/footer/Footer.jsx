@@ -7,10 +7,12 @@ const Footer = () => {
     <footer className="footer">
       <div className="container">
         <p className="float-right">
-          <a href="#">Back to top</a>
+          <a href="#">{i18nService.translate('TEXT.BACK_TO_TOP')}</a>
         </p>
-        <p>Directly starter app in React Redux.
-          See this project @ <a className="footer__github-link" href={githubRepo}>GitHub</a>
+        <p>{i18nService.translate('TEXT.FOOTER')}
+          <a className="footer__github-link" href={githubRepo}>
+            {i18nService.translate('TEXT.GITHUB')}
+          </a>
         </p>
       </div>
     </footer>

@@ -49,6 +49,7 @@
     ]
   },
   "globals": {
-    "errorService": true
+    "errorService": true,
+    "i18nService": true
   }
 }

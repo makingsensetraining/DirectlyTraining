@@ -6,3 +6,9 @@ Enzyme.configure({ adapter: new Adapter() });
 global.errorService = {
   logErrors: () => {}
 };
+
+global.i18nService = {
+  translate: (key) => {
+    return key;
+  }
+};

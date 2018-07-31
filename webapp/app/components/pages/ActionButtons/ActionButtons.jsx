@@ -16,7 +16,7 @@ const EMPTY_USER = {
 };
 
 const DEFAULT_USER_MODAL_LABELS = {
-  confirmButtonText: 'Save'
+  confirmButtonText: i18nService.translate('BUTTON.SAVE')
 };
 
 export class ActionButtons extends React.Component {
@@ -168,7 +168,7 @@ export class ActionButtons extends React.Component {
     if (actionType === 'delete') {
       return {
         ...DEFAULT_USER_MODAL_LABELS,
-        confirmButtonText: 'Delete'
+        confirmButtonText: i18nService.translate('BUTTON.DELETE')
       };
     }
 
@@ -178,9 +178,12 @@ export class ActionButtons extends React.Component {
   render() {
     const modalBody = this.getModalBody();
     const isUserEditDisabled = this.isValidUser(this.state.user) === false;
+
     const modalInfo = {
       ...this.getModalLabels(this.state.actionType),
-      title: `${this.state.actionType} User`
+      title: i18nService.translate('TEXT.USER_FORM_ACTION', {
+        action: this.state.actionType
+      })
     };
 
     return (
@@ -188,20 +191,20 @@ export class ActionButtons extends React.Component {
         <Button
           color="primary"
           onClick={this.toggleAddModal}
-        >Add</Button>
+        >{i18nService.translate('BUTTON.ADD')}</Button>
         <Button
           color="info"
           disabled={isUserEditDisabled}
           onClick={this.toggleEditModal}
-        >Edit</Button>
+        >{i18nService.translate('Edit')}</Button>
         <Button
           color="danger"
           disabled={isUserEditDisabled}
           onClick={this.toggleDeleteModal}
-        >Delete</Button>
+        >{i18nService.translate('BUTTON.DELETE')}</Button>
         <MsModal
           okButtonLabel={modalInfo.confirmButtonText}
-          cancelButtonLabel='Cancel'
+          cancelButtonLabel={i18nService.translate('BUTTON.CANCEL')}
           body={modalBody}
           isOpen={this.state.isUserModalOpen}
           okCallback={this.saveUser}

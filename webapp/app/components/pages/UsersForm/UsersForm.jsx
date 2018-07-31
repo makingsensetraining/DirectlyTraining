@@ -34,41 +34,41 @@ class UsersForm extends React.PureComponent {
               <form>
                 <FormInput
                   inputId="name"
-                  label="Name"
+                  label={i18nService.translate('TEXT.NAME')}
                   onChange={onChange}
                   value={user.name}
                   name="name"
-                  placeholder="Full Name"
+                  placeholder={i18nService.translate('TEXT.NAME')}
                   required={true}
                   invalid={isNameInvalid}
                   feedback={errors.name}
                 />
                 <FormInput
                   inputId="email"
-                  label="Email"
+                  label={i18nService.translate('TEXT.EMAIL')}
                   onChange={onChange}
                   value={user.email}
                   name="email"
-                  placeholder="Email"
+                  placeholder={i18nService.translate('TEXT.EMAIL')}
                   required={true}
                   invalid={isEmailInvalid}
                   feedback={emailFeedback}
                 />
                 <FormInput
                   inputId="skypeId"
-                  label="Skype Id"
+                  label={i18nService.translate('TEXT.SKYPE_ID')}
                   onChange={onChange}
                   value={user.skypeId}
                   name="skypeId"
-                  placeholder="skype Id"
+                  placeholder={i18nService.translate('TEXT.SKYPE_ID')}
                 />
                 <FormInput
                   inputId="phone"
-                  label="Phone Number"
+                  label={i18nService.translate('TEXT.PHONE_NUMBER')}
                   onChange={onChange}
                   value={user.phone}
                   name="phone"
-                  placeholder="Phone Number"
+                  placeholder={i18nService.translate('TEXT.PHONE_NUMBER')}
                 />
               </form>
             </section>

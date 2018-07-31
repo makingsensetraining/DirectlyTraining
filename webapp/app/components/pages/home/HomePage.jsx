@@ -54,13 +54,13 @@ export class HomePage extends React.Component {
   render() {
     const columns = [{
       dataField: 'name',
-      text: 'Full Name'
+      text: i18nService.translate('TEXT.NAME')
     }, {
       dataField: 'email',
-      text: 'Email'
+      text: i18nService.translate('TEXT.EMAIL')
     }, {
       dataField: 'phone',
-      text: 'Phone Number'
+      text: i18nService.translate('TEXT.PHONE_NUMBER')
     }];
 
     const selectRow = {
@@ -81,7 +81,7 @@ export class HomePage extends React.Component {
         <div className="container">
           <Row>
             <Col md="8">
-              <h4>Users List</h4>
+              <h4>{i18nService.translate('TEXT.USERS_LIST')}</h4>
             </Col>
             <Col md="4">
               <div className="home-page--action-buttons">
