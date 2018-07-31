@@ -1,29 +1,30 @@
 {
-  "BUTTON": {
-    "ADD": "Add",
-    "CANCEL": "Cancel",
-    "DELETE": "Delete",
-    "EDIT": "Edit",
-    "SAVE": "Save",
-    "SIGN_IN": "Sign in"
+  "button": {
+    "add": "Add",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "save": "Save",
+    "sign_in": "Sign in"
   },
-  "TEXT": {
-    "BACK_TO_TOP": "Back to top",
-    "FOOTER": "Directly starter app in React Redux. See this project @",
-    "GITHUB": "GitHub",
-    "GO_BACK": "Go back to %{page}",
-    "HEADER": "Directly starter app",
-    "HINT": "Hint:",
-    "HINT_USERNAME_PASSWORD": "username/password",
-    "EMAIL": "Email",
-    "NAME": "Name",
-    "PASSWORD": "Password",
-    "PAGE_NOT_FOUND": "Page not found",
-    "PHONE_NUMBER": "Phone Number",
-    "PLEASE_SIGN_IN": "Please sign in",
-    "SKYPE_ID": "Skype ID",
-    "USER_FORM_ACTION": "%{action} User",
-    "USERS_LIST": "Users List",
-    "USERNAME_OR_EMAIL": "Username or email address"
+  "text": {
+    "action_user_form": "%{action} User",
+    "back_to_top": "Back to top",
+    "delete_user": "Are you sure to delete User %{name}",
+    "footer": "Directly starter app in React Redux. See this project @",
+    "github": "GitHub",
+    "go_back": "Go back to %{page}",
+    "header": "Directly starter app",
+    "hint": "Hint:",
+    "hint_username_password": "username/password",
+    "email": "Email",
+    "name": "Name",
+    "password": "Password",
+    "page_not_found": "Page not found",
+    "phone_number": "Phone Number",
+    "please_sign_in": "Please sign in",
+    "skype_id": "Skype ID",
+    "users_list": "Users List",
+    "username_or_email": "Username or email address"
   }
 }

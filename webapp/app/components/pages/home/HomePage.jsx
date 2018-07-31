@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import BootstrapTable from 'react-bootstrap-table-next';
+import paginationFactory from 'react-bootstrap-table2-paginator';
+import Header from './../partials/header/Header';
+import ActionButtons from '../ActionButtons/ActionButtons';
+import * as usersActions from '../../../actions/usersActions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Col, Row } from 'reactstrap';
-import BootstrapTable from 'react-bootstrap-table-next';
-import paginationFactory from 'react-bootstrap-table2-paginator';
-import * as usersActions from '../../../actions/usersActions';
-import Header from './../partials/header/Header';
-import ActionButtons from '../ActionButtons/ActionButtons';
 
 import './HomePage.scss';
 
@@ -54,13 +54,13 @@ export class HomePage extends React.Component {
   render() {
     const columns = [{
       dataField: 'name',
-      text: i18nService.translate('TEXT.NAME')
+      text: i18nService.translate('text.name')
     }, {
       dataField: 'email',
-      text: i18nService.translate('TEXT.EMAIL')
+      text: i18nService.translate('text.email')
     }, {
       dataField: 'phone',
-      text: i18nService.translate('TEXT.PHONE_NUMBER')
+      text: i18nService.translate('text.phone_number')
     }];
 
     const selectRow = {
@@ -81,7 +81,7 @@ export class HomePage extends React.Component {
         <div className="container">
           <Row>
             <Col md="8">
-              <h4>{i18nService.translate('TEXT.USERS_LIST')}</h4>
+              <h4>{i18nService.translate('text.users_list')}</h4>
             </Col>
             <Col md="4">
               <div className="home-page--action-buttons">

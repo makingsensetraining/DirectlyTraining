@@ -29,26 +29,28 @@ class LoginForm extends React.Component {
     return (
       <form className="login-form" onSubmit={this.handleOnSubmit}>
         <h1 className="h3 mb-3 font-weight-normal">
-          {i18nService.translate('TEXT.PLEASE_SIGN_IN')}
+          {i18nService.translate('text.please_sign_in')}
         </h1>
         <FormInput
           inputId="inputEmail"
-          label={i18nService.translate('TEXT.USERNAME_OR_EMAIL')}
+          label={i18nService.translate('text.username_or_email')}
           onChange={this.handleOnChange}
           name="username"
-          placeholder={i18nService.translate('TEXT.USERNAME_OR_EMAIL')}
+          placeholder={i18nService.translate('text.username_or_email')}
           value={this.state.username} />
         <FormInput
           inputId="inputPassword"
-          label={i18nService.translate('TEXT.PASSWORD')}
+          label={i18nService.translate('text.password')}
           onChange={this.handleOnChange}
           type="password"
           name="password"
-          placeholder={i18nService.translate('TEXT.PASSWORD')}
+          placeholder={i18nService.translate('text.password')}
           value={this.state.password} />
-        <span>{i18nService.translate('TEXT.HINT')} <i>{i18nService.translate('TEXT.HINT_USERNAME_PASSWORD')}</i></span>
+        <span>{i18nService.translate('text.hint')}
+          <i>{i18nService.translate('text.hint_username_password')}</i>
+        </span>
         <button className="btn btn-lg btn-primary btn-block" type="submit">
-          {i18nService.translate('BUTTON.SIGN_IN')}
+          {i18nService.translate('button.sign_in')}
         </button>
       </form>
     );

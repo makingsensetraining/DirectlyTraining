@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import LoginForm from './LoginForm';
+import * as authActions from '../../../actions/authActions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as authActions from '../../../actions/authActions';
-import LoginForm from './LoginForm';
 
 import './LoginPage.scss';
 

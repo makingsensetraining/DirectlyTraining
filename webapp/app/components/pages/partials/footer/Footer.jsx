@@ -7,11 +7,11 @@ const Footer = () => {
     <footer className="footer">
       <div className="container">
         <p className="float-right">
-          <a href="#">{i18nService.translate('TEXT.BACK_TO_TOP')}</a>
+          <a href="#">{i18nService.translate('text.back_to_top')}</a>
         </p>
-        <p>{i18nService.translate('TEXT.FOOTER')}
+        <p>{i18nService.translate('text.footer')}
           <a className="footer__github-link" href={githubRepo}>
-            {i18nService.translate('TEXT.GITHUB')}
+            {i18nService.translate('text.github')}
           </a>
         </p>
       </div>

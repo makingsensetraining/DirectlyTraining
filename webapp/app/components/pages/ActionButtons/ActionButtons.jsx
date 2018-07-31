@@ -16,7 +16,7 @@ const EMPTY_USER = {
 };
 
 const DEFAULT_USER_MODAL_LABELS = {
-  confirmButtonText: i18nService.translate('BUTTON.SAVE')
+  confirmButtonText: i18nService.translate('button.save')
 };
 
 export class ActionButtons extends React.Component {
@@ -151,7 +151,7 @@ export class ActionButtons extends React.Component {
 
     if (this.state.actionType === 'delete') {
       return (
-        <p>{`Are you sure to delete User ${user.name}`}</p>
+        <p>{i18nService.translate('text.delete_user', { name: user.name })}</p>
       );
     }
 
@@ -168,7 +168,7 @@ export class ActionButtons extends React.Component {
     if (actionType === 'delete') {
       return {
         ...DEFAULT_USER_MODAL_LABELS,
-        confirmButtonText: i18nService.translate('BUTTON.DELETE')
+        confirmButtonText: i18nService.translate('button.delete')
       };
     }
 
@@ -181,7 +181,7 @@ export class ActionButtons extends React.Component {
 
     const modalInfo = {
       ...this.getModalLabels(this.state.actionType),
-      title: i18nService.translate('TEXT.USER_FORM_ACTION', {
+      title: i18nService.translate('text.action_user_form', {
         action: this.state.actionType
       })
     };
@@ -191,20 +191,20 @@ export class ActionButtons extends React.Component {
         <Button
           color="primary"
           onClick={this.toggleAddModal}
-        >{i18nService.translate('BUTTON.ADD')}</Button>
+        >{i18nService.translate('button.add')}</Button>
         <Button
           color="info"
           disabled={isUserEditDisabled}
           onClick={this.toggleEditModal}
-        >{i18nService.translate('Edit')}</Button>
+        >{i18nService.translate('button.edit')}</Button>
         <Button
           color="danger"
           disabled={isUserEditDisabled}
           onClick={this.toggleDeleteModal}
-        >{i18nService.translate('BUTTON.DELETE')}</Button>
+        >{i18nService.translate('button.delete')}</Button>
         <MsModal
           okButtonLabel={modalInfo.confirmButtonText}
-          cancelButtonLabel={i18nService.translate('BUTTON.CANCEL')}
+          cancelButtonLabel={i18nService.translate('button.cancel')}
           body={modalBody}
           isOpen={this.state.isUserModalOpen}
           okCallback={this.saveUser}

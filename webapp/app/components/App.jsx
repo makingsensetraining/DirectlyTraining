@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Main from './Main';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
-import Main from './Main';
 
 class App extends React.Component {
   static propTypes = {

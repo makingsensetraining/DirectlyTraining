@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { Switch, Route, withRouter } from 'react-router-dom';
-import * as actions from '../actions/authActions';
-import * as usersActions from '../actions/usersActions';
 import LoginPage from './pages/login/LoginPage';
 import NotFoundPage from './pages/not_found/NotFoundPage';
 import HomePage from './pages/home/HomePage';
+import * as actions from '../actions/authActions';
+import * as usersActions from '../actions/usersActions';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Switch, Route, withRouter } from 'react-router-dom';
 
 export class Main extends React.Component {
   static propTypes = {
