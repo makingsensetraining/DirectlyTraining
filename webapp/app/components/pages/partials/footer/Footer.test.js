@@ -16,6 +16,6 @@ describe('<Footer /> component', () => {
     expect(wrapper.find('footer')).toHaveLength(1);
     expect(wrapper.find('p')).toHaveLength(2);
     expect(linkToGitHub).toHaveLength(1);
-    expect(linkToGitHub.text()).toBe('TEXT.GITHUB');
+    expect(linkToGitHub.text()).toBe('text.github');
   });
 });

@@ -16,7 +16,7 @@ describe('<NotFoundPage /> component', () => {
 
     // Assert
     expect(subtitle).toHaveLength(1);
-    expect(subtitle.text()).toBe('TEXT.PAGE_NOT_FOUND');
+    expect(subtitle.text()).toBe('text.page_not_found');
     expect(goBackHome).toHaveLength(1);
     expect(goBackHome.props().to).toBe('/');
   });
