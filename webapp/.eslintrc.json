@@ -6,8 +6,15 @@
     "jest": true
   },
   "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended"
+    "airbnb"
+  ],
+  "overrides":[
+    {
+      "files": ["*.test.js", "*.spec.js", "*.test.jsx", "*.spec.jsx"],
+      "rules": {
+        "prefer-promise-reject-errors": "off"
+      }
+    }
   ],
   "parser": "babel-eslint",
   "parserOptions": {
@@ -19,6 +26,15 @@
     "ecmaVersion": 2017
   },
   "rules": {
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          ".js",
+          ".jsx"
+        ]
+      }
+    ],
     "indent": [
       "error",
       2,
@@ -46,7 +62,12 @@
     "semi": [
       "error",
       "always"
-    ]
+    ],
+    "jsx-a11y/label-has-for": "off",
+    "react/prefer-stateless-function": "off",
+    "import/no-named-as-default": "off",
+    "react/forbid-prop-types": "off",
+    "react/destructuring-assignment": "off"
   },
   "globals": {
     "errorService": true

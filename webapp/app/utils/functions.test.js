@@ -1,23 +1,22 @@
-import { completeAssign, omit } from './functions';
+import { completeAssign } from './functions';
 
 describe('functions file with utilities', () => {
-
   describe('complete assign ', () => {
     it('should clone an entire object', () => {
       // Arrange
       const source1 = {
-        a: 1
+        a: 1,
       };
       const source2 = {
-        b: 2
+        b: 2,
       };
       const expected = {
         a: 1,
-        b: 2
+        b: 2,
       };
 
       // Act
-      const result = completeAssign({},source1, source2);
+      const result = completeAssign({}, source1, source2);
 
       // Assert
       expect(result).toEqual(expected);
@@ -26,10 +25,10 @@ describe('functions file with utilities', () => {
     it('should mutate the target object', () => {
       // Arrange
       const source1 = {
-        a: 1
+        a: 1,
       };
       const source2 = {
-        b: 2
+        b: 2,
       };
 
       // Act
@@ -42,10 +41,10 @@ describe('functions file with utilities', () => {
     it('should overrite a property on the target object', () => {
       // Arrange
       const source1 = {
-        a: 1
+        a: 1,
       };
       const source2 = {
-        a: 2
+        a: 2,
       };
 
       // Act
@@ -59,15 +58,15 @@ describe('functions file with utilities', () => {
       // Arrange
       const source1 = {
         a: 1,
-        get someValue() { return 'foo'; }
+        get someValue() { return 'foo'; },
       };
       const source2 = {
-        b: 2
+        b: 2,
       };
       const expected = {
         a: 1,
         get someValue() { return 'foo'; },
-        b: 2
+        b: 2,
       };
 
       // Act
@@ -82,15 +81,15 @@ describe('functions file with utilities', () => {
       const symb = Symbol('a');
       const source1 = {
         a: 1,
-        [symb]: 'symbol'
+        [symb]: 'symbol',
       };
       const source2 = {
-        b: 2
+        b: 2,
       };
       const expected = {
         a: 1,
         [symb]: 'symbol',
-        b: 2
+        b: 2,
       };
 
       const symb2 = Symbol('b');
@@ -105,7 +104,7 @@ describe('functions file with utilities', () => {
   });
 
   describe('omit', () => {
-    it('should remove an object property', () =>{
+    it('should remove an object property', () => {
 
     });
   });

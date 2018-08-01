@@ -1,7 +1,6 @@
 import React from 'react';
 
 export default class Header extends React.Component {
-
   render() {
     return (
       <header className="header">
@@ -9,7 +8,9 @@ export default class Header extends React.Component {
           <div className="container d-flex justify-content-between">
             <a
               className="navbar-brand d-flex align-items-center text-dark"
-              href="#">Directly starter app
+              href="/"
+            >
+              Directly starter app
             </a>
           </div>
         </div>

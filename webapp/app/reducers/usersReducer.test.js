@@ -16,14 +16,14 @@ describe('usersReducer', () => {
 
   it('should set loading users to `true` ', () => {
     const action = {
-      type: USERS.LOADING_BEGIN
+      type: USERS.LOADING_BEGIN,
     };
     const expectedState = {
       ...initialState,
       fetch: {
         loading: true,
-        error: null
-      }
+        error: null,
+      },
     };
 
     expect(usersReducer(initialState, action)).toEqual(expectedState);
@@ -31,14 +31,14 @@ describe('usersReducer', () => {
 
   it('should set loading users to `false`', () => {
     const action = {
-      type: USERS.LOADING_COMPLETE
+      type: USERS.LOADING_COMPLETE,
     };
     const expected = {
       ...initialState,
       fetch: {
         loading: false,
-        error: null
-      }
+        error: null,
+      },
     };
 
     expect(usersReducer(initialState, action)).toEqual(expected);
@@ -48,15 +48,15 @@ describe('usersReducer', () => {
     const action = {
       type: USERS.LOADING_FAILED,
       payload: {
-        error: 'foo'
-      }
+        error: 'foo',
+      },
     };
     const expected = {
       ...initialState,
       fetch: {
         loading: false,
-        error: 'foo'
-      }
+        error: 'foo',
+      },
     };
 
     expect(usersReducer(initialState, action)).toEqual(expected);
@@ -67,15 +67,15 @@ describe('usersReducer', () => {
       type: USERS.GET_ALL_SUCCESS,
       payload: {
         users: [{
-          name: 'John Doe'
-        }]
-      }
+          name: 'John Doe',
+        }],
+      },
     };
     const expected = {
       ...initialState,
       data: [{
-        name: 'John Doe'
-      }]
+        name: 'John Doe',
+      }],
     };
 
     expect(usersReducer(initialState, action)).toEqual(expected);
@@ -85,14 +85,14 @@ describe('usersReducer', () => {
     const action = {
       type: USERS.SELECT_SUCCESS,
       payload: {
-        name: 'John Doe'
-      }
+        name: 'John Doe',
+      },
     };
     const expected = {
       ...initialState,
       selectedUser: {
-        name: 'John Doe'
-      }
+        name: 'John Doe',
+      },
     };
 
     expect(usersReducer(initialState, action)).toEqual(expected);
@@ -103,14 +103,14 @@ describe('usersReducer', () => {
       type: USERS.DELETE_SUCCESS,
       payload: {
         _id: 'fake.id.joe',
-        name: 'John Doe' 
-      }
+        name: 'John Doe',
+      },
     };
     const expectedState = {
       ...initialState,
       data: [{
         _id: 'fake.id.jane',
-        name: 'Jane Doe' 
+        name: 'Jane Doe',
       }],
     };
 
@@ -120,17 +120,17 @@ describe('usersReducer', () => {
         data: [
           {
             _id: 'fake.id.joe',
-            name: 'John Doe' 
+            name: 'John Doe',
           },
           {
             _id: 'fake.id.jane',
-            name: 'Jane Doe' 
-          }
+            name: 'Jane Doe',
+          },
         ],
       },
-      action
+      action,
     );
-    
+
     expect(state).toEqual(expectedState);
   });
 
@@ -138,19 +138,19 @@ describe('usersReducer', () => {
     const action = {
       type: USERS.CREATE_SUCCESS,
       payload: {
-        name: 'John Doe' 
-      }
+        name: 'John Doe',
+      },
     };
     const expectedState = {
       ...initialState,
       data: [
         {
-          name: 'John Doe' 
+          name: 'John Doe',
         },
         {
-          name: 'Jane Doe' 
-        }
-      ]
+          name: 'Jane Doe',
+        },
+      ],
     };
 
     const state = usersReducer(
@@ -158,11 +158,11 @@ describe('usersReducer', () => {
         ...initialState,
         data: [
           {
-            name: 'Jane Doe' 
-          }
+            name: 'Jane Doe',
+          },
         ],
       },
-      action
+      action,
     );
 
     expect(state).toEqual(expectedState);
@@ -173,21 +173,21 @@ describe('usersReducer', () => {
       type: USERS.UPDATE_SUCCESS,
       payload: {
         _id: 'fake.id.john',
-        name: 'John Doe Jr.'
-      }
+        name: 'John Doe Jr.',
+      },
     };
     const expectedState = {
       ...initialState,
       data: [
         {
           _id: 'fake.id.john',
-          name: 'John Doe Jr.' 
+          name: 'John Doe Jr.',
         },
         {
           _id: 'fake.id.jane',
-          name: 'Jane Doe' 
-        }
-      ]
+          name: 'Jane Doe',
+        },
+      ],
     };
 
     const state = usersReducer(
@@ -196,15 +196,15 @@ describe('usersReducer', () => {
         data: [
           {
             _id: 'fake.id.john',
-            name: 'John Doe' 
+            name: 'John Doe',
           },
           {
             _id: 'fake.id.jane',
-            name: 'Jane Doe' 
-          }
+            name: 'Jane Doe',
+          },
         ],
       },
-      action
+      action,
     );
 
     expect(state).toEqual(expectedState);

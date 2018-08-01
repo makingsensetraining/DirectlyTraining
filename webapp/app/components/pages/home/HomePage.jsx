@@ -6,7 +6,7 @@ import { Col, Row } from 'reactstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import * as usersActions from '../../../actions/usersActions';
-import Header from './../partials/header/Header';
+import Header from '../partials/header/Header';
 import ActionButtons from '../ActionButtons/ActionButtons';
 
 import './HomePage.scss';
@@ -14,12 +14,16 @@ import './HomePage.scss';
 export class HomePage extends React.Component {
   static propTypes = {
     users: PropTypes.array,
-    usersActions: PropTypes.object.isRequired
+    usersActions: PropTypes.object.isRequired,
   };
+
+  static defaultProps = {
+    users: [],
+  }
 
   state = {
     selectedRow: [],
-    user: {}
+    user: {},
   };
 
   componentDidMount() {
@@ -28,7 +32,7 @@ export class HomePage extends React.Component {
 
   setSelectedRow = (user) => {
     this.setState({
-      selectedRow: [user.id]
+      selectedRow: [user.id],
     }, () => {
       if (typeof this.props.usersActions.selectUser === 'function') {
         this.props.usersActions.selectUser(user);
@@ -37,30 +41,36 @@ export class HomePage extends React.Component {
   };
 
   handleUserActionType = (type = 'add', user) => {
-    const { usersActions } = this.props;
+    const { usersActions: actions } = this.props;
+    let action = () => {};
 
-    switch(type) {
+    switch (type) {
       case 'add':
-        return usersActions.createUser(user);
+        action = actions.createUser;
+        break;
       case 'edit':
-        return usersActions.updateUser(user);
+        action = actions.updateUser;
+        break;
       case 'delete':
-        return usersActions.deleteUser(user);
+        action = actions.deleteUser;
+        break;
       default:
         errorService.logErrors('Invalid User action Type', 'HomePage.jsx');
     }
+
+    return action(user);
   };
 
   render() {
     const columns = [{
       dataField: 'name',
-      text: 'Full Name'
+      text: 'Full Name',
     }, {
       dataField: 'email',
-      text: 'Email'
+      text: 'Email',
     }, {
       dataField: 'phone',
-      text: 'Phone Number'
+      text: 'Phone Number',
     }];
 
     const selectRow = {
@@ -68,7 +78,7 @@ export class HomePage extends React.Component {
       clickToSelect: true,
       bgColor: '#c8e6c9',
       selected: this.state.selectedRow,
-      onSelect: this.setSelectedRow
+      onSelect: this.setSelectedRow,
     };
 
     const pagination = paginationFactory();
@@ -81,7 +91,9 @@ export class HomePage extends React.Component {
         <div className="container">
           <Row>
             <Col md="8">
-              <h4>Users List</h4>
+              <h4>
+                Users List
+              </h4>
             </Col>
             <Col md="4">
               <div className="home-page--action-buttons">
@@ -94,11 +106,11 @@ export class HomePage extends React.Component {
           </Row>
           <div className="home-page--table">
             <BootstrapTable
-              keyField='id'
-              data={ this.props.users }
-              columns={ columns }
-              selectRow={ selectRow }
-              pagination={ pagination }
+              keyField="id"
+              data={this.props.users}
+              columns={columns}
+              selectRow={selectRow}
+              pagination={pagination}
             />
           </div>
         </div>
@@ -109,13 +121,13 @@ export class HomePage extends React.Component {
 
 export function mapStateToProps(state) {
   return {
-    users: state.users.data
+    users: state.users.data,
   };
 }
 
 export function mapDispatchToProps(dispatch) {
   return {
-    usersActions: bindActionCreators(usersActions, dispatch)
+    usersActions: bindActionCreators(usersActions, dispatch),
   };
 }
 

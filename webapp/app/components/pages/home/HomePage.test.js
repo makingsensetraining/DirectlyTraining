@@ -13,8 +13,8 @@ describe('<HomePage /> component', () => {
     const wrapper = setup({
       usersActions: {
         getUsers: jest.fn(),
-        selectUser: jest.fn()
-      }
+        selectUser: jest.fn(),
+      },
     });
 
     // Assert
@@ -26,10 +26,10 @@ describe('<HomePage /> component', () => {
     it('should return the initial state of users module', () => {
       // Arrange
       const expectedProps = {
-        users: []
+        users: [],
       };
 
-      //Act
+      // Act
       const props = mapStateToProps(Object.assign({}, initialState));
 
       // Assert
@@ -65,7 +65,7 @@ describe('<HomePage /> component', () => {
         'deleteUser',
         'updateUser',
         'createUser',
-        'getUsers'
+        'getUsers',
       ];
 
       // Act
@@ -80,7 +80,7 @@ describe('<HomePage /> component', () => {
     it('should select user', () => {
       // Arrange
       const user = {
-        id: 'id'
+        id: 'id',
       };
       const selectUser = jest.fn();
       const wrapper = setup({
@@ -89,7 +89,7 @@ describe('<HomePage /> component', () => {
           getUsers: () => {},
           createUser: () => {},
           updateUser: () => {},
-          deleteUser: () => {}
+          deleteUser: () => {},
         },
       });
 
@@ -103,7 +103,7 @@ describe('<HomePage /> component', () => {
     it('should select user', () => {
       // Arrange
       const user = {
-        id: 'id'
+        id: 'id',
       };
       const selectUser = jest.fn();
       const wrapper = setup({
@@ -112,7 +112,7 @@ describe('<HomePage /> component', () => {
           getUsers: () => {},
           createUser: () => {},
           updateUser: () => {},
-          deleteUser: () => {}
+          deleteUser: () => {},
         },
       });
 
@@ -129,7 +129,7 @@ describe('<HomePage /> component', () => {
       // Arrange
       const type = 'add';
       const user = {
-        id: 'id'
+        id: 'id',
       };
       const createUser = jest.fn();
       const wrapper = setup({
@@ -138,7 +138,7 @@ describe('<HomePage /> component', () => {
           getUsers: () => {},
           createUser,
           updateUser: () => {},
-          deleteUser: () => {}
+          deleteUser: () => {},
         },
       });
 
@@ -153,7 +153,7 @@ describe('<HomePage /> component', () => {
       // Arrange
       const type = 'edit';
       const user = {
-        id: 'id'
+        id: 'id',
       };
       const updateUser = jest.fn();
       const wrapper = setup({
@@ -162,7 +162,7 @@ describe('<HomePage /> component', () => {
           getUsers: () => {},
           createUser: () => {},
           updateUser,
-          deleteUser: () => {}
+          deleteUser: () => {},
         },
       });
 
@@ -177,7 +177,7 @@ describe('<HomePage /> component', () => {
       // Arrange
       const type = 'delete';
       const user = {
-        id: 'id'
+        id: 'id',
       };
       const deleteUser = jest.fn();
       const wrapper = setup({
@@ -186,7 +186,7 @@ describe('<HomePage /> component', () => {
           getUsers: () => {},
           createUser: () => {},
           updateUser: () => {},
-          deleteUser
+          deleteUser,
         },
       });
 
@@ -201,7 +201,7 @@ describe('<HomePage /> component', () => {
       // Arrange
       const type = 'other';
       const user = {
-        id: 'id'
+        id: 'id',
       };
       const selectUser = jest.fn();
       const createUser = jest.fn();
@@ -213,7 +213,7 @@ describe('<HomePage /> component', () => {
           getUsers: () => {},
           createUser,
           updateUser,
-          deleteUser
+          deleteUser,
         },
       });
 
@@ -231,7 +231,7 @@ describe('<HomePage /> component', () => {
       // Arrange
       const type = undefined;
       const user = {
-        id: 'id'
+        id: 'id',
       };
       const createUser = jest.fn();
       const wrapper = setup({
@@ -240,7 +240,7 @@ describe('<HomePage /> component', () => {
           getUsers: () => {},
           createUser,
           updateUser: () => {},
-          deleteUser: () => {}
+          deleteUser: () => {},
         },
       });
 

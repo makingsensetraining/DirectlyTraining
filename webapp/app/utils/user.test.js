@@ -1,4 +1,4 @@
-import { getUserId } from './user';
+import getUserId from './user';
 
 describe('User Util', () => {
   describe('getUserId', () => {
@@ -15,7 +15,7 @@ describe('User Util', () => {
     describe('User id property fallback', () => {
       it('should return `_id` value, if `_id` exists', () => {
         // Arrange
-        const user = { _id: 'foo'};
+        const user = { _id: 'foo' };
 
         // Act
         const result = getUserId(user);

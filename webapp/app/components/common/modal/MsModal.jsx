@@ -1,5 +1,7 @@
 import React from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import {
+  Button, Modal, ModalHeader, ModalBody, ModalFooter,
+} from 'reactstrap';
 import PropTypes from 'prop-types';
 
 class MsModal extends React.PureComponent {
@@ -10,20 +12,29 @@ class MsModal extends React.PureComponent {
     isOpen: PropTypes.bool.isRequired,
     okCallback: PropTypes.func.isRequired,
     cancelCallback: PropTypes.func.isRequired,
-    modalTitle: PropTypes.string.isRequired
+    modalTitle: PropTypes.string.isRequired,
   };
 
   render() {
-    const {isOpen, cancelCallback, modalTitle, body, okCallback, okButtonLabel, cancelButtonLabel} = this.props;
+    const {
+      isOpen, cancelCallback, modalTitle, body, okCallback, okButtonLabel, cancelButtonLabel,
+    } = this.props;
     return (
       <Modal isOpen={isOpen} toggle={cancelCallback}>
-        <ModalHeader toggle={cancelCallback}>{modalTitle}</ModalHeader>
+        <ModalHeader toggle={cancelCallback}>
+          {modalTitle}
+        </ModalHeader>
         <ModalBody>
           {body}
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={okCallback}>{okButtonLabel}</Button>{' '}
-          <Button color="secondary" onClick={cancelCallback}>{cancelButtonLabel}</Button>
+          <Button color="primary" onClick={okCallback}>
+            {okButtonLabel}
+          </Button>
+          {' '}
+          <Button color="secondary" onClick={cancelCallback}>
+            {cancelButtonLabel}
+          </Button>
         </ModalFooter>
       </Modal>
     );

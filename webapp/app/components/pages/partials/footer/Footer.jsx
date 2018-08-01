@@ -7,10 +7,16 @@ const Footer = () => {
     <footer className="footer">
       <div className="container">
         <p className="float-right">
-          <a href="#">Back to top</a>
+          <a href="#top">
+            Back to top
+          </a>
         </p>
-        <p>Directly starter app in React Redux.
-          See this project @ <a className="footer__github-link" href={githubRepo}>GitHub</a>
+        <p>
+          Directly starter app in React Redux.
+          See this project @
+          <a className="footer__github-link" href={githubRepo}>
+            GitHub
+          </a>
         </p>
       </div>
     </footer>

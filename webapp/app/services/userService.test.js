@@ -3,20 +3,18 @@ import {
   createUsers,
   deleteUsers,
   fetchUsers,
-  updateUsers
+  updateUsers,
 } from './userService';
 import { DEFAULT_API_USERS_ENDPOINT } from '../constants';
 
 describe('User Service', () => {
   describe('fetchUsers', () => {
     beforeEach(() => {
-      mockAxios.get.mockImplementationOnce(() =>
-        Promise.resolve({
-          statusCode: 200,
-          statusText: 'OK',
-          data: [ 'foo', 'bar' ]
-        })
-      );
+      mockAxios.get.mockImplementationOnce(() => Promise.resolve({
+        statusCode: 200,
+        statusText: 'OK',
+        data: ['foo', 'bar'],
+      }));
     });
 
     afterEach(() => {
@@ -45,7 +43,7 @@ describe('User Service', () => {
       // Act
       fetchUsers({
         foo: '',
-        bar: ''
+        bar: '',
       });
 
       // Assert
@@ -54,9 +52,9 @@ describe('User Service', () => {
         {
           params: {
             foo: '',
-            bar: ''
-          }
-        }
+            bar: '',
+          },
+        },
       );
     });
 
@@ -65,9 +63,9 @@ describe('User Service', () => {
       const result = await fetchUsers();
 
       // Assert
-      expect(result.data).toEqual([ 'foo', 'bar' ]);
+      expect(result.data).toEqual(['foo', 'bar']);
     });
-    
+
     it('should call the service without any params', () => {
       // Act
       fetchUsers();
@@ -76,21 +74,19 @@ describe('User Service', () => {
       expect(mockAxios.get).toHaveBeenCalledWith(
         DEFAULT_API_USERS_ENDPOINT,
         {
-          params: {}
-        }
+          params: {},
+        },
       );
     });
   });
 
   describe('createUsers', () => {
     beforeEach(() => {
-      mockAxios.post.mockImplementationOnce(() =>
-        Promise.resolve({
-          statusCode: 200,
-          statusText: 'OK',
-          data: [ 'id' ]
-        })
-      );
+      mockAxios.post.mockImplementationOnce(() => Promise.resolve({
+        statusCode: 200,
+        statusText: 'OK',
+        data: ['id'],
+      }));
     });
 
     afterEach(() => {
@@ -111,7 +107,7 @@ describe('User Service', () => {
       // Act
       createUsers({
         foo: '',
-        bar: ''
+        bar: '',
       });
 
       // Assert
@@ -119,8 +115,9 @@ describe('User Service', () => {
         DEFAULT_API_USERS_ENDPOINT,
         {
           foo: '',
-          bar: ''
-        });
+          bar: '',
+        },
+      );
     });
 
     it('should call the service without any data', () => {
@@ -128,19 +125,17 @@ describe('User Service', () => {
       createUsers();
 
       // Assert
-      expect(mockAxios.post).toHaveBeenCalledWith(DEFAULT_API_USERS_ENDPOINT, {} );
+      expect(mockAxios.post).toHaveBeenCalledWith(DEFAULT_API_USERS_ENDPOINT, {});
     });
   });
 
   describe('updateUsers', () => {
     beforeEach(() => {
-      mockAxios.put.mockImplementationOnce(() =>
-        Promise.resolve({
-          statusCode: 200,
-          statusText: 'OK',
-          data: [ 'id' ]
-        })
-      );
+      mockAxios.put.mockImplementationOnce(() => Promise.resolve({
+        statusCode: 200,
+        statusText: 'OK',
+        data: ['id'],
+      }));
     });
 
     afterEach(() => {
@@ -161,7 +156,7 @@ describe('User Service', () => {
       // Act
       updateUsers('id', {
         foo: '',
-        bar: ''
+        bar: '',
       });
 
       // Assert
@@ -169,8 +164,9 @@ describe('User Service', () => {
         `${DEFAULT_API_USERS_ENDPOINT}/id`,
         {
           foo: '',
-          bar: ''
-        });
+          bar: '',
+        },
+      );
     });
 
     it('should call the service without any data', () => {
@@ -178,20 +174,17 @@ describe('User Service', () => {
       updateUsers('id');
 
       // Assert
-      expect(mockAxios.put).toHaveBeenCalledWith(`${DEFAULT_API_USERS_ENDPOINT}/id`, {} );
+      expect(mockAxios.put).toHaveBeenCalledWith(`${DEFAULT_API_USERS_ENDPOINT}/id`, {});
     });
-
   });
 
   describe('deleteUsers', () => {
     beforeEach(() => {
-      mockAxios.delete.mockImplementationOnce(() =>
-        Promise.resolve({
-          statusCode: 200,
-          statusText: 'OK',
-          data: [ 'id' ]
-        })
-      );
+      mockAxios.delete.mockImplementationOnce(() => Promise.resolve({
+        statusCode: 200,
+        statusText: 'OK',
+        data: ['id'],
+      }));
     });
 
     afterEach(() => {

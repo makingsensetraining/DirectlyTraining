@@ -6,7 +6,7 @@ import users from './usersReducer';
 const rootReducer = combineReducers({
   auth,
   users,
-  routing
+  routing,
 });
 
 export default rootReducer;

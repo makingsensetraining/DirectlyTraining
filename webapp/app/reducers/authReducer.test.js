@@ -10,13 +10,13 @@ describe('authReducer', () => {
       isAuthenticated: false,
       error: false,
       errorMessage: null,
-      user: null
+      user: null,
     });
   });
 
   it('should handle a login request', () => {
     const result = authReducer([], {
-      type: AUTH.LOGIN_BEGIN
+      type: AUTH.LOGIN_BEGIN,
     });
 
     expect(result).toEqual({
@@ -24,7 +24,7 @@ describe('authReducer', () => {
       isAuthenticated: false,
       error: false,
       errorMessage: null,
-      user: null
+      user: null,
     });
   });
 
@@ -32,8 +32,8 @@ describe('authReducer', () => {
     const result = authReducer([], {
       type: AUTH.LOGIN_SUCCESS,
       user: {
-        name: 'John'
-      }
+        name: 'John',
+      },
     });
 
     expect(result).toEqual({
@@ -42,15 +42,15 @@ describe('authReducer', () => {
       error: false,
       errorMessage: null,
       user: {
-        name: 'John'
-      }
+        name: 'John',
+      },
     });
   });
 
   it('should handle a failed login', () => {
     const result = authReducer([], {
       type: AUTH.LOGIN_FAILED,
-      message: 'Unexpected error.'
+      message: 'Unexpected error.',
     });
 
     expect(result).toEqual({
@@ -58,7 +58,7 @@ describe('authReducer', () => {
       isAuthenticated: false,
       error: true,
       errorMessage: 'Unexpected error.',
-      user: null
+      user: null,
     });
   });
 });

@@ -10,8 +10,8 @@ describe('Store', () => {
     expect(store).toEqual(expect.objectContaining({
       dispatch: expect.any(Function),
       getState: expect.any(Function),
-      replaceReducer: expect.any(Function), 
-      subscribe: expect.any(Function)
+      replaceReducer: expect.any(Function),
+      subscribe: expect.any(Function),
     }));
   });
 
@@ -33,10 +33,10 @@ describe('Store', () => {
         hash: expect.any(String),
         pathname: expect.any(String),
         search: expect.any(String),
-        state: undefined
+        state: undefined,
       },
       push: expect.any(Function),
-      replace: expect.any(Function)
+      replace: expect.any(Function),
     }));
   });
 
@@ -44,10 +44,10 @@ describe('Store', () => {
     const expectedState = {
       ...initialState,
       routing: {
-        location: null
-      }
+        location: null,
+      },
     };
-    
+
     expect(store.getState()).toEqual(expectedState);
   });
 });

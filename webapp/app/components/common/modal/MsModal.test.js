@@ -16,7 +16,7 @@ describe('<MsModal /> component', () => {
       isOpen: false,
       modalTitle: 'Modal Test',
       okCallback: () => {},
-      cancelCallback: () => {}
+      cancelCallback: () => {},
     };
 
     // Act

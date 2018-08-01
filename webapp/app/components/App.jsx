@@ -7,7 +7,7 @@ import Main from './Main';
 class App extends React.Component {
   static propTypes = {
     store: PropTypes.object.isRequired,
-    history: PropTypes.object.isRequired
+    history: PropTypes.object.isRequired,
   };
 
   render() {

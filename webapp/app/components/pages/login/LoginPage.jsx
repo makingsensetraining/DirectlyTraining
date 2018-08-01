@@ -9,11 +9,11 @@ import './LoginPage.scss';
 
 export class LoginPage extends React.Component {
   static propTypes = {
-    actions: PropTypes.object.isRequired
+    actions: PropTypes.object.isRequired,
   };
 
   handleOnSubmit = (username, password) => {
-    this.props.actions.login({username, password});
+    this.props.actions.login({ username, password });
   };
 
   render() {
@@ -30,13 +30,13 @@ export class LoginPage extends React.Component {
 
 export function mapStateToProps(state) {
   return {
-    ...state.auth
+    ...state.auth,
   };
 }
 
 export function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(authActions, dispatch)
+    actions: bindActionCreators(authActions, dispatch),
   };
 }
 

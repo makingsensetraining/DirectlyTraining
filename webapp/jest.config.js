@@ -12,7 +12,8 @@ module.exports = {
     '!**/node_modules/**',
     '!**/vendor/**',
     '!**/app/index.jsx',
-    '!**/app/**/PrivateRoute.jsx' // Ignored sin it's unused for now
+    '!**/app/**/PrivateRoute.jsx', // Ignored sin it's unused for now
+    '!**/app/**/authService.js' // Ignored sin it's unused for now
   ],
   coverageDirectory: `${buildLogFolder}/coverage`,
   reporters: [

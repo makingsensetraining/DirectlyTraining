@@ -10,19 +10,19 @@ class UsersForm extends React.PureComponent {
     user: PropTypes.object.isRequired,
     errors: PropTypes.shape({
       name: PropTypes.string,
-      email: PropTypes.string
-    })
+      email: PropTypes.string,
+    }),
   };
 
   static defaultProps = {
     errors: {
       name: '',
-      email: ''
-    }
+      email: '',
+    },
   };
 
   render() {
-    const {user, onChange, errors} = this.props;
+    const { user, onChange, errors } = this.props;
     const isNameInvalid = (errors.name && errors.name !== '');
     const isEmailInvalid = (errors.email && errors.email !== '');
     const emailFeedback = errors.email || '';
@@ -35,28 +35,31 @@ class UsersForm extends React.PureComponent {
                 <FormInput
                   inputId="name"
                   label="Name"
+                  type="text"
                   onChange={onChange}
                   value={user.name}
                   name="name"
                   placeholder="Full Name"
-                  required={true}
+                  required
                   invalid={isNameInvalid}
                   feedback={errors.name}
                 />
                 <FormInput
                   inputId="email"
                   label="Email"
+                  type="email"
                   onChange={onChange}
                   value={user.email}
                   name="email"
                   placeholder="Email"
-                  required={true}
+                  required
                   invalid={isEmailInvalid}
                   feedback={emailFeedback}
                 />
                 <FormInput
                   inputId="skypeId"
                   label="Skype Id"
+                  type="text"
                   onChange={onChange}
                   value={user.skypeId}
                   name="skypeId"
@@ -64,6 +67,7 @@ class UsersForm extends React.PureComponent {
                 />
                 <FormInput
                   inputId="phone"
+                  type="text"
                   label="Phone Number"
                   onChange={onChange}
                   value={user.phone}

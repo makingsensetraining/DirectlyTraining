@@ -1,68 +1,69 @@
-import { omit }from '../utils/functions';
-import { USERS } from '../actions/actionTypes';
+import { omit } from '../utils/functions';
+import { USERS } from './actionTypes';
 import {
   createUsers,
   deleteUsers,
   fetchUsers,
-  updateUsers
+  updateUsers,
 } from '../services/userService';
 import {
   DEFAULT_USER_VALID_ID_PATHS,
-  DEFAULT_PAGINATION_QUERY
+  DEFAULT_PAGINATION_QUERY,
 } from '../constants';
-import { getUserId } from '../utils/user';
+import getUserId from '../utils/user';
 
-export const loadingUsersBegin = () => {
-  return ({
-    type: USERS.LOADING_BEGIN
-  });
-};
+export const loadingUsersBegin = () => ({
+  type: USERS.LOADING_BEGIN,
+});
 
 export const loadingUsersComplete = () => ({
-  type: USERS.LOADING_COMPLETE
+  type: USERS.LOADING_COMPLETE,
 });
 
 export const loadingUsersFailed = error => ({
   type: USERS.LOADING_FAILED,
-  payload: { error }
+  payload: { error },
 });
 
 export const createUsersSuccess = user => ({
   type: USERS.CREATE_SUCCESS,
-  payload: user
+  payload: user,
 });
 
 export const selectUsersSuccess = user => ({
   type: USERS.SELECT_SUCCESS,
-  payload: user
+  payload: user,
 });
 
-export const getUsersSuccess = (usersData) => ({
+export const getUsersSuccess = usersData => ({
   type: USERS.GET_ALL_SUCCESS,
-  payload: { ...usersData }
+  payload: { ...usersData },
 });
 
 export const updateUsersSuccess = user => ({
   type: USERS.UPDATE_SUCCESS,
-  payload: user
+  payload: user,
 });
 
 export const deleteUsersSuccess = user => ({
   type: USERS.DELETE_SUCCESS,
-  payload: user
+  payload: user,
 });
 
 export function selectUser(user) {
-  return dispatch => {
-    return new Promise(resolve => {
-      dispatch(selectUsersSuccess(user));
-      resolve(user);
-    });
-  };
+  return dispatch => new Promise((resolve) => {
+    dispatch(selectUsersSuccess(user));
+    resolve(user);
+  });
+}
+
+function handleErrors(error, dispatch) {
+  errorService.logErrors('action failed', 'userActions.js');
+  dispatch(loadingUsersFailed(error));
 }
 
 export function deleteUser(user) {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(loadingUsersBegin());
     return deleteUsers(getUserId(user))
       .then(() => {
@@ -70,12 +71,12 @@ export function deleteUser(user) {
         dispatch(deleteUsersSuccess(user));
         return user;
       })
-      .catch((error) => handleErrors(error, dispatch));
+      .catch(error => handleErrors(error, dispatch));
   };
 }
 
 export function updateUser(user) {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(loadingUsersBegin());
     return updateUsers(getUserId(user), omit(user, DEFAULT_USER_VALID_ID_PATHS))
       .then(({ data }) => {
@@ -83,12 +84,12 @@ export function updateUser(user) {
         dispatch(updateUsersSuccess(data));
         return data;
       })
-      .catch((error) => handleErrors(error, dispatch));
+      .catch(error => handleErrors(error, dispatch));
   };
 }
 
 export function createUser(userData) {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(loadingUsersBegin());
     return createUsers(omit(userData, DEFAULT_USER_VALID_ID_PATHS))
       .then(({ data }) => {
@@ -96,28 +97,23 @@ export function createUser(userData) {
         dispatch(createUsersSuccess(data));
         return data;
       })
-      .catch((error) => handleErrors(error, dispatch));
+      .catch(error => handleErrors(error, dispatch));
   };
 }
 
 export function getUsers(queryParams = DEFAULT_PAGINATION_QUERY) {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(loadingUsersBegin());
     return fetchUsers(queryParams)
       .then(({ data }) => {
         const usersPayload = {
           ...omit(data, ['docs']),
-          users: data.docs
+          users: data.docs,
         };
         dispatch(loadingUsersComplete());
         dispatch(getUsersSuccess(usersPayload));
         return usersPayload;
       })
-      .catch((error) => handleErrors(error, dispatch));
+      .catch(error => handleErrors(error, dispatch));
   };
-}
-
-function handleErrors(error, dispatch) {
-  errorService.logErrors('action failed', 'userActions.js');
-  dispatch(loadingUsersFailed(error));
 }

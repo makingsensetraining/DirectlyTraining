@@ -11,11 +11,11 @@ describe('<App /> component', () => {
     // Arrange Act
     const wrapper = setup({
       store: {
-        subscribe: function () { },
-        dispatch: function () { },
-        getState: function () { }
+        subscribe() { },
+        dispatch() { },
+        getState() { },
       },
-      history: {}
+      history: {},
     });
 
     // Assert

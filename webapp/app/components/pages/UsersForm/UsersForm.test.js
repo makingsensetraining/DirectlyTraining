@@ -12,7 +12,7 @@ describe('<UsersForm /> component', () => {
     const wrapper = setup({
       onChange: () => {},
       user: {},
-      errors: {}
+      errors: {},
     });
 
     // Assert
@@ -27,8 +27,8 @@ describe('<UsersForm /> component', () => {
       user: {},
       errors: {
         name: 'Name is required',
-        email: 'email is required'
-      }
+        email: 'email is required',
+      },
     });
 
     // Assert

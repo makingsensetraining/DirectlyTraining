@@ -1,8 +1,8 @@
+import logErrors from './errorService';
+
 const Logger = require('js-logger');
-import { logErrors } from './errorService';
 
 describe('Error Service', () => {
-
   describe('logError ', () => {
     it('log an error', () => {
       // Arrange
@@ -39,7 +39,7 @@ describe('Error Service', () => {
       Logger.error = jest.fn();
 
       // Act
-      window.dispatchEvent( new Event('error') );
+      window.dispatchEvent(new Event('error'));
 
       // Assert
       expect(Logger.error).toHaveBeenCalledTimes(1);

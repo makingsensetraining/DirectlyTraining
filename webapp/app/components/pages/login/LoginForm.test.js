@@ -10,7 +10,7 @@ describe('<LoginForm /> component', () => {
   it('renders itself', () => {
     // Arrange Act
     const wrapper = setup({
-      onSubmit: function () { }
+      onSubmit() { },
     });
 
     // Assert
@@ -21,17 +21,17 @@ describe('<LoginForm /> component', () => {
   it('should handle username Changes', () => {
     // Arrange
     const wrapper = setup({
-      onSubmit: function () { }
+      onSubmit() { },
     });
     const event = {
       target: {
         name: 'username',
-        value: 'jdoe'
-      }
+        value: 'jdoe',
+      },
     };
     const expectedState = {
       username: 'jdoe',
-      password: ''
+      password: '',
     };
 
     // Act
@@ -44,17 +44,17 @@ describe('<LoginForm /> component', () => {
   it('should handle password Changes', () => {
     // Arrange
     const wrapper = setup({
-      onSubmit: function () { }
+      onSubmit() { },
     });
     const event = {
       target: {
         name: 'password',
-        value: 'secret'
-      }
+        value: 'secret',
+      },
     };
     const expectedState = {
       username: '',
-      password: 'secret'
+      password: 'secret',
     };
 
     // Act
@@ -67,12 +67,12 @@ describe('<LoginForm /> component', () => {
   it('should handle form submit', () => {
     // Arrange
     const props = {
-      onSubmit: jest.fn()
+      onSubmit: jest.fn(),
     };
     const wrapper = setup(props);
 
     const event = {
-      preventDefault: jest.fn()
+      preventDefault: jest.fn(),
     };
 
     // Act

@@ -10,10 +10,10 @@ function setup(props) {
 describe('<LoginPage /> component', () => {
   it('renders itself', () => {
     const wrapper = setup({
-      actions: {}
+      actions: {},
     });
 
-    expect(wrapper.find('section')).toHaveLength(1);  
+    expect(wrapper.find('section')).toHaveLength(1);
     expect(wrapper.find('LoginForm')).toHaveLength(1);
   });
 
@@ -21,8 +21,8 @@ describe('<LoginPage /> component', () => {
     const login = jest.fn();
     const wrapper = setup({
       actions: {
-        login
-      }
+        login,
+      },
     });
     const form = wrapper.find('LoginForm');
 
@@ -38,7 +38,7 @@ describe('<LoginPage /> component', () => {
         isAuthenticated: false,
         error: false,
         errorMessage: null,
-        user: null
+        user: null,
       };
 
       const props = mapStateToProps(Object.assign({}, initialState));
@@ -49,7 +49,6 @@ describe('<LoginPage /> component', () => {
 
   describe('mapDispatchToProps functions', () => {
     it('actions prop should be defined', () => {
-
       const dispatch = () => {};
 
       const props = mapDispatchToProps(dispatch);
@@ -58,13 +57,12 @@ describe('<LoginPage /> component', () => {
     });
 
     it('should return the binded actions', () => {
-
       const dispatch = () => {};
       const expectedActions = [
         'loginRequest',
         'loginSuccess',
         'loginFailed',
-        'login'
+        'login',
       ];
 
       const props = mapDispatchToProps(dispatch);

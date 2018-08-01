@@ -6,11 +6,11 @@ export const USERS = {
   DELETE_SUCCESS: '[users] Delete success',
   GET_ALL_SUCCESS: '[users] Get all success',
   UPDATE_SUCCESS: '[users] Update success',
-  SELECT_SUCCESS: '[users] Select success'
+  SELECT_SUCCESS: '[users] Select success',
 };
 
 export const AUTH = {
   LOGIN_BEGIN: '[auth] Login begin',
   LOGIN_SUCCESS: '[auth] Login success',
-  LOGIN_FAILED: '[auth] Login falied'
+  LOGIN_FAILED: '[auth] Login falied',
 };

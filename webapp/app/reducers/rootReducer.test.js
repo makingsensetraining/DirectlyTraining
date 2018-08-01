@@ -1,14 +1,14 @@
 import { createStore } from 'redux';
 import rootReducer from './rootReducer';
-import initialState from './initialState'; 
+import initialState from './initialState';
 
 describe('rootReducer', () => {
   it('should set the inital state', () => {
     const expectedState = {
       ...initialState,
       routing: {
-        location: null
-      }
+        location: null,
+      },
     };
 
     const store = createStore(rootReducer);

@@ -1,42 +1,42 @@
 import { USERS } from '../actions/actionTypes';
-import { getUserId } from '../utils/user';
+import getUserId from '../utils/user';
 
 export const initialState = {
   data: [],
   selectedUser: {},
   fetch: {
     loading: false,
-    error: null
-  }
+    error: null,
+  },
 };
 
 export default function usersReducer(state = initialState, action) {
-  switch(action.type) {
+  switch (action.type) {
     case USERS.CREATE_SUCCESS:
       return {
         ...state,
         data: [
           action.payload,
-          ...state.data
-        ]
+          ...state.data,
+        ],
       };
 
     case USERS.DELETE_SUCCESS:
       return {
         ...state,
-        data: state.data.filter(user => getUserId(action.payload) !== getUserId(user))
+        data: state.data.filter(user => getUserId(action.payload) !== getUserId(user)),
       };
 
     case USERS.GET_ALL_SUCCESS:
       return {
         ...state,
-        data: action.payload.users
+        data: action.payload.users,
       };
 
     case USERS.SELECT_SUCCESS:
       return {
         ...state,
-        selectedUser: action.payload
+        selectedUser: action.payload,
       };
 
     case USERS.UPDATE_SUCCESS:
@@ -44,8 +44,8 @@ export default function usersReducer(state = initialState, action) {
         ...state,
         data: [
           action.payload,
-          ...state.data.filter(user => getUserId(action.payload) !== getUserId(user))
-        ]
+          ...state.data.filter(user => getUserId(action.payload) !== getUserId(user)),
+        ],
       };
 
     case USERS.LOADING_BEGIN:
@@ -53,8 +53,8 @@ export default function usersReducer(state = initialState, action) {
         ...state,
         fetch: {
           loading: true,
-          error: null
-        }
+          error: null,
+        },
       };
 
     case USERS.LOADING_COMPLETE:
@@ -62,8 +62,8 @@ export default function usersReducer(state = initialState, action) {
         ...state,
         fetch: {
           loading: false,
-          error: null
-        }
+          error: null,
+        },
       };
 
     case USERS.LOADING_FAILED:
@@ -71,8 +71,8 @@ export default function usersReducer(state = initialState, action) {
         ...state,
         fetch: {
           loading: false,
-          error: action.payload.error
-        }
+          error: action.payload.error,
+        },
       };
 
     default:

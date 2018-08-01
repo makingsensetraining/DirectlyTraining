@@ -7,35 +7,38 @@ function setup(props) {
 }
 
 describe('<InputForm /> component', () => {
+  const requiredProps = {
+    type: 'email',
+    name: 'test',
+    inputId: 'someId',
+    onChange: () => {},
+  };
+
   it('renders itself', () => {
     // Arrange Act
-    const wrapper = setup();
+    const wrapper = setup({
+      ...requiredProps,
+    });
     expect(wrapper.find('Input')).toHaveLength(1);
   });
 
   it('uses "type" attribute', () => {
-    // Arrange
-    const type = 'email';
-
-    // Act
+    // Arrange Act
     const wrapper = setup({
-      type
+      ...requiredProps,
     });
     // Assert
-    expect(wrapper.find('Input').prop('type')).toEqual(type);
+    expect(wrapper.find('Input').prop('type')).toEqual(requiredProps.type);
   });
 
   it('uses "name" attribute', () => {
-    // Arrange
-    const name = 'test';
-
-    // Act
+    // Arrange Act
     const wrapper = setup({
-      name
+      ...requiredProps,
     });
 
     // Assert
-    expect(wrapper.find('Input').prop('name')).toEqual(name);
+    expect(wrapper.find('Input').prop('name')).toEqual(requiredProps.name);
   });
 
   it('uses "placeholder" attribute', () => {
@@ -44,9 +47,10 @@ describe('<InputForm /> component', () => {
 
     // Act
     const wrapper = setup({
-      placeholder
+      ...requiredProps,
+      placeholder,
     });
-  
+
     // Assert
     expect(wrapper.find('Input').prop('placeholder')).toEqual(placeholder);
   });
@@ -57,7 +61,8 @@ describe('<InputForm /> component', () => {
 
     // Act
     const wrapper = setup({
-      required
+      ...requiredProps,
+      required,
     });
 
     // Assert

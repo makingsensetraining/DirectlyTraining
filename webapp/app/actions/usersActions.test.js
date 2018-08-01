@@ -6,34 +6,34 @@ import {
   getUsers,
   selectUser,
   updateUser,
-  deleteUser
+  deleteUser,
 } from './usersActions';
 import * as userService from '../services/userService';
-import { USERS } from '../actions/actionTypes';
+import { USERS } from './actionTypes';
 
 describe('usersActions', () => {
   const middlewares = [
-    thunkMiddleware
+    thunkMiddleware,
   ];
   const mockStore = configureStore(middlewares);
   const defaultReponseStatusProps = {
     status: 200,
     statusText: 'OK',
-    ok: true
+    ok: true,
   };
   const defaultPaginatedResponse = {
     count: 1,
     page: 0,
     limit: 0,
     totalPages: 1,
-    docs: [{ foo: 'bar' }]
+    docs: [{ foo: 'bar' }],
   };
   let store;
 
   function createResponse(response) {
     return {
       ...omit(response, ['data']),
-      data: { ...response.data }
+      data: { ...response.data },
     };
   }
 
@@ -43,25 +43,25 @@ describe('usersActions', () => {
 
       userService.createUsers = jest.fn(data => Promise.resolve(createResponse({
         ...defaultReponseStatusProps,
-        data
+        data,
       })));
 
       userService.deleteUsers = jest.fn(() => Promise.resolve(createResponse({
         ...defaultReponseStatusProps,
-        statusCode: 204
+        statusCode: 204,
       })));
 
       userService.fetchUsers = jest.fn(() => Promise.resolve(createResponse({
         ...defaultReponseStatusProps,
-        data: defaultPaginatedResponse
+        data: defaultPaginatedResponse,
       })));
 
       userService.updateUsers = jest.fn((userId, user) => Promise.resolve(createResponse({
         ...defaultReponseStatusProps,
         data: {
           _id: userId,
-          ...user
-        }
+          ...user,
+        },
       })));
     });
 
@@ -84,8 +84,8 @@ describe('usersActions', () => {
         it('should create an action to get users', async () => {
           // Arrange
           const expectedActions = [
-            {type: USERS.LOADING_BEGIN},
-            {type: USERS.LOADING_COMPLETE},
+            { type: USERS.LOADING_BEGIN },
+            { type: USERS.LOADING_COMPLETE },
             {
               type: USERS.GET_ALL_SUCCESS,
               payload: {
@@ -93,9 +93,9 @@ describe('usersActions', () => {
                 page: 0,
                 limit: 0,
                 totalPages: 1,
-                users: [{foo: 'bar'}]
-              }
-            }
+                users: [{ foo: 'bar' }],
+              },
+            },
           ];
 
           // Act
@@ -114,22 +114,21 @@ describe('usersActions', () => {
           const expectedActions = [{
             payload: {
               _id: 'fake.id.john',
-              name: 'John Doe'
+              name: 'John Doe',
             },
-            type: USERS.SELECT_SUCCESS
+            type: USERS.SELECT_SUCCESS,
           }];
 
           // Act
           await store.dispatch(selectUser({
             _id: 'fake.id.john',
-            name: 'John Doe'
+            name: 'John Doe',
           }));
 
           // Assert
           expect(store.getActions()).toEqual(expectedActions);
         });
       });
-
     });
 
     describe('createUsers', () => {
@@ -150,9 +149,9 @@ describe('usersActions', () => {
             {
               type: USERS.CREATE_SUCCESS,
               payload: {
-                name: 'John Doe'
-              }
-            }
+                name: 'John Doe',
+              },
+            },
           ];
           // Act
           await store.dispatch(createUser({ name: 'John Doe' }));
@@ -182,15 +181,15 @@ describe('usersActions', () => {
               type: USERS.UPDATE_SUCCESS,
               payload: {
                 _id: 'fake.id.john',
-                name: 'John Doe Jr.'
-              }
-            }
+                name: 'John Doe Jr.',
+              },
+            },
           ];
 
           // Act
           await store.dispatch(updateUser({
             _id: 'fake.id.john',
-            name: 'John Doe Jr.'
+            name: 'John Doe Jr.',
           }));
 
           // Assert
@@ -218,15 +217,15 @@ describe('usersActions', () => {
               type: USERS.DELETE_SUCCESS,
               payload: {
                 _id: 'fake.id.john',
-                name: 'John Doe'
-              }
-            }
+                name: 'John Doe',
+              },
+            },
           ];
 
           // Act
           await store.dispatch(deleteUser({
             _id: 'fake.id.john',
-            name: 'John Doe'
+            name: 'John Doe',
           }));
 
           // Assert
@@ -264,9 +263,9 @@ describe('usersActions', () => {
           {
             type: USERS.LOADING_FAILED,
             payload: {
-              error: 'Test Error'
-            }
-          }
+              error: 'Test Error',
+            },
+          },
         ];
 
         // Act
@@ -286,9 +285,9 @@ describe('usersActions', () => {
           {
             type: USERS.LOADING_FAILED,
             payload: {
-              error: 'Test Error'
-            }
-          }
+              error: 'Test Error',
+            },
+          },
         ];
 
         // Act
@@ -307,15 +306,15 @@ describe('usersActions', () => {
           {
             type: USERS.LOADING_FAILED,
             payload: {
-              error: 'Test Error'
-            }
-          }
+              error: 'Test Error',
+            },
+          },
         ];
 
         // Act;
         await store.dispatch(updateUser({
           _id: 'fake.id.john',
-          name: 'John Doe Jr.'
+          name: 'John Doe Jr.',
         }));
 
         // Assert
@@ -331,15 +330,15 @@ describe('usersActions', () => {
           {
             type: USERS.LOADING_FAILED,
             payload: {
-              error: 'Test Error'
-            }
-          }
+              error: 'Test Error',
+            },
+          },
         ];
 
         // Act
         await store.dispatch(deleteUser({
           _id: 'fake.id.john',
-          name: 'John Doe Jr.'
+          name: 'John Doe Jr.',
         }));
 
         // Assert
