@@ -19,4 +19,20 @@ describe('<UsersForm /> component', () => {
     expect(wrapper.find('form')).toHaveLength(1);
     expect(wrapper.find('FormInput')).toHaveLength(4);
   });
+
+  it('renders itself with errors', () => {
+    // Arrange Act
+    const wrapper = setup({
+      onChange: () => {},
+      user: {},
+      errors: {
+        name: 'Name is required',
+        email: 'email is required'
+      }
+    });
+
+    // Assert
+    expect(wrapper.find('form')).toHaveLength(1);
+    expect(wrapper.find('FormInput')).toHaveLength(4);
+  });
 });
